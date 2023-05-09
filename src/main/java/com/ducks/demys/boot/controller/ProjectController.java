@@ -10,4 +10,9 @@ public class ProjectController {
 	public void showList() {
 		
 	}
+	
+	@RequestMapping("project/main")
+	public void showMain() {
+		
+	}
 }

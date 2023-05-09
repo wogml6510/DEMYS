@@ -24,6 +24,8 @@
 <!-- 사이트 공통 JS -->
 <script src="/resource/common.js" defer="defer"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <style>
 .btn-ghost:hover{
@@ -40,6 +42,11 @@ a:hover{
 .btn-top:hover{
 	background-color:#AAAAAA;
 	border:#AAAAAA;
+}
+.navbar{
+   padding:0px;
+   min-height:1rem;
+   height:55px;
 }
 </style>
 <body>
@@ -58,7 +65,7 @@ a:hover{
 										<span class="badge badge-xs badge-primary indicator-item"></span>
 								</div>
 						</button>
-						<h3 class="text-black text-right ml-2 mr-1">김미영 팀장</h3>
+						<h3 class="text-black text-right ml-2 mr-1">흑임자 사장</h3>
 						<div class="dropdown dropdown-end">
 								<label tabindex="0" class="btn btn-top btn-circle avatar">
 										<div class="w-10 rounded-full">
@@ -78,10 +85,10 @@ a:hover{
 				</div>
 		</div>
 		<div class="flex" style="background-color: #153A66;">
-				<div class="navbar text-neutral-content" style="width:15%; border-right: 2px solid #f7f7f7;">
-						<a class="btn btn-ghost normal-case text-xl">사이드바</a>
+				<div class="navbar text-neutral-content" style="width:18%; border-right: 2px solid #f7f7f7;">
+						<a class="btn btn-ghost normal-case text-xl ">사이드바</a>
 				</div>
-				<div class="navbar text-neutral-content"  style="width:85%;">				
+				<div class="navbar text-neutral-content"  style="width:82%;">				
 				<ul class="text-white" style="margin-left:auto;">
 						<li>
 								<a href="#" class="btn btn-ghost normal-case text-xl"  style="width:130px;">
