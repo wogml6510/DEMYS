@@ -88,7 +88,7 @@
 	 	 	<div class="p-main-title">
 		     	<div>
 		     		<i class="fa-solid fa-flag ml-6" style="color:red;"></i> 
-		      		<span class="p-main-title-sty">정보통신 연구개발사업($프로젝트명)</span>
+		      		<span class="p-main-title-sty"></span>
 		     	</div>
 	   			<div class="p-main-reg-date">등록일 : 2023.05.09</div>
 		 	 </div>
@@ -133,12 +133,11 @@
 	   						<td>프로젝트 기간</td>
 	   						<td style="display:flex;flex-direction:row;width:60%;" >
 	   							<div>
-	   								<span>2023.05.05</span>
-	   								<i class="fa-regular fa-calendar-days"></i>
+	   								<input type="date" />
 	   							</div>
+	   							<span>&nbsp;~&nbsp;</span>
 	   							<div>
-	   								<span>&nbsp;~ 2023.05.05</span>
-	   								<i class="fa-regular fa-calendar-days"></i>
+	   								<input type="date" />
 	   							</div>
 	   						</td>
 	   					</tr>
@@ -179,12 +178,12 @@
 	   					<tr >
 	   						<td>업체명</td>
 	   						<td><input type="text" placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
-	   						<td><div id="root"><button id="modal_opne_btn" class="p-type-bt-0"> 찾기 </button></div> </td>
+	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로제트 매니저</td>
 	   						<td><input type="text" placeholder="담당매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
-	   						<td id="root" > <button id="modal_opne_btn" class="p-type-bt-0"> 찾기 </button> </td>
+	   						<td><div ><button id="modal_opne_btn2" class="p-type-bt-0"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
 	   						<td class="p-git">
@@ -213,8 +212,8 @@
 	</div>
 <!-- project/list.jsp 화면끝나는 태그 -->
 </div>
-<!-- 모달창  -->
-<div id="modal">
+<!-- 모달창-업체명  -->
+<div id="modal_1">
 
       <div class="modal_content">
             <div class="flex" style="background-color: #153A66;">
@@ -227,22 +226,76 @@
 				<div class="cts-title">
 					<span>업체명</span>
 				</div>
-				<div style="color:#797979;">* 등록된 업체를 조회합니다.</div>
+				<div style="margin:5px 0;color:#797979;">* 등록된 업체를 조회합니다.</div>
 				<div class="p-modal-serach">
 					<select class="select select-bordered p-cts-select">
 						  <option disabled selected>선택 </option>
-						  <option>교육 </option>
-						  <option>건설 </option>
+						  <option>업체명</option>
+						  <option>대표자명</option>
 					</select>
 					<div class="p-modal-searchbar">
-						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered" style="width:85%;"/>
+						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
 						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
 					</div>
 				</div>
-			
+				<div class="cts-serch-list">
+					<table border="1">
+						<c:forEach begin="0" end="6" step="1" >
+							<tr>
+								<td>(주) 업체명써</td>
+								<td>대표자명</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 				<div class="p-regi-modal-bts">
-	                  <button id="modal_close_btn" class="p-regi-modal-bt">취소</button>
-	                  <button class="p-regi-modal-bt" style=" margin-right: 50px;">등록</button>
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt">등록</button>
+	            </div>
+			</div>
+      </div>
+
+      <div class="modal_layer"></div>
+</div>
+ <!-- 모달창-프로젝트메니저  -->
+<div id="modal_2">
+
+      <div class="modal_content">
+            <div class="flex" style="background-color: #153A66;">
+                  <div class="navbar text-neutral-content modal-head">
+                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                  </div>
+            </div>
+
+			<div class="cts-view">
+				<div class="cts-title">
+					<span>프로젝트 매니저</span>
+				</div>
+				<div style="margin:5px 0;color:#797979;">* 담당매니저를 선택하세요.</div>
+				<div class="p-modal-serach">
+					<select class="select select-bordered p-cts-select">
+						  <option disabled selected>선택 </option>
+						  <option>매니저명</option>
+						  <option>담당부서</option>
+					</select>
+					<div class="p-modal-searchbar">
+						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
+						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+					</div>
+				</div>
+				<div class="cts-serch-list">
+					<table border="1">
+						<c:forEach begin="0" end="6" step="1" >
+							<tr>
+								<td>여긴 사람이름</td>
+								<td>여긴부서이름</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<div class="p-regi-modal-bts">
+	                  <button id="modal_close_btn2" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt">등록</button>
 	            </div>
 			</div>
       </div>
