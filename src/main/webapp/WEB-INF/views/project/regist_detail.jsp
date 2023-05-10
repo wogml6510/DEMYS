@@ -87,10 +87,9 @@
 		<div class="p-body-header">
 	 	 	<div class="p-main-title">
 		     	<div>
-		     		<i class="fa-solid fa-flag ml-6" style="color:red;"></i> 
 		      		<span class="p-main-title-sty"></span>
 		     	</div>
-	   			<div class="p-main-reg-date">등록일 : 2023.05.09</div>
+	   			<div class="p-main-reg-date"></div>
 		 	 </div>
 		 	 
 	      	<div class="p-body-header-1">
@@ -161,13 +160,13 @@
 	   						<td>
 	   							<select class="select select-bordered p-reg-select">
 								  <option disabled selected>선택 </option>
-								  <option>교육 </option>
-								  <option>건설 </option>
-								  <option>제조 </option>
-								  <option>물류 </option>
-								  <option>공공 </option>
-								  <option>금융 </option>
-								  <option>기타 </option>
+								  <option>교 &nbsp; 육</option>
+								  <option>건 &nbsp; 설</option>
+								  <option>제 &nbsp; 조</option>
+								  <option>물 &nbsp; 류</option>
+								  <option>공 &nbsp; 공</option>
+								  <option>금 &nbsp; 융</option>
+								  <option>기 &nbsp; 타</option>
 								</select>
 	   						</td>
 	   					</tr>

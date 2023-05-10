@@ -86,10 +86,9 @@
 		<div class="p-body-header">
 	 	 	<div class="p-main-title">
 		     	<div>
-		     		<i class="fa-solid fa-flag ml-6" style="color:red;"></i> 
-		      		<span class="p-main-title-sty">정보통신 연구개발사업($프로젝트명)</span>
+		      		<span class="p-main-title-sty"></span>
 		     	</div>
-	   			<div class="p-main-reg-date">등록일 : 2023.05.09</div>
+	   			<div class="p-main-reg-date"></div>
 		 	 </div>
 		 	 
 	      	<div class="p-body-header-1">

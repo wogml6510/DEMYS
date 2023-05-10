@@ -16,4 +16,8 @@ public class ProjectController {
 	@RequestMapping("project/regist_detail")
 	public void showPjctRegistDetail() {
 	}
+	
+	@RequestMapping("project/detail")
+	public void showPjctDetail() {
+	}
 }

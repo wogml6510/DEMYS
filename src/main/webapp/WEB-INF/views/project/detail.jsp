@@ -10,13 +10,14 @@
 	margin-top:5px;
 	width:100%;
 	height: calc(930px - 65px - 63px); 
-	background-color:#F2F2F2;
+	/* background-color:#F2F2F2; */
 	padding:5px;
 }
 </style>
 
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
+<link rel="stylesheet" href="/resource/css/project/detail.css" />
 
 <div class="project-part">
 
@@ -103,21 +104,133 @@
 	   </div> 
 	   <!-- project작업공간 -->
 		<div class="p-main-body">
-   			<div class="p-body-header-2">
-   				<div style="display: flex;">
-			         <div class="header-1-menu"><a href="#">프로젝트 정보</a></div> |
-			         <div class="header-1-menu"><a href="#">요구사항 관리</a></div> |
-			         <div class="header-1-menu"><a href="#">프로젝트 소스</a></div>
-			      </div>
+		
+   			<div class="p-body-cont">
+   				<div class="header-2-menu0">
+	   				<div class="p-body-header-2">
+		   				<div style="display:flex;margin-top:5px;">
+					         |<div class="header-2-menu"><a href="#">프로젝트 정보</a></div> |
+					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
+					         <div class="header-2-menu"><a href="#">프로젝트 소스</a></div>
+					      </div>
+		   			</div>
+	   			</div>
+	   			
+	   			<!-- 프로젝트정보 -->
+	   			<div>
+	   				<div class="p-info-detail">
+	   					<div class="p-info-detail-title">
+	   						<span style="font-weight:bold;">프로젝트 정보</span>
+	   						<button id="P_Modify" class="p-info-detail-bt">수정</button>
+	   					</div>
+	   					<div class="p-detail-table">
+	   						<table border="1">
+	   							<tr>
+	   								<td>프로젝트명</td>
+	   								<td>프로젝트명</td>
+	   							</tr>
+	   							<tr>
+	   								<td>프로젝트기간</td>
+	   								<td>
+	   									<span>2022.01.12</span>
+	   									<span>~ 2022.03.30</span>
+	   								</td>
+	   							</tr>
+	   							<tr>
+	   								<td>예상 매출액</td>
+	   								<td>2,000,000원</td>
+	   							</tr>
+	   							<tr>
+	   								<td>프로젝트 매니저</td>
+	   								<td>루피다에</td>
+	   							</tr>
+	   							<tr>
+	   								<td>프로젝트 사업구분</td>
+	   								<td>제조</td>
+	   							</tr>
+	   							<tr>
+	   								<td>프로젝트 구분</td>
+	   								<td>내부 프로젝트</td>
+	   							</tr>
+	   							<tr>
+	   								<td>프로젝트 내용</td>
+	   								<td>모달창에 모달창 그사이 모달창</td>
+	   							</tr>
+	   							<tr>
+	   								<td>업체명</td>
+	   								<td>(주)논산가는효기인</td>
+	   							</tr>
+	   							<tr>
+	   								<td>깃 주소</td>
+	   								<td>http/여기는 깃주소 들어가도 되고 null도 가능</td>
+	   							</tr>
+	   						</table>
+	   					</div>
+	   				</div>
+	   				<!-- 프로젝트정보 끝나는 태그 -->
+	   				
+	   				<!-- 프로젝트정보안에 거래처 화면 -->
+	   				<div>
+	   					<div class="p-info-cts-title">
+	   						<div>
+		   						<span style="font-weight:bold;">총 거래처</span>
+		   						<span style="font-weight:bold;color:blue;">3</span>
+	   						</div>
+	   						<button id="P_Modify" class="p-info-detail-bt">등록</button>
+	   					</div>
+	   					<div class="p-cts-list">
+	   						<table>
+	   							<thead>
+	   							<tr>
+   									<th>No.</th>
+   									<th>거래처명</th>
+   									<th>대표 전화번호</th>
+   									<th>대표 팩스번호</th>
+   									<th>대표 주소</th>
+   									<th>거래처 담당자</th>
+   									<th></th>
+   								</tr>
+   								</thead>
+   								<tbody style="height: 230px;overflow-y:scroll;overflow-x:hidden;">
+	   							<c:forEach begin="0" end="6" step="1">
+								<tr>
+ 									<td>1</td>
+ 									<td>A거래처</td>
+ 									<td>042-342-4432</td>
+ 									<td>042-342-4431</td>
+ 									<td>대전 동구 여긴어디 대전로 102-1번지 어디든가고싶다대전 동구 여긴어디</td>
+ 									<td>김뭥미</td>
+ 									<td>
+ 										<button>
+ 										<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
+ 										</button>
+ 									</td>
+								</tr>
+	   							</c:forEach>
+	   							</tbody>
+	   						</table>
+	   					</div>
+	   					
+	   				</div>
+	   				<!-- 거래처화면 끝나는 태그 -->
+	   			
+	   			
+	   			
+	   			</div>
+   			
    			</div>
    
    
    
-   		<!-- p-main-body끝나는 태그 -->
 		</div>   
-	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
+   		<!-- p-main-body끝나는 태그 -->
 	</div>
-<!-- project/list.jsp 화면끝나는 태그 -->
+	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
 </div>
+<!-- project/list.jsp 화면끝나는 태그 -->
+
+<script>
+
+</script>
 
 <%@ include file="../common/foot.jsp" %>
