@@ -103,7 +103,13 @@
 	   </div> 
 	   <!-- project작업공간 -->
 		<div class="p-main-body">
-   
+   			<div class="p-body-header-2">
+   				<div style="display: flex;">
+			         <div class="header-1-menu"><a href="#">프로젝트 정보</a></div> |
+			         <div class="header-1-menu"><a href="#">요구사항 관리</a></div> |
+			         <div class="header-1-menu"><a href="#">프로젝트 소스</a></div>
+			      </div>
+   			</div>
    
    
    
