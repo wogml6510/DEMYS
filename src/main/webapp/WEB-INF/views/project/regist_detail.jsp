@@ -225,7 +225,7 @@
 				<div class="cts-title">
 					<span>업체명</span>
 				</div>
-				<div style="margin:5px 0;color:#797979;">* 등록된 업체를 조회합니다.</div>
+				<div class="cts-title-sub">* 등록된 업체를 조회합니다.</div>
 				<div class="p-modal-serach">
 					<select class="select select-bordered p-cts-select">
 						  <option disabled selected>선택 </option>
@@ -270,7 +270,7 @@
 				<div class="cts-title">
 					<span>프로젝트 매니저</span>
 				</div>
-				<div style="margin:5px 0;color:#797979;">* 담당매니저를 선택하세요.</div>
+				<div class="cts-title-sub">* 담당매니저를 선택하세요.</div>
 				<div class="p-modal-serach">
 					<select class="select select-bordered p-cts-select">
 						  <option disabled selected>선택 </option>

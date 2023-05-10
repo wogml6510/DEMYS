@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
 <link rel="stylesheet" href="/resource/css/project/detail.css" />
+<link rel="stylesheet" href="/resource/css/project/contacts_regist_modal.css" />
+<link rel="stylesheet" href="/resource/css/project/contacts_modal.css" />
 
 <div class="project-part">
 
@@ -176,7 +178,9 @@
 		   						<span style="font-weight:bold;">총 거래처</span>
 		   						<span style="font-weight:bold;color:blue;">3</span>
 	   						</div>
-	   						<button id="P_Modify" class="p-info-detail-bt">등록</button>
+	   						<div>
+	   							<button id="modal_opne_btn_Cts_1" class="p-info-detail-bt">등록</button>
+	   						</div>
 	   					</div>
 	   					<div class="p-cts-list">
 	   						<table>
@@ -229,8 +233,98 @@
 </div>
 <!-- project/list.jsp 화면끝나는 태그 -->
 
-<script>
 
+<!-- 모달창-거래처 조회 등록  -->
+<div id="modal_Cts_1">
+
+      <div class="modal_content_1">
+            <div class="flex" style="background-color: #153A66;">
+                  <div class="navbar text-neutral-content modal-head">
+                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                  </div>
+            </div>
+
+			<div class="cts-view">
+				<div class="cts-title">
+					<span>거래처 등록</span>
+				</div>
+				<div class="cts-title-sub">* 거래처정보를 입력하세요.</div>
+				<div class="cts-modal-search_1">
+					<div class="cts-title-sub">거래처명</div>
+					<input class="cts-name" placeholder="거래처명을 조회하세요." disabled></input>
+				
+	                  <button id="modal_opne_btn1" class="p-regi-modal-bt">찾기</button>
+				</div>
+				<div class="p-regi-modal-bts">
+	                  <button id="modal_close_btn_Cts_1" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt">등록</button>
+	            </div>
+			</div>
+      </div>
+
+      <div class="modal_layer"></div>
+</div>
+<script>
+//프로젝트detail 거래처 등록 모달창
+document.getElementById("modal_opne_btn_Cts_1").onclick = function() {
+   document.getElementById("modal_Cts_1").style.display = "block";
+}
+
+document.getElementById("modal_close_btn_Cts_1").onclick = function() {
+   document.getElementById("modal_Cts_1").style.display = "none";
+}
 </script>
+
+
+
+
+
+
+<!-- 모달창-거래처 등록 (중복되는jsp) -->
+<div id="modal_1">
+
+      <div class="modal_content">
+            <div class="flex" style="background-color: #153A66;">
+                  <div class="navbar text-neutral-content modal-head">
+                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                  </div>
+            </div>
+
+			<div class="cts-view">
+				<div class="cts-title">
+					<span>업체명</span>
+				</div>
+				<div class="cts-title-sub">* 등록된 업체를 조회합니다.</div>
+				<div class="p-modal-serach">
+					<select class="select select-bordered p-cts-select">
+						  <option disabled selected>선택 </option>
+						  <option>업체명</option>
+						  <option>대표자명</option>
+					</select>
+					<div class="p-modal-searchbar">
+						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
+						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+					</div>
+				</div>
+				<div class="cts-serch-list">
+					<table border="1">
+						<c:forEach begin="0" end="6" step="1" >
+							<tr>
+								<td>(주) 업체명써</td>
+								<td>대표자명</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<div class="p-regi-modal-bts">
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt">등록</button>
+	            </div>
+			</div>
+      </div>
+
+      <div class="modal_layer"></div>
+</div>
+<script src="/resource/js/modal.js" defer="defer"></script>
 
 <%@ include file="../common/foot.jsp" %>
