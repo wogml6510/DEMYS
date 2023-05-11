@@ -18,9 +18,12 @@
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
 <link rel="stylesheet" href="/resource/css/project/detail.css" />
-<!-- 프로젝트정보/거래처 등록 모달창.css -->
-<link rel="stylesheet" href="/resource/css/project/contacts_regist_modal.css" />
+<!-- 프로젝트 참여인력.css -->
+<link rel="stylesheet" href="/resource/css/project/hr_list.css" />
+<!-- 모달창.css -->
 <link rel="stylesheet" href="/resource/css/project/contacts_modal.css" />
+<!-- 참여인력추가 모달.css -->
+<link rel="stylesheet" href="/resource/css/project/hr_regist_modal.css" />
 
 <div class="project-part">
 
@@ -113,119 +116,41 @@
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
 					         |<div class="header-2-menu"><a href="#">프로젝트 정보</a></div> |
-					         <div class="header-2-menu"><a href="#">참여인력</a></div>
+					         <div class="header-2-menu"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
 					      </div>
 		   			</div>
 	   			</div>
 	   			
-	   			<!-- 프로젝트정보 -->
+	   			<!-- 참여인력 정보 -->
 	   			<div>
-	   				<div class="p-info-detail">
-	   					<div class="p-info-detail-title">
-	   						<span style="font-weight:bold;">프로젝트 정보</span>
-	   						<button id="P_Modify" class="p-info-detail-bt">수정</button>
+	   				<div class="hr-info">
+	   					<div class="info-title">
+	   						<button id="modal_opne_btn_hr_1" class="hr-regist-bt">참여인력 추가</button>
 	   					</div>
-	   					<div class="p-detail-table">
-	   						<table border="1">
-	   							<tr>
-	   								<td>프로젝트명</td>
-	   								<td>프로젝트명</td>
-	   							</tr>
-	   							<tr>
-	   								<td>프로젝트기간</td>
-	   								<td>
-	   									<span>2022.01.12</span>
-	   									<span>~ 2022.03.30</span>
-	   								</td>
-	   							</tr>
-	   							<tr>
-	   								<td>예상 매출액</td>
-	   								<td>2,000,000원</td>
-	   							</tr>
-	   							<tr>
-	   								<td>프로젝트 매니저</td>
-	   								<td>루피다에</td>
-	   							</tr>
-	   							<tr>
-	   								<td>프로젝트 사업구분</td>
-	   								<td>제조</td>
-	   							</tr>
-	   							<tr>
-	   								<td>프로젝트 구분</td>
-	   								<td>내부 프로젝트</td>
-	   							</tr>
-	   							<tr>
-	   								<td>프로젝트 내용</td>
-	   								<td>모달창에 모달창 그사이 모달창</td>
-	   							</tr>
-	   							<tr>
-	   								<td>업체명</td>
-	   								<td>(주)논산가는효기인</td>
-	   							</tr>
-	   							<tr>
-	   								<td>깃 주소</td>
-	   								<td>http/여기는 깃주소 들어가도 되고 null도 가능</td>
-	   							</tr>
-	   						</table>
+	   					<div class="flex w-full mx-2.5">
+	   						<span style="font-weight:bold;">총 참여인력 &nbsp;</span>
+	   						<span style="font-weight:bold;color:blue;"> 6</span>
+ 						</div>
+	   					<div class="hr-list">
+   							<c:forEach begin="0" end="10" step="1">
+								<div class="modal_opne_btn_hr_3 td-wrapper hr-list-cont shadow-lg">
+									<div class="hr-img">
+										<img src="/resource/img/imja.jpg" class="h-full" />
+									</div>
+									<div class="w-3/5 px-2.5">
+										<div class="font-bold">No.1</div>
+										<div>✔ 박연진</div>
+										<div>✔ 매니저(PM)</div>
+										<div>✔ 요구사항 분석</div>
+									</div>
+								</div>
+   							</c:forEach>
 	   					</div>
 	   				</div>
-	   				<!-- 프로젝트정보 끝나는 태그 -->
-	   				
-	   				<!-- 프로젝트정보안에 거래처 화면 -->
-	   				<div>
-	   					<div class="p-info-cts-title">
-	   						<div>
-		   						<span style="font-weight:bold;">총 거래처</span>
-		   						<span style="font-weight:bold;color:blue;">3</span>
-	   						</div>
-	   						<div>
-	   							<button id="modal_opne_btn_Cts_1" class="p-info-detail-bt">등록</button>
-	   						</div>
-	   					</div>
-	   					<div class="p-cts-list">
-	   						<table>
-	   							<thead>
-	   							<tr>
-   									<th>No.</th>
-   									<th>거래처명</th>
-   									<th>대표 전화번호</th>
-   									<th>대표 팩스번호</th>
-   									<th>대표 주소</th>
-   									<th>거래처 담당자</th>
-   									<th></th>
-   								</tr>
-   								</thead>
-   								<tbody style="height: 230px;overflow-y:auto;overflow-x:hidden;">
-	   							<c:forEach begin="0" end="6" step="1">
-								<tr>
- 									<td>1</td>
- 									<td>A거래처</td>
- 									<td>042-342-4432</td>
- 									<td>042-342-4431</td>
- 									<td>대전 동구 여긴어디 대전로 102-1번지 어디든가고싶다대전 동구 여긴어디</td>
- 									<td>김뭥미</td>
- 									<td>
- 										<button>
- 										<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
- 										</button>
- 									</td>
-								</tr>
-	   							</c:forEach>
-	   							</tbody>
-	   						</table>
-	   					</div>
-	   					
-	   				</div>
-	   				<!-- 거래처화면 끝나는 태그 -->
-	   			
-	   			
-	   			
+	   				<!-- 참여인력 끝나는 태그 -->
 	   			</div>
-   			
    			</div>
-   
-   
    
 		</div>   
    		<!-- p-main-body끝나는 태그 -->
@@ -234,11 +159,10 @@
 </div>
 <!-- project/list.jsp 화면끝나는 태그 -->
 
+<!-- 모달창-참여인력 상세  -->
+<div id="modal_hr_3">
 
-<!-- 모달창-거래처 조회 등록  -->
-<div id="modal_Cts_1">
-
-      <div class="modal_content_1">
+      <div class="modal_hr_content_1">
             <div class="flex" style="background-color: #153A66;">
                   <div class="navbar text-neutral-content modal-head">
                         <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
@@ -246,19 +170,27 @@
             </div>
 
 			<div class="cts-view">
-				<div class="cts-title">
-					<span>거래처 등록</span>
+				<div class="hr-title">
+					<span>참여인력 상세</span>
 				</div>
-				<div class="cts-title-sub">* 거래처정보를 입력하세요.</div>
-				<div class="cts-modal-search_1">
-					<div class="cts-title-sub">거래처명</div>
-					<input class="cts-name" placeholder="거래처명을 조회하세요." disabled></input>
+				<div class="hr-regi-detail">
+					<div class="td-wrapper hr-regi-cont">
+						<div class="hr-icon">
+							<i class="fa-regular fa-file-image" style="font-size:210px;"></i>
+						</div>
+						<div class="hr-regi-conts">
+							<span>No.1</span>
+							<div>✔ 알방효선</div>
+							<div>✔ 세부사항</div>
+							<div>&nbsp;논산사는 구효선씨는 어느순산 알방에 물들어가있습니다..</div>
+						</div>
+					</div>
+				</div>
 				
-	                  <button id="modal_opne_btn1" class="p-regi-modal-bt">찾기</button>
-				</div>
+				
 				<div class="p-regi-modal-bts">
 	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn_Cts_1" class="p-regi-modal-bt">취소</button>
+	                  <button id="modal_close_btn_hr_3" class="p-regi-modal-bt">취소</button>
 	            </div>
 			</div>
       </div>
@@ -266,13 +198,13 @@
       <div class="modal_layer"></div>
 </div>
 <script>
-//프로젝트detail 거래처 등록 모달창
-document.getElementById("modal_opne_btn_Cts_1").onclick = function() {
-   document.getElementById("modal_Cts_1").style.display = "block";
+// 참여인력상세 모달창.js
+document.getElementsByClassName("modal_opne_btn_hr_3").onclick = function() {
+   document.getElementById("modal_hr_3").style.display = "block";
 }
 
-document.getElementById("modal_close_btn_Cts_1").onclick = function() {
-   document.getElementById("modal_Cts_1").style.display = "none";
+document.getElementById("modal_close_btn_hr_3").onclick = function() {
+   document.getElementById("modal_hr_3").style.display = "none";
 }
 </script>
 
@@ -280,8 +212,73 @@ document.getElementById("modal_close_btn_Cts_1").onclick = function() {
 
 
 
+<!-- 모달창-참여인력 추가(등록) 화면  -->
+<div id="modal_hr">
 
-<!-- 모달창-거래처 등록 (중복되는jsp) -->
+      <div class="modal_hr_content_1">
+            <div class="flex" style="background-color: #153A66;">
+                  <div class="navbar text-neutral-content modal-head">
+                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                  </div>
+            </div>
+
+			<div class="cts-view">
+				<div class="hr-title">
+					<span>참여인력 추가</span>
+				</div>
+				<div class="hr-regi-detail">
+					<div class="td-wrapper hr-regi-cont">
+						<div class="hr-icon">
+							<i class="fa-regular fa-file-image" style="font-size:210px;"></i>
+						</div>
+						<div class="hr-regi-conts">
+							<div>✔ &nbsp;
+								<input type="text" placeholder="이름을 입력하세요." class="input w-full h-9" />
+								<button id="modal_opne_btn_hr_2" class="p-regi-modal-bt">조회</button>
+							</div>
+							<div>✔ &nbsp; 
+								<div class="">
+									<select class="select w-64">
+									  	<option disabled selected>담당업무</option>
+									  	<option>매니저(PM)</option>
+									  	<option>리더(PL)</option>
+									  	<option>공통설계자(AA)</option>
+									  	<option>구축담당자(TA)</option>
+									  	<option>DB설계자(DA)</option>
+									  	<option>품질보증(QA)</option>
+									  	<option>프로세스설계자(BA)</option>
+									</select>
+								</div>
+							</div>
+							<div class="font-bold">✔ 세부사항</div>
+							<div>&nbsp;<input type="text" placeholder="  세부사항을 입력하세요." class="input w-full h-16" /></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="p-regi-modal-bts">
+	                  <button class="p-regi-modal-bt">등록</button>
+	                  <button id="modal_close_btn_hr_1" class="p-regi-modal-bt">취소</button>
+	            </div>
+			</div>
+      </div>
+
+      <div class="modal_layer"></div>
+</div>
+<script>
+// 참여인력추가 모달창.js
+document.getElementById("modal_opne_btn_hr_1").onclick = function() {
+   document.getElementById("modal_hr").style.display = "block";
+}
+
+document.getElementById("modal_close_btn_hr_1").onclick = function() {
+   document.getElementById("modal_hr").style.display = "none";
+}
+</script>
+
+
+<!-- 모달창-참여인력 조회화면 (프로젝드메니저등록모달창과 제목만 다름) -->
 <div id="modal_1">
 
       <div class="modal_content">
@@ -293,14 +290,15 @@ document.getElementById("modal_close_btn_Cts_1").onclick = function() {
 
 			<div class="cts-view">
 				<div class="cts-title">
-					<span>업체명</span>
+					<span>참여인력 조회</span>
 				</div>
-				<div class="cts-title-sub">* 등록된 업체를 조회합니다.</div>
+				<div class="cts-title-sub">* 사원을 조회합니다.</div>
 				<div class="p-modal-serach">
 					<select class="select select-bordered p-cts-select">
 						  <option disabled selected>선택 </option>
-						  <option>업체명</option>
-						  <option>대표자명</option>
+						  <option>담당자명</option>
+						  <option>담당부서</option>
+						  <option>직급</option>
 					</select>
 					<div class="p-modal-searchbar">
 						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
@@ -311,21 +309,31 @@ document.getElementById("modal_close_btn_Cts_1").onclick = function() {
 					<table border="1">
 						<c:forEach begin="0" end="6" step="1" >
 							<tr>
-								<td>(주) 업체명써</td>
-								<td>대표자명</td>
+								<td>이도현</td>
+								<td>서울주병원</td>
+								<td>병원장아들</td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
 	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
+	                  <button id="modal_close_btn_hr_2" class="p-regi-modal-bt">취소</button>
 	            </div>
 			</div>
       </div>
 
       <div class="modal_layer"></div>
 </div>
-<script src="/resource/js/modal.js" defer="defer"></script>
+<script>
+// 참여인력조회 모달창.js
+document.getElementById("modal_opne_btn_hr_2").onclick = function() {
+   document.getElementById("modal_1").style.display = "block";
+}
+
+document.getElementById("modal_close_btn_hr_2").onclick = function() {
+   document.getElementById("modal_1").style.display = "none";
+}
+</script>
 
 <%@ include file="../common/foot.jsp" %>

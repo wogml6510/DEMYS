@@ -20,4 +20,8 @@ public class ProjectController {
 	@RequestMapping("project/detail")
 	public void showPjctDetail() {
 	}
+	
+	@RequestMapping("project/hr_list")
+	public void showPjctHrList() {
+	}
 }

@@ -248,8 +248,8 @@
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
-	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
 	                  <button class="p-regi-modal-bt">등록</button>
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
 	            </div>
 			</div>
       </div>
@@ -293,8 +293,8 @@
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
-	                  <button id="modal_close_btn2" class="p-regi-modal-bt">취소</button>
 	                  <button class="p-regi-modal-bt">등록</button>
+	                  <button id="modal_close_btn2" class="p-regi-modal-bt">취소</button>
 	            </div>
 			</div>
       </div>
