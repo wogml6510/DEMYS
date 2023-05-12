@@ -134,7 +134,7 @@
  						</div>
 	   					<div class="hr-list">
    							<c:forEach begin="0" end="10" step="1">
-								<div class="modal_opne_btn_hr_3 td-wrapper hr-list-cont shadow-lg">
+								<div class="td-wrapper hr-list-cont shadow-lg" onclick="OpenWindow('hr_detail','참여인원상세',800,550);">
 									<div class="hr-img">
 										<img src="/resource/img/imja.jpg" class="h-full" />
 									</div>
@@ -159,54 +159,6 @@
 </div>
 <!-- project/list.jsp 화면끝나는 태그 -->
 
-<!-- 모달창-참여인력 상세  -->
-<div id="modal_hr_3">
-
-      <div class="modal_hr_content_1">
-            <div class="flex" style="background-color: #153A66;">
-                  <div class="navbar text-neutral-content modal-head">
-                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
-                  </div>
-            </div>
-
-			<div class="cts-view">
-				<div class="hr-title">
-					<span>참여인력 상세</span>
-				</div>
-				<div class="hr-regi-detail">
-					<div class="td-wrapper hr-regi-cont">
-						<div class="hr-icon">
-							<i class="fa-regular fa-file-image" style="font-size:210px;"></i>
-						</div>
-						<div class="hr-regi-conts">
-							<span>No.1</span>
-							<div>✔ 알방효선</div>
-							<div>✔ 세부사항</div>
-							<div>&nbsp;논산사는 구효선씨는 어느순산 알방에 물들어가있습니다..</div>
-						</div>
-					</div>
-				</div>
-				
-				
-				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn_hr_3" class="p-regi-modal-bt">취소</button>
-	            </div>
-			</div>
-      </div>
-
-      <div class="modal_layer"></div>
-</div>
-<script>
-// 참여인력상세 모달창.js
-document.getElementsByClassName("modal_opne_btn_hr_3").onclick = function() {
-   document.getElementById("modal_hr_3").style.display = "block";
-}
-
-document.getElementById("modal_close_btn_hr_3").onclick = function() {
-   document.getElementById("modal_hr_3").style.display = "none";
-}
-</script>
 
 
 
@@ -335,5 +287,10 @@ document.getElementById("modal_close_btn_hr_2").onclick = function() {
    document.getElementById("modal_1").style.display = "none";
 }
 </script>
+
+
+<!-- OpenWindow -->
+<script src="/resource/js/common.js" defer="defer"></script>
+
 
 <%@ include file="../common/foot.jsp" %>

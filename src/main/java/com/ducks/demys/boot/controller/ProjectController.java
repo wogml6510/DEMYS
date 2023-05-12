@@ -24,4 +24,15 @@ public class ProjectController {
 	@RequestMapping("project/hr_list")
 	public void showPjctHrList() {
 	}
+	
+	@RequestMapping("project/hr_detail")
+	public void showPjctHrDetail() {
+	}
+	
+	@RequestMapping("project/hr_modify")
+	public void showPjctHrModify() {
+	}
+	/*
+	 * @RequestMapping("requre/list") public void showRequreList() { }
+	 */
 }

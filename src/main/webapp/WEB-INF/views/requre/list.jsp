@@ -17,7 +17,6 @@
 
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
-<link rel="stylesheet" href="/resource/css/project/detail.css" />
 <!-- 요구사항리스트.css -->
 <link rel="stylesheet" href="/resource/css/requre/list.css" />
 
@@ -118,11 +117,54 @@
 		   			</div>
 	   			</div>
 	   			
-	   			<!-- 참여인력 정보 -->
+	   			<!-- 요구사항 관리 -->
 	   			<div>
-	   				
+   					<div class="rq-title">
+   						<div>
+	   						<span style="font-weight:bold;">총 거래처</span>
+	   						<span style="font-weight:bold;color:blue;">3</span>
+   						</div>
+   						<div>
+   							<button id="" class="rq-regi-bt">등록</button>
+   						</div>
+   					</div>
+   					<div class="rq-list">
+   						<table>
+   							<thead>
+   							<tr>
+								<th>No.</th>
+								<th>중요도</th>
+								<th>제목</th>
+								<th>첨부파일</th>
+								<th>대표 주소</th>
+								<th>거래처 담당자</th>
+								<th></th>
+							</tr>
+ 							</thead>
+ 							<tbody style="height: 230px;overflow-y:auto;overflow-x:hidden;">
+   							<c:forEach begin="0" end="12" step="1">
+							<tr>
+								<td>1</td>
+								<td>A거래처</td>
+								<td>042-342-4432</td>
+								<td>042-342-4431</td>
+								<td>대전 동구 여긴어디 대전로 102-1번지 어디든가고싶다대전 동구 여긴어디</td>
+								<td>김뭥미</td>
+								<td>
+									<button>
+									<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
+									</button>
+								</td>
+							</tr>
+   							</c:forEach>
+   							</tbody>
+   						</table>
+   					</div>
+	   					
 	   			</div>
-	   			<!-- 참여인력 끝나는 태그 -->
+	   			<!-- 요구사항 끝나는 태그 -->
+	   			
+	   			
 	   			</div>
    			</div>
    

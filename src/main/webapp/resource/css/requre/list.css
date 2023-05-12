@@ -20,58 +20,69 @@
 	font-weight:bold;
 	font-size:18px;
 }
-/* 참여인력 정보 */
-.hr-info{
-	
-}
-.info-title{
-    width: 100%;
+
+/* 요구사항관리 */
+.rq-title{
+	display:flex;
+	flex-direction:row;
+    justify-content: space-between;
+	align-items: center;
+	width: 100%;
     padding: 5px;
     margin-top: 10px;
-	display: flex;
-    justify-content: flex-end;
 }
-.hr-regist-bt{
+.rq-regi-bt{
 	height:40px;
-	width:140px;
+	width:100px;
 	background-color:#153A66;
 	color:white;
 	border-radius:8px;
 }
-.hr-regist-bt:hover{
-	background-color:#11263F ;
+.rq-list{
+	height: 600px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	border-top:2px solid #333333;
+	border-bottom:2px solid #333333;
 }
-.hr-list{
-    width: 100%;
-    height: 550px;
-    padding: 15px 45px;
-    margin: 10px 0;
-    border: 1px solid #AAAA;
-    border-radius: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    overflow-x: hidden;
+.rq-list >table{
+	border-bottom:3px solid #aaaaaa;
+	width:100%;
 }
-.hr-list-cont{
-	width: 31%;
-    height: 180px;
-   /*  border: 2px solid #AAAAAA; */
-    border-radius: 8px;
-    margin: 20px 14px;
-    display: flex;
-    align-items: center;
-    /* background: linear-gradient(#AAAAAA 1%, white 15% 85%, #AAAAAA 99%); */
-	background-color:#F9F9F9;
-}
-.hr-img{
-	width:40%;
-	height:100%;
-}
-.hr-img>img{
-	border-top-left-radius:8px;
-	border-bottom-left-radius:8px;
+.rq-list>table tr{
+	width:100%;
+	border-bottom:2px solid #aaaaaa;
+	height: 40px;
+    line-height: 40px;
 }
 
-
-
+.rq-list tbody tr:hover{
+	background-color:#e7e7e7e7;
+}
+.rq-list>table>thead{
+	position: sticky; 
+	top: 0;
+	background-color:#D3D3D3;
+}
+.rq-list>table>thead>tr{
+	
+}
+.rq-list>table tr th+td{
+	padding:5px 0;
+}
+.rq-list>table tr th:first-child+th:last-child{
+	width:10%;
+	padding:0 10px;
+}
+.rq-list>table tr th:nth-child(2)+th:nth-child(6){
+	width:12%;
+}
+.rq-list>table tr th:nth-child(3)+th:nth-child(4){
+	width:14%;
+}
+.rq-list>table tr th:nth-child(5){
+	width:32%;
+}
+.rq-list>table tr td{
+	text-align:center;
+}

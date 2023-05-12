@@ -64,6 +64,10 @@
     /* background: linear-gradient(#AAAAAA 1%, white 15% 85%, #AAAAAA 99%); */
 	background-color:#F9F9F9;
 }
+.hr-list-cont:hover{
+	background-color: #F0F8FF;
+    border: 3px solid #B7DDFF;
+}
 .hr-img{
 	width:40%;
 	height:100%;
