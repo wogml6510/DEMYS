@@ -2,22 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Issue_TagMapper">
-	<select id="getIssue_TagListByPJ_NUM" parameterType="int" resultType="issuetag">
+<mapper namespace="com.ducks.demys.boot.repository.Issue_TagRepository">
+	<select id="getIssue_TagListByPJ_NUM" resultType="Issue_Tag">
 		SELECT *
 		FROM ISSUE_TAG
 		WHERE PJ_NUM=#{PJ_NUM}
 		ORDER BY ISSUETAG_NUM DESC
 	</select>
-	<select id="getIssue_TagListByMEMBER_NUM" parameterType="int"
-		resultType="issuetag">
+	<select id="getIssue_TagListByMEMBER_NUM" resultType="Issue_Tag">
 		SELECT *
 		FROM ISSUE_TAG
 		WHERE MEMBER_NUM=#{MEMBER_NUM}
 		ORDER BY ISSUETAG_NUM DESC
 	</select>
-	<select id="getIssue_TagByISSUETAG_NUM" parameterType="int"
-		resultType="issuetag">
+	<select id="getIssue_TagByISSUETAG_NUM" resultType="Issue_Tag">
 		SELECT *
 		FROM ISSUE_TAG
 		WHERE ISSUETAG_NUM=#{ISSUETAG_NUM}
@@ -27,18 +25,18 @@
 		ISSUE_TAG_seq.nextVal
 		FROM DUAL
 	</select>
-	<insert id="registIssue_Tag" parameterType="issuetag">
+	<insert id="registIssue_Tag">
 		INSERT INTO
 		ISSUE_TAG(PJ_NUM,MEMBER_NUM)
 		VALUES(#{PJ_NUM},#{MEMBER_NUM})
 	</insert>
-	<update id="modifyIssue_Tag" parameterType="issuetag">
+	<update id="modifyIssue_Tag">
 		UPDATE ISSUE_TAG
 		SET
 		PJ_NUM=#{PJ_NUM},MEMBER_NUM=#{MEMBER_NUM}
 		WHERE ISSUETAG_NUM=#{ISSUETAG_NUM}
 	</update>
-	<delete id="removeIssue_Tag" parameterType="int">
+	<delete id="removeIssue_Tag">
 		DELETE
 		FROM ISSUE_TAG
 		WHERE ISSUETAG_NUM=#{ISSUETAG_NUM}

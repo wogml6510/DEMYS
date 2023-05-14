@@ -3,8 +3,11 @@ package com.ducks.demys.boot.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ducks.demys.boot.service.ProjectsService;
+
 @Controller
-public class ProjectController {
+public class ProjectsController {
+	private ProjectsService projectsService;
 	
 	@RequestMapping("project/main")
 	public void showMain() {

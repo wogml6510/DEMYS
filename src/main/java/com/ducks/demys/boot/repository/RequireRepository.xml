@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="RequireMapper">
-	<select id="getRequireListByPJ_NUM" parameterType="int" resultType="require">
+<mapper namespace="com.ducks.demys.boot.repository.RequireRepository">
+	<select id="getRequireListByPJ_NUM" resultType="Require">
 		SELECT *
 		FROM REQUIRE
 		WHERE PJ_NUM=#{PJ_NUM}
 		ORDER BY REQUIRE_NUM DESC
 	</select>
-	<select id="getRequireByREQUIRE_NUM" parameterType="int"
-		resultType="require">
+	<select id="getRequireByREQUIRE_NUM" resultType="Require">
 		SELECT *
 		FROM REQUIRE
 		WHERE REQUIRE_NUM=#{REQUIRE_NUM}
@@ -20,18 +19,18 @@
 		REQUIRE_seq.nextVal
 		FROM DUAL
 	</select>
-	<insert id="registRequire" parameterType="require">
+	<insert id="registRequire">
 		INSERT INTO
 		REQUIRE(REQUIRE_LEVEL,REQUIRE_TITLE,REQUIRE_DETAIL,CT_NUM,MEMBER_NUM,PJ_NUM)
 		VALUES(#{REQUIRE_LEVEL},#{REQUIRE_TITLE},#{REQUIRE_DETAIL},#{CT_NUM},#{MEMBER_NUM},#{PJ_NUM})
 	</insert>
-	<update id="modifyRequire" parameterType="require">
+	<update id="modifyRequire">
 		UPDATE REQUIRE
 		SET
 		REQUIRE_LEVEL=#{REQUIRE_LEVEL},REQUIRE_TITLE=#{REQUIRE_TITLE},REQUIRE_DETAIL=#{REQUIRE_DETAIL},CT_NUM=#{CT_NUM},MEMBER_NUM=#{MEMBER_NUM},PJ_NUM=#{PJ_NUM}
 		WHERE REQUIRE_NUM=#{REQUIRE_NUM}
 	</update>
-	<delete id="removeRequire" parameterType="int">
+	<delete id="removeRequire">
 		DELETE
 		FROM REQUIRE
 		WHERE REQUIRE_NUM=#{REQUIRE_NUM}

@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Budget_DetailMapper">
-	<select id="getBuddtListByBUD_NUM" parameterType="int" resultType="buddt">
+<mapper namespace="com.ducks.demys.boot.repository.Budget_DetailRepository">
+	<select id="getBuddtListByBUD_NUM" resultType="Budget_Detail">
 		SELECT *
 		FROM BUDGET_DETAIL
 		WHERE BUD_NUM=#{BUD_NUM}
 		ORDER BY BUDDT_NUM DESC
 	</select>
-	<select id="getBuddtByBUDDT_NUM" parameterType="int"
-		resultType="buddt">
+	<select id="getBuddtByBUDDT_NUM" resultType="Budget_Detail">
 		SELECT *
 		FROM BUDGET_DETAIL
 		WHERE BUDDT_NUM=#{BUDDT_NUM}
@@ -20,18 +19,18 @@
 		BUDGET_DETAIL_seq.nextVal
 		FROM DUAL
 	</select>
-	<insert id="registBUDDT" parameterType="buddt">
+	<insert id="registBUDDT">
 		INSERT INTO
 		BUDGET_DETAIL(BUDDT_TYPE,BUDDT_COST,BUDDT_INFO,BUDDT_ETC)
 		VALUES(#{BUDDT_TYPE},#{BUDDT_COST},#{BUDDT_INFO},#{BUDDT_ETC})
 	</insert>
-	<update id="modifyBUDDT" parameterType="buddt">
+	<update id="modifyBUDDT">
 		UPDATE BUDGET_DETAIL
 		SET
 		BUDDT_TYPE=#{BUDDT_TYPE},BUDDT_COST=#{BUDDT_COST},BUDDT_INFO=#{BUDDT_INFO},BUDDT_ETC=#{BUDDT_ETC},BUDDT_UPDATEDATE=SYSDATE
 		WHERE BUDDT_NUM=#{BUDDT_NUM}
 	</update>
-	<delete id="removeBUDDT" parameterType="int">
+	<delete id="removeBUDDT">
 		DELETE
 		FROM BUDGET_DETAIL
 		WHERE BUDDT_NUM=#{BUDDT_NUM}

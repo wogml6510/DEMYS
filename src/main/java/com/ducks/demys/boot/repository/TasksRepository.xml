@@ -2,21 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="TasksMapper">
-	<select id="getTasksListByMEMBER_NUM" parameterType="int" resultType="tasks">
+<mapper namespace="com.ducks.demys.boot.repository.TasksRepository">
+	<select id="getTasksListByMEMBER_NUM" resultType="Tasks">
 		SELECT *
 		FROM TASKS
 		WHERE MEMBER_NUM=#{MEMBER_NUM}
 		ORDER BY TASKS_NUM DESC
 	</select>
-	<select id="getTasksList"
-		resultType="tasks">
+	<select id="getTasksListByTASKS_STATUS" resultType="Tasks">
+		SELECT *
+		FROM TASKS
+		WHERE TASKS_STATUS=#{TASKS_STATUS}
+		ORDER BY TASKS_NUM DESC
+	</select>
+	<select id="getTasksList" resultType="Tasks">
 		SELECT *
 		FROM TASKS
 		ORDER BY TASKS_NUM DESC
 	</select>
-	<select id="getTasksByTASKS_NUM" parameterType="int"
-		resultType="tasks">
+	<select id="getTasksByTASKS_NUM" resultType="Tasks">
 		SELECT *
 		FROM TASKS
 		WHERE TASKS_NUM=#{TASKS_NUM}
@@ -26,18 +30,18 @@
 		TASKS_seq.nextVal
 		FROM DUAL
 	</select>
-	<insert id="registTasks" parameterType="tasks">
+	<insert id="registTasks">
 		INSERT INTO
 		TASKS(TASKS_CONTENT,TASKS_STATUS,TASKS_IMP,TASKS_ENDDATE,TASKS_SHARE,MEMBER_NUM)
 		VALUES(#{TASKS_CONTENT},#{TASKS_STATUS},#{TASKS_IMP},#{TASKS_IMP},#{TASKS_SHARE},#{MEMBER_NUM})
 	</insert>
-	<update id="modifyTasks" parameterType="tasks">
+	<update id="modifyTasks">
 		UPDATE TASKS
 		SET
 		TASKS_CONTENT=#{TASKS_CONTENT},TASKS_STATUS=#{TASKS_STATUS},TASKS_IMP=#{TASKS_IMP},TASKS_ENDDATE=#{TASKS_ENDDATE},TASKS_SHARE=#{TASKS_SHARE},MEMBER_NUM=#{MEMBER_NUM}
 		WHERE TASKS_NUM=#{TASKS_NUM}
 	</update>
-	<delete id="removeTasks" parameterType="int">
+	<delete id="removeTasks">
 		DELETE
 		FROM TASKS
 		WHERE TASKS_NUM=#{TASKS_NUM}
