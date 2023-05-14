@@ -40,6 +40,10 @@
 	color:white;
 	border-radius:8px;
 }
+.p-info-detail-bt:hover{
+	background-color:#11263F;
+	font-weight:bold;
+}
 .p-detail-table{
 	width:100%;
 	padding:5px;
