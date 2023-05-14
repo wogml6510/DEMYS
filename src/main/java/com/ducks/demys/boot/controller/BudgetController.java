@@ -15,7 +15,10 @@ public class BudgetController {
 	public void showBudgetList() {
 		
 	}
-	
+	@RequestMapping("budget/detail")
+	public void showBudgetDetail() {
+		
+	}
 	@RequestMapping("budget/regist")
 	public void showBudgetRegist() {
 		

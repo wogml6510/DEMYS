@@ -17,8 +17,8 @@
 
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
-<!-- 예산수립 등록.css -->
-<link rel="stylesheet" href="/resource/css/budget/regist.css" />
+<!-- 예산수립 상세.css -->
+<link rel="stylesheet" href="/resource/css/budget/detail.css" />
 
 
 <div class="project-part">
@@ -118,8 +118,7 @@
    			<div class="bud_body">
    				<div class="bud_title">
 	   				<div  class="bud_title0">
-	   					<span>제목</span>
-	   					<input class="w-1/3 h-8 rounded-md" type="text" />
+	   					<span>풀스택양성과정 오부반 예산서</span>
 	   				</div>
 	   			</div>
 	   			
@@ -138,43 +137,28 @@
 	   								</tr>
 	   							</thead>
 	   							<tbody>
-	   							<!-- 	<tr>
-	   									<td >
+	   								<c:forEach begin="0" end="13" step="1">
+	   								<tr>
+	   									<td class="text-center">
 	   										<div class="p-1 w-full">1</div>
 	   									</td>
-	   									<td>
-	   										<div class="p-1 w-full">
-	   											<select class=" w-full">
-												  	<option disabled selected>선택</option>
-												  	<option>인건비</option>
-												  	<option>교통비</option>
-												  	<option>기타</option>
-												</select>
-	   									
-	   										</div>
+	   									<td class="text-center">
+	   										<div class="p-1 pl-2 w-full">인건비</div>
 	   									</td>
 	   									<td>
-	   										<div>
-	   											<input class="p-1 w-full" type="text" placeholder="예산내역을 입력하세요." />
-	   										</div>
+	   										<div class="p-1 pl-2 w-full">예산내역은 인건비+출장비</div>
 	   									</td>
 	   									<td>
-	   										<div>
-	   											<input class="p-1 w-full" type="text" placeholder="상세내용을 입력하세요."/>
-	   										</div>
+	   										<div class="p-1 pl-2 w-full">상세내용은 없음니다</div>
+	   									</td>
+	   									<td class="text-right">
+	   										<div class="p-1 pr-6 w-full">2,000,000원</div>
 	   									</td>
 	   									<td>
-	   										<div>
-	   											<input  class="p-1 w-full"type="text" placeholder="예산금액을 입력하세요."/>
-	   										</div>
+	   										
 	   									</td>
-	   									<td>
-	   										<div class="p-1 w-full">
-	   											<button class="">
-	   											<i class="remove-icon fa-solid fa-circle-xmark"></i></button>
-	   										</div>
-	   									</td>
-	   								</tr> -->
+	   								</tr>
+	   								</c:forEach>
 	   							</tbody>
 	   						</table>
 	   					</div>
@@ -182,7 +166,7 @@
 	   					<div class="bud_regi_cont-foots">
 							<div class="bud_regi_cont-foot">
 	 							<div class="bud_add">
-	 								<button class="bud_add_bt"><i class="fa-solid fa-circle-plus text-blue-600"></i>&nbsp;예산항목 추가</button>
+	 								
 	 							</div>
 	 						</div>
 	 						<div class="w-full bud_regi_cont-foot-1 p-2">
@@ -202,6 +186,8 @@
 							      <span>30</span>%
 							    </div>
 						  </div>
+   							<!-- data-percent 안에 퍼센트 값을 준다. -->
+							<!-- <div class="bud_donut" data-percent="95.4"></div> -->
    						</div>
    						<div class="bud_exp_1" style="height:10%;">
    							<div><i class="fa-solid fa-circle mr-2" style="color:skyblue;"></i>예산금액</div>
@@ -232,11 +218,9 @@
  					
    				</div>	
    				<div class="bud_regi-bt">
-   					<button class="bud-bt">저장</button>
-   					<button style="display:none;" class="bud-bt-1">최종예산 등록</button>
    					<div style="display:block;">
-						<button class="a-bud-bt ok-bt bg-green-600">승인</button>
-						<button class="a-bud-bt stop-bt bg-red-600">반려</button>
+						<button class="a-bud-bt bg-green-600">승인</button>
+						<button class="a-bud-bt bg-red-600">반려</button>
    					</div>
    				</div>
    				
@@ -254,62 +238,7 @@
 	</div>
 <!-- project/list.jsp 화면끝나는 태그 -->
 </div>
-<script>
-//예산항목 추가 
-const addButton = document.querySelector(".bud_add_bt");
-const tbody = document.querySelector("tbody");
 
-addButton.addEventListener("click", function(){
-	// 새로운 tr요소 생성
-	const newRow = document.createElement("tr");
-	
-	// tr요소 갯수 증가 -> No.가 1씩 증가하게
-	const rowNum = tbody.children.length+1;
-	
-	// tr요소의 내용 추가
-	newRow.innerHTML = `
-		<td>
-		    <div class="p-1 w-full">${rowNum}</div>
-		  </td>
-		  <td>
-		    <div class="p-1 w-full">
-		      <select class="w-full">
-		        <option disabled selected>선택</option>
-		        <option>인건비</option>
-		        <option>교통비</option>
-		        <option>기타</option>
-		      </select>
-		    </div>
-		  </td>
-		  <td>
-		    <div>
-		      <input class="p-1 w-full" type="text" placeholder="예산내역을 입력하세요." />
-		    </div>
-		  </td>
-		  <td>
-		    <div>
-		      <input class="p-1 w-full" type="text" placeholder="상세내용을 입력하세요."/>
-		    </div>
-		  </td>
-		  <td>
-		    <div>
-		      <input  class="p-1 w-full"type="text" placeholder="예산금액을 입력하세요."/>
-		    </div>
-		  </td>
-		  <td>
-		    <div class="p-1 w-full">
-		      <button class="">
-		        <i class="remove-icon fa-solid fa-circle-xmark"></i>
-		      </button>
-		    </div>
-		  </td>
-	`;
-	// tr요소에 No. 추가
-	newRow.querySelector("div:first-child").textContent = rowNum;
-	// tbody에 새로운 tr요소 추가
-	tbody.appendChild(newRow);
-});
-</script>
 
 <script>
 let bar = document.querySelectorAll('.progress__bar'),

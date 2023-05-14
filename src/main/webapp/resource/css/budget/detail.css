@@ -60,21 +60,21 @@
 	background-color:#F0F8FF;
 	border:1px solid;
 }
+.bud_regi_cont>table th:last-child,
+.bud_regi_cont>table>tbody>tr td:last-child{
+	background-color:#FFFFFF;
+	border:0px;
+}
 .bud_regi_cont>table>tbody>tr{
-	height: 26px;
-    text-align: center;
+	height: 45px;
 }
 .bud_regi_cont>table>tbody>tr td{
-	height:30px;
+	height:35px;
+	border:1px solid #AAAAAA;
 }
 .bud_regi_cont>table>tbody>tr td div{
-	border:2px solid #AAAAAA;
 	margin-top:5px;
 	margin-right:5px;
-}
-.bud_regi_cont>table>tbody>tr td:last-child>div{
-	border:0;
-	padding-top: 5px;
 }
 .bud_regi_cont-foots{
 	/* border:1px solid yellow; */
@@ -175,7 +175,6 @@
     font-weight:bold;
 }
 /* 버튼 */
-/* 승인.반려 */
 .a-bud-bt{
 	font-size: 15px; 
 	width: 100px; 
@@ -184,12 +183,6 @@
 	border-radius: 8px;
 	margin-left:10px;
 	font-weight:bold;
-}
-.ok-bt:hover{
-	background-color:#126014;	
-}
-.stop-bt:hover{
-	background-color:#8E0011;	
 }
 .bud-bt{
 	font-size: 20px; 
@@ -211,7 +204,7 @@
 	width:100%;
 	height:7%;
 	display: flex; 
-	justify-content:space-between;
+	justify-content:flex-end;
 	padding: 0 20px;
 }
 .bud-bt-1{
