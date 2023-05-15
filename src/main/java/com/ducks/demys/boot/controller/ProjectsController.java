@@ -1,46 +1,47 @@
 package com.ducks.demys.boot.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ducks.demys.boot.service.IssueService;
 import com.ducks.demys.boot.service.ProjectsService;
-import com.ducks.demys.boot.vo.Issue;
-import com.ducks.demys.boot.vo.Projects;
+import com.ducks.demys.command.SearchCriteria;
 
 @Controller
 public class ProjectsController {
 	private ProjectsService projectsService;
-	private IssueService issueService;
 	
 	public ProjectsController(ProjectsService projectsService) {
 		this.projectsService = projectsService;
-		this.issueService = issueService;
 	}
 	
 	// Action
 	@RequestMapping("project/main")
-	public String showPjctlist(Model model) {
+	public void pjctList(Model model, SearchCriteria cri) {
 		//Issue issue = issueService.getIssueByISSUE_NUM(issueNum);
-		List<Projects> projects = projectsService.getPJList();
 		
-		model.addAttribute("projects", projects);
+		if(cri.getPage()<1) cri.setPage(1);
+		if(cri.getPerPageNum()<1) cri.setPerPageNum(5);
+		
+		//List<Projects> projects
+		Map<String, Object> dataMap = projectsService.getPJList(cri);
+		
+		model.addAttribute("dataMap", dataMap);
 		
 		
-		return "project/main";
+		//return "project/main";
 	}
 	@RequestMapping("project/regist")
-	public void showPjctRegist() {
+	public void pjctRegist() {
 	}
 	@RequestMapping("project/regist_detail")
-	public void showPjctRegistDetail() {
+	public void pjctRegistDetail() {
 	}
 	
 	@RequestMapping("project/detail")
-	public void showPjctDetail() {
+	public void pjctDetail() {
 	}
 	
 	@RequestMapping("project/hr_list")

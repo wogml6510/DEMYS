@@ -13,3 +13,5 @@ function CloseWindow(){
 	window.opener.location.reload(true);
 	window.close();
 }
+
+// 조회

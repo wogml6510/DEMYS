@@ -1,12 +1,16 @@
 package com.ducks.demys.boot.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.ducks.demys.boot.repository.IssueRepository;
 import com.ducks.demys.boot.repository.ProjectsRepository;
 import com.ducks.demys.boot.vo.Projects;
+import com.ducks.demys.command.PageMaker;
+import com.ducks.demys.command.SearchCriteria;
 
 @Service
 public class ProjectsService {
@@ -21,16 +25,23 @@ public class ProjectsService {
 	
 	
 	
-	public List<Projects> getPJList(){
+	public Map<String, Object> getPJList(SearchCriteria cri){
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<Projects> projectsList = projectsRepository.getPJList();
-		
+		List<Projects> projectsList = projectsRepository.getPJList(cri);
+		// 각 프로젝트의 이슈 갯수
 		for(Projects project : projectsList) {
 			project.setISSUE_COUNT(issueRepository.getIssuePjListCount(project.getPJ_NUM()));
 //			projectsList.add(project);
 		}
-		System.out.println("~~projectsList: "+projectsList);
-		return projectsList;
+		dataMap.put("projects", projectsList);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(projectsRepository.getPJListCount(cri));
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
 	}
 	public List<Projects> getPJListByMEMBER_NUM(int MEMBER_NUM){
 		return projectsRepository.getPJListByMEMBER_NUM(MEMBER_NUM);

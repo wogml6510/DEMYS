@@ -3,12 +3,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ducks.demys.boot.repository.ProjectsRepository">
+	<sql id="search">
+		<if test="searchType == 'pn'.toString()">
+			and PJ_NAME like '%'#{keyword}||'%'
+		</if>
+		<if test="searchType == 'cn'.toString()">
+			and CT_NAME like '%'#{keyword}||'%'
+		</if>
+	</sql>
+
 	<select id="getPJList" resultType="Projects">
 		SELECT P.*, C.CT_NAME
 		FROM projects P
 		INNER JOIN contacts C
 		ON P.CT_NUM = C.CT_NUM
 		ORDER BY P.PJ_ENDDATE ASC
+	</select>
+	<select id="getPJListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PROJECTS
 	</select>
 	
 	<select id="getPJListByMEMBER_NUM" resultType="Projects">

@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="pageTitle" value=""></c:set>
+<c:set var="projects" value="${dadtaMap.projectsList }"/>
+<c:set var="pageMaker" value="${dataMap.pageMaker }"/>
+<c:set var="cri" value="${pageMaker.cri }"/>
 
 
 <%@ include file="../common/head.jsp" %>
@@ -42,17 +44,19 @@
 					  </label>
 					</div>
 					<div class="w-42">
-						<select class="select w-full max-w-xs">
-						  	<option disabled selected>프로젝트명</option>
-						  	<option>프로젝트명</option>
-						  	<option>업체명</option>
+						<select class="select w-full max-w-xs" name="searchType" id="searchType">
+						  	<option disabled selected>선택</option>
+						  	<option value="pn" ${cri.searchType=='pn' ? "selected":"" }>프로젝트명</option>
+						  	<option value="cn" ${cri.searchType=='cn' ? "selected":"" }>업체명</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="p-searchbar">
-				<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered" style="width:85%;"/>
-				<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+				<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered" style="width:85%;"  value="${cri.keyword }"/>
+				<button type="button" data-card-widget="search" onclick="list_go(1);">
+					<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+				</button>
 			</div>
 			
 		</div>
@@ -77,7 +81,7 @@
 			</c:forEach>
 		
 			<div class="p-list-pagination">
-			
+				<%-- <%@ include file="../module/pagination.jsp" %>  --%>
 			</div>
 			
 		</div>
