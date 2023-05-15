@@ -4,10 +4,13 @@
 
 <mapper namespace="com.ducks.demys.boot.repository.ProjectsRepository">
 	<select id="getPJList" resultType="Projects">
-		SELECT *
-		FROM PROJECTS
-		ORDER BY PJ_NUM DESC
+		SELECT P.*, C.CT_NAME
+		FROM projects P
+		INNER JOIN contacts C
+		ON P.CT_NUM = C.CT_NUM
+		ORDER BY P.PJ_ENDDATE ASC
 	</select>
+	
 	<select id="getPJListByMEMBER_NUM" resultType="Projects">
 		SELECT *
 		FROM PROJECTS

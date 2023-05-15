@@ -24,4 +24,7 @@ public class Projects {
 	private int PJ_PRICE;
 	private int MEMBER_NUM;
 	private int CT_NUM;
+	
+	private String CT_NAME;
+	private int ISSUE_COUNT;
 }

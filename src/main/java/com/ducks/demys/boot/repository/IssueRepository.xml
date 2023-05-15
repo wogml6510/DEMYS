@@ -3,7 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ducks.demys.boot.repository.IssueRepository">
-	<select id="getIssueList" resultType="issue">
+	<!-- JS -->
+	<select id="getIssuePjListCount" resultType="int">
+		SELECT COUNT(I.PJ_NUM)
+		FROM ISSUE I, PROJECTS P
+		WHERE I.PJ_NUM = P.PJ_NUM and I.PJ_NUM = #{PJ_NUM}
+	</select>
+	<!-- JS -->
+
+	<select id="getIssueList" resultType="Issue">
 		SELECT *
 		FROM ISSUE
 		ORDER BY ISSUE_NUM DESC

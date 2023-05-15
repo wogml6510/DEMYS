@@ -16,6 +16,8 @@ public class IssueService {
 		this.issueRepository= issueRepository;
 	}
 	
+	
+	
 	public List<Issue> getIssueList(){
 		return issueRepository.getIssueList();
 	}

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="pageTitle" value=""></c:set>
+
 
 <%@ include file="../common/head.jsp" %>
 
@@ -54,21 +57,21 @@
 			
 		</div>
 		<div class="p-list">
- 			<c:forEach begin="0" end="4" step="1" >
+ 			<c:forEach var="pj" items="${projects }" >
 			    <div class="p-list-box">
 					<div style="border-bottom:1px solid #797979;">
 						<div class="ellipsis p-list-title">
 							<span style="color:red;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
-							<span >프로젝트제목들어가야함계속길게적는중</span>
+							<span >${pj.PJ_NAME }</span>
 						</div>
 						<div class="p-list-date">
-							<span>2023.05.02 ~ </span>
-							<span> 2023.07.02</span>
+							<span><fmt:formatDate value="${pj.PJ_STARTDATE }" pattern="yyyy-MM-dd"/></span>
+							<span>~<fmt:formatDate value="${pj.PJ_ENDDATE }" pattern="yyyy-MM-dd"/></span>
 						</div>
 					</div>
 					<div class="p-list-box-bottom">
-						<span style="font-size:15px;">(주)오싸거</span>
-						<span class="p-list-issu">이슈 3</span>
+						<span style="font-size:15px;">${pj.CT_NAME }</span>
+						<span class="p-list-issu">이슈 ${pj.ISSUE_COUNT }</span>
 					</div>
 				</div>
 			</c:forEach>

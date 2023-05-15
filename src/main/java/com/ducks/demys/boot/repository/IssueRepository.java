@@ -9,6 +9,10 @@ import com.ducks.demys.boot.vo.Issue;
 @Mapper
 public interface IssueRepository {
 
+	// JH
+	public int getIssuePjListCount(int PJ_NUM);
+	// JH
+	
 	public List<Issue> getIssueList();
 
 	public List<Issue> getIssueListByPJ_NUM(int PJ_NUM);
