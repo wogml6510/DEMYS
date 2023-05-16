@@ -4,8 +4,9 @@
 
 <style>
 .pagination {
-  display: inline-block;
   width:100%;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination a {
@@ -39,7 +40,7 @@
 		<a href="javascript:list_go(${pageNum}, 'main');" class="page-link ${cri.page == pageNum ? 'active' : ''}">${pageNum}</a>
 	</c:forEach>
 	
-	<a href="javascript:list_go(${pageMaker.prev ? pageMaker.endPage+1 : cri.page});" class="page-link">&gt;</a>
+	<a href="javascript:list_go(${pageMaker.next ? pageMaker.endPage+1 : cri.page});" class="page-link">&gt;</a>
 	<a href="javascript:list_go(${pageMaker.realEndPage});" class="page-link">&raquo;</a>
 </div>
 <script>

@@ -121,7 +121,7 @@
 }
 .p-list-pagination{
 	height:6%;
-	border:1px solid red;
+	/* border:1px solid red; */
 }
 /* 줄바꿈X ...으로표시 */
 .ellipsis {

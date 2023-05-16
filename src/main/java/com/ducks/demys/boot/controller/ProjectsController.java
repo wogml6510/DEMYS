@@ -1,14 +1,16 @@
 package com.ducks.demys.boot.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ducks.demys.boot.service.ProjectsService;
+import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.SearchCriteria;
 
 @Controller
@@ -21,31 +23,28 @@ public class ProjectsController {
 	
 	// Action
 	@RequestMapping("project/main")
-	public String pjctList(Model model, @ModelAttribute SearchCriteria cri, 
+	public String pjctList(Model model,  SearchCriteria cri, 
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 	        @RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int perPageNum) {
 		//Issue issue = issueService.getIssueByISSUE_NUM(issueNum);
+		if (cri.getPage() < 1) cri.setPage(1);
+		if (cri.getPerPageNum() < 1) cri.setPerPageNum(5);
+		
 		
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);
 		cri.setSearchType(searchType);
 	    cri.setKeyword(keyword);
 		
-		// 시작 위치(startRow) 계산
-		int startRow = (cri.getPage() - 1) * cri.getPerPageNum() + 1;
-		// 끝 위치(endRow) 계산
-		int endRow = cri.getPage() * cri.getPerPageNum();
-		
-		 if (cri.getPage() < 1) cri.setPage(1);
-		 if (cri.getPerPageNum() < 1) cri.setPerPageNum(5);
-		
-		
-		Map<String, Object> dataMap = projectsService.getPJList(cri, startRow, endRow);
+	    Map<String, Object> dataMap = projectsService.getPJList(cri);
 		
 		model.addAttribute("dataMap", dataMap);
-		
-		
+		model.addAttribute("page",page);
+		model.addAttribute("perPageNum",perPageNum);
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("keyword",keyword);
+	
 		return "project/main";
 	}
 	@RequestMapping("project/regist")

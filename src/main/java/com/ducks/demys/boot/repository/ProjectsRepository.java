@@ -10,7 +10,7 @@ import com.ducks.demys.command.SearchCriteria;
 @Mapper
 public interface ProjectsRepository {
 
-	public List<Projects> getPJList(SearchCriteria cri, int startRow, int endRow);
+	public List<Projects> getPJList(SearchCriteria cri);
 	
 	int getPJListCount (SearchCriteria cri);
 

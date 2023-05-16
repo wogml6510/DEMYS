@@ -10,7 +10,7 @@ public class PageMaker {
 	private boolean prev; // 이전페이지 버튼 유무
 	private boolean next; // 다음페이지 버튼 유무
 	
-	private int displayPageNum =10;
+	private int displayPageNum =5;
 	
 	SearchCriteria cri = new SearchCriteria();
 

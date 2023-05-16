@@ -14,51 +14,58 @@ import com.ducks.demys.command.SearchCriteria;
 
 @Service
 public class ProjectsService {
-	
+
 	private ProjectsRepository projectsRepository;
 	private IssueRepository issueRepository;
-	
+
 	public ProjectsService(ProjectsRepository projectsRepository, IssueRepository issueRepository) {
-		this.projectsRepository= projectsRepository;
+		this.projectsRepository = projectsRepository;
 		this.issueRepository = issueRepository;
 	}
-	
-	
-	
-	public Map<String, Object> getPJList(SearchCriteria cri, int startRow, int endRow){
+
+	public Map<String, Object> getPJList(SearchCriteria cri) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		
-		List<Projects> projectsList = projectsRepository.getPJList(cri, startRow, endRow);
+
+		List<Projects> projectsList = projectsRepository.getPJList(cri);
 		// 각 프로젝트의 이슈 갯수
-		for(Projects project : projectsList) {
+		for (Projects project : projectsList) {
 			project.setISSUE_COUNT(issueRepository.getIssuePjListCount(project.getPJ_NUM()));
 		}
 		dataMap.put("projects", projectsList);
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(projectsRepository.getPJListCount(cri));
 		dataMap.put("pageMaker", pageMaker);
-		
+
+//		// 시작 위치(startRow) 계산
+//		int startRow = cri.getStartRow();
+//		int endRow = cri.getEndRow();
+//		// 끝 위치(endRow) 계산
+//		
+//		dataMap.put("startRow", startRow);
+//		dataMap.put("endRow", endRow);
+
 		return dataMap;
 	}
-	public List<Projects> getPJListByMEMBER_NUM(int MEMBER_NUM){
+
+	public List<Projects> getPJListByMEMBER_NUM(int MEMBER_NUM) {
 		return projectsRepository.getPJListByMEMBER_NUM(MEMBER_NUM);
 	}
 
-	public Projects getPJByPJ_NUM(int PJ_NUM){
+	public Projects getPJByPJ_NUM(int PJ_NUM) {
 		return projectsRepository.getPJByPJ_NUM(PJ_NUM);
 	}
-	
+
 	public void registPJ(Projects project) {
 		project.setPJ_NUM(projectsRepository.selectPJSequenceNextValue());
 		projectsRepository.registPJ(project);
 	}
-	
+
 	public void modifyPJ(Projects project) {
 		projectsRepository.modifyPJ(project);
 	}
-	
+
 	public void removePJ(int PJ_NUM) {
 		projectsRepository.removePJ(PJ_NUM);
 	}

@@ -65,7 +65,18 @@
 			    <div class="p-list-box">
 					<div style="border-bottom:1px solid #797979;">
 						<div class="ellipsis p-list-title">
-							<span style="color:red;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
+							<c:choose>
+								<c:when test="${pj.PJ_IMP eq 3}">
+									<span style="color:#D9001B;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
+								</c:when>
+								<c:when test="${pj.PJ_IMP eq 2}">
+									<span style="color:#F59A23;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
+								</c:when>
+								<c:otherwise>
+									<span style="color:#FFFF00;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
+								</c:otherwise>
+							</c:choose>
+							
 							<span >${pj.PJ_NAME }</span>
 						</div>
 						<div class="p-list-date">
@@ -81,7 +92,7 @@
 			</c:forEach>
 		
 			<div class="p-list-pagination">
-				<%@ include file="../module/pagination.jsp" %> 
+				<%@ include file="../module/pagination.jsp" %>
 			</div>
 			
 		</div>
