@@ -25,14 +25,13 @@ public class ProjectsService {
 	
 	
 	
-	public Map<String, Object> getPJList(SearchCriteria cri){
+	public Map<String, Object> getPJList(SearchCriteria cri, int startRow, int endRow){
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<Projects> projectsList = projectsRepository.getPJList(cri);
+		List<Projects> projectsList = projectsRepository.getPJList(cri, startRow, endRow);
 		// 각 프로젝트의 이슈 갯수
 		for(Projects project : projectsList) {
 			project.setISSUE_COUNT(issueRepository.getIssuePjListCount(project.getPJ_NUM()));
-//			projectsList.add(project);
 		}
 		dataMap.put("projects", projectsList);
 		

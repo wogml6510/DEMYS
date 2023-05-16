@@ -4,7 +4,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ducks.demys.boot.service.ProjectsService;
 import com.ducks.demys.command.SearchCriteria;
@@ -19,19 +21,32 @@ public class ProjectsController {
 	
 	// Action
 	@RequestMapping("project/main")
-	public void pjctList(Model model, SearchCriteria cri) {
+	public String pjctList(Model model, @ModelAttribute SearchCriteria cri, 
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+	        @RequestParam(value = "keyword", defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int perPageNum) {
 		//Issue issue = issueService.getIssueByISSUE_NUM(issueNum);
 		
-		if(cri.getPage()<1) cri.setPage(1);
-		if(cri.getPerPageNum()<1) cri.setPerPageNum(5);
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		cri.setSearchType(searchType);
+	    cri.setKeyword(keyword);
 		
-		//List<Projects> projects
-		Map<String, Object> dataMap = projectsService.getPJList(cri);
+		// 시작 위치(startRow) 계산
+		int startRow = (cri.getPage() - 1) * cri.getPerPageNum() + 1;
+		// 끝 위치(endRow) 계산
+		int endRow = cri.getPage() * cri.getPerPageNum();
+		
+		 if (cri.getPage() < 1) cri.setPage(1);
+		 if (cri.getPerPageNum() < 1) cri.setPerPageNum(5);
+		
+		
+		Map<String, Object> dataMap = projectsService.getPJList(cri, startRow, endRow);
 		
 		model.addAttribute("dataMap", dataMap);
 		
 		
-		//return "project/main";
+		return "project/main";
 	}
 	@RequestMapping("project/regist")
 	public void pjctRegist() {

@@ -5,23 +5,31 @@
 <mapper namespace="com.ducks.demys.boot.repository.ProjectsRepository">
 	<sql id="search">
 		<if test="searchType == 'pn'.toString()">
-			and PJ_NAME like '%'#{keyword}||'%'
+			and PJ_NAME like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'cn'.toString()">
-			and CT_NAME like '%'#{keyword}||'%'
+			and CT_NAME like '%'||#{keyword}||'%'
 		</if>
 	</sql>
 
 	<select id="getPJList" resultType="Projects">
-		SELECT P.*, C.CT_NAME
-		FROM projects P
-		INNER JOIN contacts C
-		ON P.CT_NUM = C.CT_NUM
-		ORDER BY P.PJ_ENDDATE ASC
+		FROM(
+			SELECT P.*, C.CT_NAME
+			FROM projects P
+			INNER JOIN contacts C
+			ON P.CT_NUM = C.CT_NUM
+			<include refid="search">
+				<property name="searchType" value="#{searchType}" />
+				<property name="keyword" value="#{keyword}" />
+			</include>
+			ORDER BY P.PJ_ENDDATE ASC
+		)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
 	<select id="getPJListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM PROJECTS
+		<include refid="search" />
 	</select>
 	
 	<select id="getPJListByMEMBER_NUM" resultType="Projects">

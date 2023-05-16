@@ -1,5 +1,7 @@
 package com.ducks.demys.command;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class SearchCriteria {
 	private int page;          // 해당, 현재페이지
 	private int perPageNum;    // 페이지안에 있는 컬럼갯수(게시글갯수)

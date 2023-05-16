@@ -23,32 +23,30 @@
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 
-<form id="jobForm">	
+<form id="jobForm" method="get">	
 	<input type='hidden' name="page" value=""/>
-	<input type='hidden' name="perPageNum" value=""/>
+	<input type='hidden' name="perPageNum" value="5"/>
 	<input type='hidden' name="searchType" value="" />
 	<input type='hidden' name="keyword" value="" />
 </form>
 
-<div class="pagination">
-	  <a href="javascript:list_go(1)" class="page-link">&laquo;</a>
-	  <a href="#" class="page-link">&lt;</a>
-	  
-	  <c:forEach>
-	  	<a href="#" class="page-link">1</a>
-	  </c:forEach>
-	  <!-- <a class="active" href="#">2</a> -->
-	  
-	  <a href="#" class="page-link">&gt;</a>
-	  <a href="#" class="page-link">&raquo;</a>
-</div>
 
+<div class="pagination">
+	<a href="javascript:list_go(1);" class="page-link">&laquo;</a>
+	<a href="javascript:list_go(${pageMaker.prev ? pageMaker.startPage-1 : cri.page });" class="page-link">&lt;</a>
+	
+	<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+		<a href="javascript:list_go(${pageNum}, 'main');" class="page-link ${cri.page == pageNum ? 'active' : ''}">${pageNum}</a>
+	</c:forEach>
+	
+	<a href="javascript:list_go(${pageMaker.prev ? pageMaker.endPage+1 : cri.page});" class="page-link">&gt;</a>
+	<a href="javascript:list_go(${pageMaker.realEndPage});" class="page-link">&raquo;</a>
+</div>
 <script>
 function list_go(page,url){
 	if(!url) url="main";
 	
 	$("form#jobForm input[name='page']").val(page);
-	$("form#jobForm input[name='perPageNum']").val();
 	$("form#jobForm input[name='searchType']").val($('select[name="searchType"]').val());
 	$("form#jobForm input[name='keyword']").val($('div.p-searchbar>input[name="keyword"]').val());
 	

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="projects" value="${dadtaMap.projectsList }"/>
+<c:set var="projects" value="${dataMap.projects }"/>
 <c:set var="pageMaker" value="${dataMap.pageMaker }"/>
 <c:set var="cri" value="${pageMaker.cri }"/>
 
@@ -81,7 +81,7 @@
 			</c:forEach>
 		
 			<div class="p-list-pagination">
-				<%-- <%@ include file="../module/pagination.jsp" %>  --%>
+				<%@ include file="../module/pagination.jsp" %> 
 			</div>
 			
 		</div>
