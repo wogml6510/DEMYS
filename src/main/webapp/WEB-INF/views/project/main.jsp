@@ -14,8 +14,7 @@
 .p-main-body{
 	margin-top:5px;
 	width:100%;
-	height: calc(930px - 65px - 63px); 
-	background-color:#F2F2F2;
+	height: calc(930px - 65px - 63px);
 	padding:5px;
 }
 </style>
@@ -28,7 +27,7 @@
 	<div class="p-sidbar">
 		<div class="p-bt">
 			<div class="p-regist">
-				<button class="p-rg-bt">
+				<button class="p-rg-bt" onclick="pj_regist();">
 					<i class="fa-regular fa-square-plus"></i>
 					프로젝트등록
 				</button>
@@ -54,15 +53,15 @@
 			</div>
 			<div class="p-searchbar">
 				<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered" style="width:85%;"  value="${cri.keyword }"/>
-				<button type="button" data-card-widget="search" onclick="list_go(1);">
-					<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+				<button type="button" data-card-widget="search" onclick="list_go(1);" style="width:15%;">
+					<i class="fa-solid fa-magnifying-glass" style="font-size:30px;display:flex;align-items: center;justify-content: space-around;"></i>
 				</button>
 			</div>
 			
 		</div>
 		<div class="p-list">
  			<c:forEach var="pj" items="${projects }" >
-			    <div class="p-list-box">
+			    <div class="p-list-box" data-pj-num="${pj.PJ_NUM }" onclick="pj_detail(${pj.PJ_NUM });">
 					<div style="border-bottom:1px solid #797979;">
 						<div class="ellipsis p-list-title">
 							<c:choose>
@@ -98,37 +97,57 @@
 		</div>
 	
 	</div>
-	 <div class="p-body">
-		<div class="p-body-header">
-	 	 	<div class="p-main-title">
-		     	<div>
-		      		<span class="p-main-title-sty"></span>
-		     	</div>
-	   			<div class="p-main-reg-date"></div>
-		 	 </div>
-		 	 
-	      	<div class="p-body-header-1">
-			      <div style="display: flex;">
-			         <div class="header-1-menu"><a href="#">프로젝트</a></div> |
-			         <div class="header-1-menu"><a href="#">단위업무</a></div> |
-			         <div class="header-1-menu"><a href="#">이슈관리</a></div> |
-			         <div class="header-1-menu"><a href="#">예산수립</a></div> |
-			         <div class="header-1-menu"><a href="#">회의록</a></div> |
-			         <div class="header-1-menu"><a href="#">산출물관리 &nbsp;</a></div>
-			      </div>
-	      	</div>
-	   </div> 
-	   <!-- project작업공간 -->
-		<div class="p-main-body">
-   
-   
-   
-   
-   		<!-- p-main-body끝나는 태그 -->
-		</div>   
-	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
-	</div>
+	 <div class="p-body pjbody" style="background-color: rgb(226 232 240);">
+	 
+	 </div>	
 <!-- project/list.jsp 화면끝나는 태그 -->
 </div>
 
+
+
+<script>
+
+// 프로젝트 상세
+function pj_detail(PJ_NUM){
+//	alert(pjnum);
+
+	$.ajax({
+		url: "detail?PJ_NUM="+PJ_NUM,
+		type: "get",
+		dataType: "text",
+		success: function(data){
+			//alert(pjnum);
+			$(".pjbody").html(data);
+			$(".p-body").css('background-color', "white");
+			$(".p-list-box").css('border',"1px solid #797979");
+		    $(".p-list-box[data-pj-num='" + PJ_NUM + "']").css('border',"4px solid #1ECAF0");
+		},
+		error: function (xhr, status, error) {
+            // AJAX 요청이 실패했을 때 실행할 코드
+            console.log(error);
+        }
+	});
+}
+
+</script>
+
+<script>
+function pj_regist(){
+	//alert("regist");
+	
+	$.ajax({
+		url:"regist",
+		type:"get",
+		dataType:"text",
+		success: function(data){
+			//alert("form");
+			$(".pjbody").html(data);
+			$(".p-body").css('background-color', "white");
+		}
+	})
+} 
+</script>
+
+
+<script src="/resource/js/common.js" defer="defer"></script>
 <%@ include file="../common/foot.jsp" %>

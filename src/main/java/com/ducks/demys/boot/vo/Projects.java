@@ -26,5 +26,6 @@ public class Projects {
 	private int CT_NUM;
 	
 	private String CT_NAME;
+	private String MEMBER_NAME;
 	private int ISSUE_COUNT;
 }

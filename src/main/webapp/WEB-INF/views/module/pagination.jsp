@@ -24,7 +24,7 @@
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 
-<form id="jobForm" method="get">	
+<form id="searchForm" method="get">	
 	<input type='hidden' name="page" value=""/>
 	<input type='hidden' name="perPageNum" value="5"/>
 	<input type='hidden' name="searchType" value="" />
@@ -43,17 +43,3 @@
 	<a href="javascript:list_go(${pageMaker.next ? pageMaker.endPage+1 : cri.page});" class="page-link">&gt;</a>
 	<a href="javascript:list_go(${pageMaker.realEndPage});" class="page-link">&raquo;</a>
 </div>
-<script>
-function list_go(page,url){
-	if(!url) url="main";
-	
-	$("form#jobForm input[name='page']").val(page);
-	$("form#jobForm input[name='searchType']").val($('select[name="searchType"]').val());
-	$("form#jobForm input[name='keyword']").val($('div.p-searchbar>input[name="keyword"]').val());
-	
-	$('form#jobForm').attr({
-		action:url,
-		method:'get'
-	}).submit();
-}
-</script>

@@ -14,4 +14,18 @@ function CloseWindow(){
 	window.close();
 }
 
-// 조회
+// 페이지네이션 + 조회
+function list_go(page,url){
+	if(!url) url="main";
+	
+	$("form#searchForm input[name='page']").val(page);
+	$("form#searchForm input[name='searchType']").val($('select[name="searchType"]').val());
+	$("form#searchForm input[name='keyword']").val($('div.p-searchbar>input[name="keyword"]').val());
+	
+	console.log($('select[name="searchType"]').val());
+	
+	$('form#searchForm').attr({
+		action:url,
+		method:'get'
+	}).submit();
+}

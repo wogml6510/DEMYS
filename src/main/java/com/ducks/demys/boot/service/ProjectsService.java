@@ -33,9 +33,11 @@ public class ProjectsService {
 		}
 		dataMap.put("projects", projectsList);
 
+		int totalCount = projectsRepository.getPJListCount(cri);
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(projectsRepository.getPJListCount(cri));
+		pageMaker.setTotalCount(totalCount);
 		dataMap.put("pageMaker", pageMaker);
 
 //		// 시작 위치(startRow) 계산
@@ -46,6 +48,9 @@ public class ProjectsService {
 //		dataMap.put("startRow", startRow);
 //		dataMap.put("endRow", endRow);
 
+		//System.out.println("Service: dataMap: "+ cri.getKeyword() + cri.getSearchType());
+
+		
 		return dataMap;
 	}
 
@@ -54,7 +59,9 @@ public class ProjectsService {
 	}
 
 	public Projects getPJByPJ_NUM(int PJ_NUM) {
-		return projectsRepository.getPJByPJ_NUM(PJ_NUM);
+		Projects projects = projectsRepository.getPJByPJ_NUM(PJ_NUM);
+		//System.out.println("PJ_NUM: "+PJ_NUM);
+		return projects;
 	}
 
 	public void registPJ(Projects project) {

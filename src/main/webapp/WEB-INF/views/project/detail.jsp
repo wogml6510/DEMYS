@@ -1,97 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="../common/head.jsp" %>
 
-<style>
-/* p-main-body 고정 수정X, border만 씌워서 작업!! */
-.p-main-body{
-	margin-top:5px;
-	width:100%;
-	height: calc(930px - 65px - 63px); 
-	/* background-color:#F2F2F2; */
-	padding:5px;
-}
-</style>
-
-<link rel="stylesheet" href="/resource/css/project/list.css" />
-<link rel="stylesheet" href="/resource/css/project/phead.css" />
 <link rel="stylesheet" href="/resource/css/project/detail.css" />
 <!-- 프로젝트정보/거래처 등록 모달창.css -->
 <link rel="stylesheet" href="/resource/css/project/contacts_regist_modal.css" />
 <link rel="stylesheet" href="/resource/css/project/contacts_modal.css" />
 
-<div class="project-part">
-
-	<div class="p-sidbar">
-		<div class="p-bt">
-			<div class="p-regist">
-				<button class="p-rg-bt">
-					<i class="fa-regular fa-square-plus"></i>
-					프로젝트등록
-				</button>
-				<div class="p-inend">
-					<button class="p-inpro">진행중 </button>
-					<button class="p-end">완료 </button>
-				</div>
-				<div class="p-check">
-					<div style="padding-top:3px;">
-					  <label class="cursor-pointer label">
-					    <input type="checkbox" checked="checked" class="checkbox checkbox-info" />
-					    <span class="label-text">&nbsp;전체 프로젝트</span>
-					  </label>
-					</div>
-					<div class="w-42">
-						<select class="select w-full max-w-xs">
-						  	<option disabled selected>프로젝트명</option>
-						  	<option>프로젝트명</option>
-						  	<option>업체명</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="p-searchbar">
-				<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered" style="width:85%;"/>
-				<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
-			</div>
-			
-		</div>
-		<div class="p-list">
- 			<c:forEach begin="0" end="4" step="1" >
-			    <div class="p-list-box">
-					<div style="border-bottom:1px solid #797979;">
-						<div class="ellipsis p-list-title">
-							<span style="color:red;font-size:20px;"><i class="fa-sharp fa-solid fa-flag"></i></span>
-							<span >프로젝트제목들어가야함계속길게적는중</span>
-						</div>
-						<div class="p-list-date">
-							<span>2023.05.02 ~ </span>
-							<span> 2023.07.02</span>
-						</div>
-					</div>
-					<div class="p-list-box-bottom">
-						<span style="font-size:15px;">(주)오싸거</span>
-						<span class="p-list-issu">이슈 3</span>
-					</div>
-				</div>
-			</c:forEach>
-		
-			<div class="p-list-pagination">
-			
-			</div>
-			
-		</div>
-	
-	</div>
-	 <div class="p-body">
-		<div class="p-body-header">
+<div class="p-body-header">
 	 	 	<div class="p-main-title">
 		     	<div>
-		     		<i class="fa-solid fa-flag ml-6" style="color:red;"></i> 
-		      		<span class="p-main-title-sty">정보통신 연구개발사업($프로젝트명)</span>
+		     		<c:choose>
+						<c:when test="${projects.PJ_IMP eq 3}">
+							<i class="fa-solid fa-flag ml-6" style="color:#D9001B;"></i>
+						</c:when>
+						<c:when test="${projects.PJ_IMP eq 2}">
+							<i class="fa-solid fa-flag ml-6" style="color:#F59A23;"></i>
+						</c:when>
+						<c:otherwise>
+							<i class="fa-solid fa-flag ml-6" style="color:#FFFF00;"></i>
+						</c:otherwise>
+					</c:choose>
+		      		<span class="p-main-title-sty">${projects.PJ_NAME }</span>
 		     	</div>
-	   			<div class="p-main-reg-date">등록일 : 2023.05.09</div>
+	   			<div class="p-main-reg-date"></div>
 		 	 </div>
 		 	 
 	      	<div class="p-body-header-1">
@@ -106,21 +40,20 @@
 	      	</div>
 	   </div> 
 	   <!-- project작업공간 -->
-		<div class="p-main-body">
-		
+		<div class=" p-main-body">
    			<div class="p-body-cont">
    				<div class="header-2-menu0">
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
 					         |<div class="header-2-menu"><a href="#">프로젝트 정보</a></div> |
-					         <div class="header-2-menu"><a href="#">참여인력</a></div>
+					         <div class="header-2-menu"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
 					      </div>
 		   			</div>
 	   			</div>
 	   			
 	   			<!-- 프로젝트정보 -->
-	   			<div>
+	   			<div >
 	   				<div class="p-info-detail">
 	   					<div class="p-info-detail-title">
 	   						<span style="font-weight:bold;">프로젝트 정보</span>
@@ -130,42 +63,47 @@
 	   						<table border="1">
 	   							<tr>
 	   								<td>프로젝트명</td>
-	   								<td>프로젝트명</td>
+	   								<td>${projects.PJ_NAME }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트기간</td>
 	   								<td>
-	   									<span>2022.01.12</span>
-	   									<span>~ 2022.03.30</span>
+	   									<span><fmt:formatDate value="${projects.PJ_STARTDATE }" pattern="yyyy-MM-dd"/></span>
+	   									<span>~ <fmt:formatDate value="${projects.PJ_ENDDATE }" pattern="yyyy-MM-dd"/></span>
 	   								</td>
 	   							</tr>
 	   							<tr>
 	   								<td>예상 매출액</td>
-	   								<td>2,000,000원</td>
+	   								<td>${projects.PJ_PRICE }원</td>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트 매니저</td>
-	   								<td>루피다에</td>
+	   								<td>${projects.MEMBER_NAME }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트 사업구분</td>
-	   								<td>제조</td>
+	   								<td>${projects.PJ_FIELD }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트 구분</td>
-	   								<td>내부 프로젝트</td>
+	   								<c:if test="${projects.PJ_TYPE eq 1}">
+		   								<td>내부 프로젝트</td>
+	   								</c:if>
+	   								<c:if test="${projects.PJ_TYPE eq 2}">
+		   								<td>외부 프로젝트</td>
+	   								</c:if>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트 내용</td>
-	   								<td>모달창에 모달창 그사이 모달창</td>
+	   								<td>${projects.PJ_CONTENT }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>업체명</td>
-	   								<td>(주)논산가는효기인</td>
+	   								<td>${projects.CT_NAME }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>깃 주소</td>
-	   								<td>http/여기는 깃주소 들어가도 되고 null도 가능</td>
+	   								<td>${projects.PJ_GIT }</td>
 	   							</tr>
 	   						</table>
 	   					</div>
@@ -227,12 +165,13 @@
    
    
    
-		</div>   
    		<!-- p-main-body끝나는 태그 -->
-	</div>
+		</div>   
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
-</div>
-<!-- project/list.jsp 화면끝나는 태그 -->
+	
+   			
+   
+	 
 
 
 <!-- 모달창-거래처 조회 등록  -->
@@ -326,6 +265,11 @@ document.getElementById("modal_close_btn_Cts_1").onclick = function() {
 
       <div class="modal_layer"></div>
 </div>
-<script src="/resource/js/modal.js" defer="defer"></script>
 
-<%@ include file="../common/foot.jsp" %>
+
+
+
+
+
+
+<script src="/resource/js/modal.js" defer="defer"></script>
