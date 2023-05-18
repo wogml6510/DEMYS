@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ducks.demys.boot.repository.IssueRepository;
+import com.ducks.demys.boot.repository.MemberRepository;
 import com.ducks.demys.boot.repository.ProjectsRepository;
+import com.ducks.demys.boot.vo.Member;
 import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.PageMaker;
 import com.ducks.demys.command.SearchCriteria;
@@ -17,10 +19,12 @@ public class ProjectsService {
 
 	private ProjectsRepository projectsRepository;
 	private IssueRepository issueRepository;
+//private MemberRepository memberRepository;
 
 	public ProjectsService(ProjectsRepository projectsRepository, IssueRepository issueRepository) {
 		this.projectsRepository = projectsRepository;
 		this.issueRepository = issueRepository;
+	//	this.memberRepository = memberRepository;
 	}
 
 	public Map<String, Object> getPJList(SearchCriteria cri) {
@@ -40,14 +44,10 @@ public class ProjectsService {
 		pageMaker.setTotalCount(totalCount);
 		dataMap.put("pageMaker", pageMaker);
 
-//		// 시작 위치(startRow) 계산
-//		int startRow = cri.getStartRow();
-//		int endRow = cri.getEndRow();
-//		// 끝 위치(endRow) 계산
-//		
-//		dataMap.put("startRow", startRow);
-//		dataMap.put("endRow", endRow);
-
+		// memberList
+//		List<Member> memberList = memberRepository.getMemberList(cri);
+//		dataMap.put("member", memberList);
+		
 		//System.out.println("Service: dataMap: "+ cri.getKeyword() + cri.getSearchType());
 
 		

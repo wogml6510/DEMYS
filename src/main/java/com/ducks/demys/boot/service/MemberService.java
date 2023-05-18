@@ -15,9 +15,16 @@ public class MemberService {
 	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository= memberRepository;
 	}
-	
+	//JH
 	public List<Member> getMemberList(){
-		return memberRepository.getMemberList();
+		List<Member> memberList = memberRepository.getMemberList();
+		
+		return memberList;
+	}
+	public List<Member> getMemberListSearch(String searchType, String keyword){
+		List<Member> memberList = memberRepository.getMemberListSearch(searchType, keyword);
+		
+		return memberList;
 	}
 	
 	public Member getMemberByMEMBER_NUM(int MEMBER_NUM) {

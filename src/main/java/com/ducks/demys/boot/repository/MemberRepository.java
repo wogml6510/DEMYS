@@ -5,11 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ducks.demys.boot.vo.Member;
+import com.ducks.demys.command.SearchCriteria;
 
 @Mapper
 public interface MemberRepository {
-	
+	// JH
 	public List<Member> getMemberList();
+	public List<Member> getMemberListSearch(String searchType, String keyword);
 	
 	public Member getMemberByMEMBER_NUM(int MEMBER_NUM);
 	
@@ -24,4 +26,5 @@ public interface MemberRepository {
 	public void modifyForQuitMember(Member member);
 	
 	public void removeMember(int MEMBER_NUM);
+
 }

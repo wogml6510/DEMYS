@@ -27,18 +27,19 @@
    				</div>
    				<span style="font-weight:bold;">* 진행할 프로젝트 유형을 선택하세요.</span>
    				<div class="p-type-select">
-   					<div class="p-type-in">
+   					<div class="p-type-in p-type" data-pj-type="1" onclick="javascript:selectPJ_TYPE(1);">
    						<img src="/resource/img/list_regist.png" class="p-type-in-icon"/>
    						<span>내부 프로젝트</span>
    					</div>
-   					<div class="p-type-out">
+   					<div class="p-type-out p-type" data-pj-type="2"onclick="javascript:selectPJ_TYPE(2);">
    						<img src="/resource/img/list_regist.png" class="p-type-in-icon"/>
    						<span>외부 프로젝트</span>
    					</div>
    				</div>
+   				<input type="hidden" id="PJ_TYPE_VALUE" />
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">취소</button>
-   					<button class="p-type-bt-1">다음</button>
+   					<button class="p-type-bt-1" onclick="javascript:registNext_go();">다음</button>
    				</div>
    				
    			</div>
@@ -47,3 +48,33 @@
 		</div>   
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
 	</div>
+<script>
+function selectPJ_TYPE(PJ_TYPE){
+	$('#PJ_TYPE_VALUE').val(PJ_TYPE);
+	$(".p-type").css('border',"3px solid #797979");
+	$(".p-type[data-pj-type='"+PJ_TYPE+"']").css('border',"4px solid #1ECAF0");
+}
+
+function registNext_go(){
+	
+	var PJ_TYPE=$('#PJ_TYPE_VALUE').val();
+
+	$.ajax({
+		url:"regist_PJTYPE?PJ_TYPE="+PJ_TYPE,
+		type:"get",
+		dataType: "text",
+		success: function(data){
+			$(".pjbody").html(data);
+			$(".p-body").css('background-color', "white");
+			
+		}
+	});
+}
+</script>
+
+
+
+
+
+
+

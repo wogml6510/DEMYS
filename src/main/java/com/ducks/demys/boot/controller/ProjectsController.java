@@ -1,5 +1,7 @@
 package com.ducks.demys.boot.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -7,17 +9,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ducks.demys.boot.service.MemberService;
 import com.ducks.demys.boot.service.ProjectsService;
+import com.ducks.demys.boot.vo.Member;
 import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.SearchCriteria;
 
 @Controller
 public class ProjectsController {
 	private ProjectsService projectsService;
+	private MemberService memberService;
 	
-	public ProjectsController(ProjectsService projectsService) {
+	public ProjectsController(ProjectsService projectsService, MemberService memberService) {
 		this.projectsService = projectsService;
+		this.memberService = memberService;
 	}
 	
 	// Action
@@ -36,8 +43,10 @@ public class ProjectsController {
 //	    cri.setKeyword(keyword);
 		
 	    Map<String, Object> dataMap = projectsService.getPJList(cri);
+	    
+	    model.addAttribute("dataMap", dataMap);
 		
-		model.addAttribute("dataMap", dataMap);
+		
 //		model.addAttribute("page",page);
 //		model.addAttribute("perPageNum",perPageNum);
 //		model.addAttribute("searchType",searchType);
@@ -59,11 +68,42 @@ public class ProjectsController {
 	public void pjctRegist() {
 		
 	}
+	
+	@RequestMapping("project/regist_PJTYPE")
+	public String sendpjtype(Model model, int PJ_TYPE) {
+		model.addAttribute("PJ_TYPE",PJ_TYPE);
+		//System.out.println(PJ_TYPE);
+		return "project/regist_detail";
+	}
+	
 	@RequestMapping("project/regist_detail")
-	public void pjctRegistDetail() {
+	@ResponseBody
+	public Map<String, Object> pjctRegistDetail() {
+		Map<String, Object> data=new HashMap<String, Object>();
+		List<Member> memberList = memberService.getMemberList();
+		data.put("memberList",memberList);
+		return data;
 	}
 	
 	
+	 @RequestMapping("project/regist_searchMEMBER")
+	 @ResponseBody
+	 public Map<String, Object> sendsearchMember(Model model, 
+			 @RequestParam String searchType, 
+			 @RequestParam String keyword
+			 ) {
+		 Map<String, Object> data = new HashMap<String, Object>();
+		 List<Member> memberList = memberService.getMemberListSearch(searchType, keyword);
+		 data.put("memberList", memberList);
+//		 model.addAttribute("searchType",searchType);
+//		 model.addAttribute("keyword",keyword); 
+//		 model.addAttribute("memberList", memberList); 
+		 System.out.println("searchType: "+searchType);
+		 System.out.println("keyword: "+keyword);
+		 
+		 return data; 
+	 }
+	 
 	
 	@RequestMapping("project/hr_list")
 	public void showPjctHrList() {
@@ -76,8 +116,16 @@ public class ProjectsController {
 	@RequestMapping("project/hr_modify")
 	public void showPjctHrModify() {
 	}
-	
-	/*
-	 * @RequestMapping("requre/list") public void showRequreList() { }
-	 */
+
 }
+
+
+
+
+
+
+
+
+
+
+

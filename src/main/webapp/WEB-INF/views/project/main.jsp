@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="projects" value="${dataMap.projects }"/>
+
 <c:set var="pageMaker" value="${dataMap.pageMaker }"/>
 <c:set var="cri" value="${pageMaker.cri }"/>
 
@@ -21,6 +22,7 @@
 
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
+
 
 <div class="project-part">
 
@@ -144,7 +146,7 @@ function pj_regist(){
 			$(".pjbody").html(data);
 			$(".p-body").css('background-color', "white");
 		}
-	})
+	});
 } 
 </script>
 
