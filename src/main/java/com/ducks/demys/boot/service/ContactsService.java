@@ -40,4 +40,14 @@ public class ContactsService {
 	public void removeContacts(int CT_NUM) {
 		contactsRepository.removeContacts(CT_NUM);
 	}
+
+	//JH
+	public List<Contacts> getContactsListPjRegist(){
+		List<Contacts>  contactsList = contactsRepository.getContactsListPjRegist();
+		return contactsList;
+	}
+	public List<Contacts> getContactsListPjRegistSearch(String searchType, String keyword){
+		List<Contacts> contactsList = contactsRepository.getContactsListPjRegistSearch(searchType, keyword); 
+		return contactsList;
+	}
 }

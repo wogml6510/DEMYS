@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ducks.demys.boot.service.ContactsService;
 import com.ducks.demys.boot.service.MemberService;
 import com.ducks.demys.boot.service.ProjectsService;
+import com.ducks.demys.boot.vo.Contacts;
 import com.ducks.demys.boot.vo.Member;
 import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.SearchCriteria;
@@ -21,10 +23,12 @@ import com.ducks.demys.command.SearchCriteria;
 public class ProjectsController {
 	private ProjectsService projectsService;
 	private MemberService memberService;
+	private ContactsService contactsService;
 	
-	public ProjectsController(ProjectsService projectsService, MemberService memberService) {
+	public ProjectsController(ProjectsService projectsService, MemberService memberService, ContactsService contactsService) {
 		this.projectsService = projectsService;
 		this.memberService = memberService;
+		this.contactsService = contactsService;
 	}
 	
 	// Action
@@ -80,8 +84,12 @@ public class ProjectsController {
 	@ResponseBody
 	public Map<String, Object> pjctRegistDetail() {
 		Map<String, Object> data=new HashMap<String, Object>();
+		
 		List<Member> memberList = memberService.getMemberList();
+		List<Contacts> contactsList = contactsService.getContactsListPjRegist();
+		
 		data.put("memberList",memberList);
+		data.put("contactsList",contactsList);
 		return data;
 	}
 	
@@ -89,21 +97,27 @@ public class ProjectsController {
 	 @RequestMapping("project/regist_searchMEMBER")
 	 @ResponseBody
 	 public Map<String, Object> sendsearchMember(Model model, 
-			 @RequestParam String searchType, 
-			 @RequestParam String keyword
-			 ) {
+			 @RequestParam String searchType, @RequestParam String keyword ) {
+		 
 		 Map<String, Object> data = new HashMap<String, Object>();
 		 List<Member> memberList = memberService.getMemberListSearch(searchType, keyword);
 		 data.put("memberList", memberList);
-//		 model.addAttribute("searchType",searchType);
-//		 model.addAttribute("keyword",keyword); 
-//		 model.addAttribute("memberList", memberList); 
-		 System.out.println("searchType: "+searchType);
-		 System.out.println("keyword: "+keyword);
 		 
 		 return data; 
 	 }
 	 
+	 @RequestMapping("project/regist_searchCONTACTS")
+	 @ResponseBody
+	 public Map<String, Object> sendsearchContacts(Model model, 
+			 @RequestParam String searchType, @RequestParam String keyword ) {
+		 
+		 Map<String, Object> data = new HashMap<String, Object>();
+		 List<Contacts> contactsList = contactsService.getContactsListPjRegistSearch(searchType, keyword);
+			
+		 data.put("contactsList", contactsList);
+		 
+		 return data; 
+	 }
 	
 	@RequestMapping("project/hr_list")
 	public void showPjctHrList() {

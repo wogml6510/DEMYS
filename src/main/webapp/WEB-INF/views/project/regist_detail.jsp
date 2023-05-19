@@ -80,12 +80,12 @@
 	   					</tr>
 	   					<tr >
 	   						<td>업체명</td>
-	   						<td><input type="text" value="" disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
-	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0"> 찾기 </button></div> </td>
+	   						<td><input id="c_name" type="text" value="${projects.CT_NUM }" disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0" onclick="javascript:searchCONTACTS_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 매니저</td>
-	   						<td><input id="m_name" type="text" value="" disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input id="m_names" type="text" value="${projects.MEMBER_NUM }" disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   						
 	   						<td><div ><button id="modal_opne_btn2" class="p-type-bt-0" onclick="javascript:searchMEMBER_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
@@ -102,8 +102,9 @@
 	   						<td><input type="text" placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   					</tr>
 	   				</table>
-	   				<!-- MEMBER_NAME값  -->
-	   				<input id="m_num" type="hidden" value=""/>
+	   				<!-- MEMBER_NUM, CONTACTS_NUM  -->
+	   				<input id="m_number" type="hidden" value=""/>
+	   				<input id="c_num" type="hidden" value=""/>
    				</div>
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">이전</button>
@@ -118,7 +119,7 @@
 	</div>
 
 <!-- 모달창-업체명  -->
-<div id="modal_1">
+<div id="modal_1" class="modal_contacts_name">
 
       <div class="modal_content">
             <div class="flex" style="background-color: #153A66;">
@@ -132,75 +133,175 @@
 					<span>업체명</span>
 				</div>
 				<div class="cts-title-sub">* 등록된 업체를 조회합니다.</div>
-				<div class="p-modal-serach">
-					<select class="select select-bordered p-cts-select">
+				<div class="p-modal-serach select_contacts">
+					<select class="select select-bordered p-cts-select " name="searchType" id="searchType">
 						  <option disabled selected>선택 </option>
-						  <option>업체명</option>
-						  <option>대표자명</option>
+						  <option value="cn" ${searchType=='cn' ? "selected":"" }>업체명</option>
+						  <option value="cc" ${searchType=='cc' ? "selected":"" }>대표자명</option>
 					</select>
-					<div class="p-modal-searchbar">
-						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
-						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+					<div class="p-modal-searchbar contacts-modal-searchbar">
+						<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
+						<i onclick="contacts_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
 					</div>
 				</div>
 				<div class="cts-serch-list">
-					<table border="1">
-						<c:forEach begin="0" end="6" step="1" >
-							<tr>
-								<td>(주) 업체명써</td>
-								<td>대표자명</td>
-							</tr>
-						</c:forEach>
+					<table id="contactsList_view" border="1">
+						<!-- contactsList나오는곳 -->
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
 	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
 	            </div>
 			</div>
       </div>
 
       <div class="modal_layer"></div>
 </div>
+
+<script>
+/* function searchCONTACTS_NAME(){
+	
+	$(".modal_contacts_name").css('display',"block");
+	$.ajax({
+		//alert("contacts");
+		url: "regist_detail",
+		type: "get",
+		dataType:"json",
+		success: function(data){
+			var contactsList = data.contactsList;
+			var table = $('#contactsList_view');
+			table.empty();
+			console.log(data);
+			for(var i=0 ; i<contactsList.length; i++ ){
+				var contacts = contactsList[i];
+				var row = '<tr><td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
+				table.append(row);
+			}
+		}
+	}); 
+}
+
+//프로젝트member조회
+function contacts_list_go(){
+	
+	//alert("리스트 돋보기");
+	var searchType = $('.select_contacts>select[name="searchType"]').val();
+	var keyword = $('div.contacts-modal-searchbar>input[name="keyword"]').val();
+	//console.log(searchType);
+	//console.log(keyword);
+	$.ajax({
+		//alert("리스트 ajax");
+		url: "regist_searchCONTACTS",
+		type: "get",
+		dataType:"json",
+		data:{
+			"searchType":searchType,
+			"keyword": keyword
+		},
+		success: function(data){
+			var contactsList = data.contactsList;
+			var table = $('#contactsList_view');
+			table.empty();
+			
+			for(var i=0 ; i<contactsList.length; i++ ){
+				var contacts = contactsList[i];
+				var row = '<tr data-contacts-num ="'+ contacts.ct_NUM +'"> <td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
+				table.append(row);
+			}
+			
+			table.find('tr').click(function(){
+				var CT_CEO = $(this).find('td:first-child').text();
+				var CT_NUM = $(this).data('contacts-num');
+				cosole.log(CT_CEO);
+				var input_cnum = `<input id="${c_num}" type="hidden" value="${CT_CEO}" />`;
+				var input_cname = `<input id="${c_name}" type="hidden" value="${CT_NUM}" />`;
+
+				//var input_cnum = '<input id="' + c_num + '" type="hidden" value="' + CT_CEO + '"/>';
+				//var input_cname = '<input id="' + c_num + '" type="hidden" value="' + CT_NUM + '"/>';
+
+				$('.p-regi-modal-bts').append(input_cnum);
+				$('.p-regi-modal-bts').append(input_cname);
+
+				//CONTACTS_S_REGI(CT_CEO, CT_NUM);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == CT_CEO){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+				//alert(MEMBER_NAME);
+			});
+		}
+	});
+	
+}
+
+function CONTACTS_S_REGI(MEMBER_NAME, MEMBER_NUM){
+	alert("MEMBER_S_REGI값넘어옴");
+	console.log(MEMBER_NAME);
+	console.log(MEMBER_NUM);
+	//$('#m_name>input').val('');
+	$('#m_name').val(MEMBER_NAME);
+	$('#m_num').val(MEMBER_NUM);
+	
+
+	//$('#m_name').css('color', 'black');
+	//$('#m_name').find('input').css('color', 'black');
+	
+	
+	$(".modal_member_name").css('display', "none");
+}
+
+function CLOSE_MODAL(){
+	$(".modal_member_name").css('display', "none");
+}
+ */
+</script>
+
  <!-- 모달창-프로젝트메니저  -->
-    <div id="modal_2" class="modal_member_name">
+  <div id="modal_2" class="modal_member_name">
 
-      <div class="modal_content">
-            <div class="flex" style="background-color: #153A66;">
-                  <div class="navbar text-neutral-content modal-head">
-                        <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
-                  </div>
-            </div>
+    <div class="modal_content">
+          <div class="flex" style="background-color: #153A66;">
+                <div class="navbar text-neutral-content modal-head">
+                      <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                </div>
+          </div>
 
-			<div class="cts-view">
-				<div class="cts-title">
-					<span>프로젝트 매니저</span>
-				</div>
-				<div class="cts-title-sub">* 담당매니저를 선택하세요.</div>
-				<div class="p-modal-serach select_member">
-					<select class="select select-bordered p-cts-select" name="searchType" id="searchType">
-						  <option disabled selected>선택 </option>
-						  <option value="mn" ${searchType=='mn' ? "selected":"" }>매니저명</option>
-						  <option value="md" ${searchType=='md' ? "selected":"" }>담당부서</option>
-					</select>
-					<div class="p-modal-searchbar">
-						<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
-						<i onclick="member_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
-					</div>
-				</div>
-				<div class="cts-serch-list">
-					<table id="memberList_view" border="1">
-						<!-- memberList나오는 위치 -->
-					</table>
-				</div>
-				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt" onclick="MEMBER_S_REGI();">등록</button>
-	                  <button id="modal_close_btn2" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
-	            </div>
+		<div class="cts-view">
+			<div class="cts-title">
+				<span>프로젝트 매니저</span>
 			</div>
-      </div>
+			<div class="cts-title-sub">* 담당매니저를 선택하세요.</div>
+			<div class="p-modal-serach select_member">
+				<select class="select select-bordered p-cts-select select_member" name="searchType" id="searchType">
+					  <option disabled selected>선택 </option>
+					  <option value="mn" ${searchType=='mn' ? "selected":"" }>매니저명</option>
+					  <option value="md" ${searchType=='md' ? "selected":"" }>담당부서</option>
+				</select>
+				<div class="p-modal-searchbar key_member">
+					<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
+					<i onclick="member_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+				</div>
+			</div>
+			<div class="cts-serch-list">
+				<table id="memberList_view" border="1">
+					<!-- memberList나오는 위치 -->
+				</table>
+			</div>
+			<div class="p-regi-modal-bts">
+                  <button class="p-regi-modal-bt" onclick="javascript:MEMBER_S_REGI();">등록</button>
+                  <button id="modal_close_btn2" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
+                  <!-- MEMBER NUM, NAME값 받을 공간 -->
+                  <div class="add_member_id" ></div>
+            </div>
+		</div>
+    </div>
 
-      <div class="modal_layer"></div>
+    <div class="modal_layer"></div>
 </div>
 
 <script>
@@ -225,13 +326,14 @@ function searchMEMBER_NAME(){
 	}); 
 }
 
-//조회
+//프로젝트member조회
 function member_list_go(){
 	
 	//alert("리스트 돋보기");
-	var searchType = $('.select_member>select[name="searchType"]').val();
-	var keyword = $('div.p-modal-searchbar>input[name="keyword"]').val();
-	
+	var searchType = $('.select_member[name="searchType"]').val();
+	var keyword = $('.key_member>input[name="keyword"]').val();
+	console.log(searchType);
+	console.log(keyword);
 	$.ajax({
 		//alert("리스트 ajax");
 		url: "regist_searchMEMBER",
@@ -255,7 +357,21 @@ function member_list_go(){
 			table.find('tr').click(function(){
 				var MEMBER_NAME = $(this).find('td:first-child').text();
 				var MEMBER_NUM = $(this).data('member-num');
-				MEMBER_S_REGI(MEMBER_NAME, MEMBER_NUM);
+				//MEMBER_S_REGI(MEMBER_NAME, MEMBER_NUM);
+				//var input_mnum = `<input id="${m_num}" type="hidden" value="${MEMBER_NUM}" />`;
+				//var input_mname = `<input id="${m_name}" type="hidden" value="${MEMBER_NAME}" />`;
+				var input_mnum = '<input id="m_num" type="hidden" value="' + MEMBER_NUM + '" />';
+				var input_mname = '<input id="m_name" type="hidden" value="' + MEMBER_NAME + '" />';
+				
+		 		var addMemberId = $('.add_member_id');
+
+				if (addMemberId.length) {
+				  	addMemberId.empty();
+				}
+				addMemberId.append(input_mnum);
+				addMemberId.append(input_mname);
+				
+				
 				
 				table.find('tr>td:first-child').each(function(){
 					if($(this).text() == MEMBER_NAME){
@@ -265,25 +381,19 @@ function member_list_go(){
 					}
 				});
 				//alert(MEMBER_NAME);
+				
 			});
 		}
 	});
 	
 }
 
-function MEMBER_S_REGI(MEMBER_NAME, MEMBER_NUM){
-	alert("MEMBER_S_REGI값넘어옴");
-	console.log(MEMBER_NAME);
-	console.log(MEMBER_NUM);
-	//$('#m_name>input').val('');
-	$('#m_name').val(MEMBER_NAME);
-	$('#m_num').val(MEMBER_NUM);
-	
+function MEMBER_S_REGI(){
+	var MEMBER_NUM = $('#m_num').val();
+	$('#m_number').val(MEMBER_NUM);
+	var MEMBER_NAME = $('#m_name').val();
+	$('#m_names').val(MEMBER_NAME);
 
-	//$('#m_name').css('color', 'black');
-	//$('#m_name').find('input').css('color', 'black');
-	
-	
 	$(".modal_member_name").css('display', "none");
 }
 

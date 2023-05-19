@@ -22,4 +22,8 @@ public interface ContactsRepository {
 	public void modifyContacts(Contacts contacts);
 	
 	public void removeContacts(int CT_NUM);
+
+	//JH
+	public List<Contacts> getContactsListPjRegist();
+	public List<Contacts> getContactsListPjRegistSearch(String searchType, String keyword);
 }
