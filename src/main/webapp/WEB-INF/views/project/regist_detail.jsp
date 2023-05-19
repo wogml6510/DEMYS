@@ -93,12 +93,12 @@
 	   							<span>깃 주소</span>
 	   							<div class="form-control ml-20">
 								  <label class="label cursor-pointer">
-								    <input type="checkbox" checked="checked" class="checkbox checkbox-primary" value="${projects.PJ_GIT}"/>
+								    <input type="checkbox" checked="checked" class="checkbox checkbox-primary git_check" value="${projects.PJ_GIT}" onclick="javascript:GIT_CHECK();"/>
 								    <span class="label-text ml-2">미 정</span> 
 								  </label>
 								</div>
 	   						</td>
-	   						<td><input type="text" placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input type="text" disabled placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input git_add" /></td>
 	   					</tr>
 	   				</table>
 	   				<!-- MEMBER_NUM, CONTACTS_NUM  -->
@@ -116,7 +116,17 @@
 		</div>   
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
 	</div>
-
+<script>
+function GIT_CHECK(){
+	var checked = $('.git_check');
+	var check_input = $('.git_add');
+	if(checked.is(':checked')){
+		check_input.prop('disabled', true);
+	} else{
+		check_input.prop('disabled', false);
+	}
+}
+</script>
 <!-- 모달창-업체명  -->
 <div id="modal_1" class="modal_contacts_name">
 
