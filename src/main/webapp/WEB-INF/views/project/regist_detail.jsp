@@ -84,8 +84,9 @@
 	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
-	   						<td>프로제트 매니저</td>
+	   						<td>프로젝트 매니저</td>
 	   						<td><input id="m_name" type="text" value="" disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						
 	   						<td><div ><button id="modal_opne_btn2" class="p-type-bt-0" onclick="javascript:searchMEMBER_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
@@ -101,6 +102,8 @@
 	   						<td><input type="text" placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   					</tr>
 	   				</table>
+	   				<!-- MEMBER_NAME값  -->
+	   				<input id="m_num" type="hidden" value=""/>
    				</div>
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">이전</button>
@@ -273,10 +276,12 @@ function MEMBER_S_REGI(MEMBER_NAME, MEMBER_NUM){
 	console.log(MEMBER_NAME);
 	console.log(MEMBER_NUM);
 	//$('#m_name>input').val('');
-	$('#m_name').val(MEMBER_NUM);
-	$('#m_name').attr('placeholder', MEMBER_NAME);
+	$('#m_name').val(MEMBER_NAME);
+	$('#m_num').val(MEMBER_NUM);
 	
-	
+
+	//$('#m_name').css('color', 'black');
+	//$('#m_name').find('input').css('color', 'black');
 	
 	
 	$(".modal_member_name").css('display', "none");

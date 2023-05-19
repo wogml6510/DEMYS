@@ -22,6 +22,8 @@
 
 <link rel="stylesheet" href="/resource/css/project/list.css" />
 <link rel="stylesheet" href="/resource/css/project/phead.css" />
+<link rel="stylesheet" href="/resource/css/project/contacts_modal.css" />
+
 
 
 <div class="project-part">
