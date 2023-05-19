@@ -80,13 +80,12 @@
 	   					</tr>
 	   					<tr >
 	   						<td>업체명</td>
-	   						<td><input id="c_name" type="text" value="${projects.CT_NUM }" disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input id="c_ceos" type="text" value="${projects.CT_NUM }" disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0" onclick="javascript:searchCONTACTS_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 매니저</td>
 	   						<td><input id="m_names" type="text" value="${projects.MEMBER_NUM }" disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
-	   						
 	   						<td><div ><button id="modal_opne_btn2" class="p-type-bt-0" onclick="javascript:searchMEMBER_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
@@ -104,7 +103,7 @@
 	   				</table>
 	   				<!-- MEMBER_NUM, CONTACTS_NUM  -->
 	   				<input id="m_number" type="hidden" value=""/>
-	   				<input id="c_num" type="hidden" value=""/>
+	   				<input id="c_number" type="hidden" value=""/>
    				</div>
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">이전</button>
@@ -149,9 +148,11 @@
 						<!-- contactsList나오는곳 -->
 					</table>
 				</div>
-				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn1" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
+				<div class="p-regi-modal-bts add_contacts_modal">
+	                  <button class="p-regi-modal-bt" onclick="CONTACTS_S_REGI();">등록</button>
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt" onclick="CLOSE_MODAL_CT();">취소</button>
+	                  <!-- CONTACTS NUM, CEO값 받을 공간 -->
+                 	 <div class="add_contacts_id" ></div>
 	            </div>
 			</div>
       </div>
@@ -160,11 +161,11 @@
 </div>
 
 <script>
-/* function searchCONTACTS_NAME(){
+function searchCONTACTS_NAME(){
 	
+	//alert("contacts");
 	$(".modal_contacts_name").css('display',"block");
-	$.ajax({
-		//alert("contacts");
+ 	$.ajax({
 		url: "regist_detail",
 		type: "get",
 		dataType:"json",
@@ -179,10 +180,10 @@
 				table.append(row);
 			}
 		}
-	}); 
+	});
 }
 
-//프로젝트member조회
+// 업체Contacts조회
 function contacts_list_go(){
 	
 	//alert("리스트 돋보기");
@@ -191,7 +192,7 @@ function contacts_list_go(){
 	//console.log(searchType);
 	//console.log(keyword);
 	$.ajax({
-		//alert("리스트 ajax");
+		
 		url: "regist_searchCONTACTS",
 		type: "get",
 		dataType:"json",
@@ -211,19 +212,20 @@ function contacts_list_go(){
 			}
 			
 			table.find('tr').click(function(){
-				var CT_CEO = $(this).find('td:first-child').text();
 				var CT_NUM = $(this).data('contacts-num');
-				cosole.log(CT_CEO);
-				var input_cnum = `<input id="${c_num}" type="hidden" value="${CT_CEO}" />`;
-				var input_cname = `<input id="${c_name}" type="hidden" value="${CT_NUM}" />`;
+				var CT_CEO = $(this).find('td:first-child').text();
+				
+				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
 
-				//var input_cnum = '<input id="' + c_num + '" type="hidden" value="' + CT_CEO + '"/>';
-				//var input_cname = '<input id="' + c_num + '" type="hidden" value="' + CT_NUM + '"/>';
+				
+		 		var addContactsId = $('.add_contacts_id');
 
-				$('.p-regi-modal-bts').append(input_cnum);
-				$('.p-regi-modal-bts').append(input_cname);
-
-				//CONTACTS_S_REGI(CT_CEO, CT_NUM);
+				if (addContactsId.length) {
+					addContactsId.empty();
+				}
+				addContactsId.append(input_cnum);
+				addContactsId.append(input_cceo);
 				
 				table.find('tr>td:first-child').each(function(){
 					if($(this).text() == CT_CEO){
@@ -232,33 +234,26 @@ function contacts_list_go(){
 						$(this).parent('tr').css('background-color', "#ffffff");
 					}
 				});
-				//alert(MEMBER_NAME);
 			});
+			
 		}
 	});
 	
 }
 
-function CONTACTS_S_REGI(MEMBER_NAME, MEMBER_NUM){
-	alert("MEMBER_S_REGI값넘어옴");
-	console.log(MEMBER_NAME);
-	console.log(MEMBER_NUM);
-	//$('#m_name>input').val('');
-	$('#m_name').val(MEMBER_NAME);
-	$('#m_num').val(MEMBER_NUM);
+function CONTACTS_S_REGI(){	
+	var CT_NUM = $('#c_num').val();
+	$('#c_number').val(CT_NUM);
+	var CT_CEO = $('#c_ceo').val();
+	$('#c_ceos').val(CT_CEO);
 	
-
-	//$('#m_name').css('color', 'black');
-	//$('#m_name').find('input').css('color', 'black');
-	
-	
-	$(".modal_member_name").css('display', "none");
+	$(".modal_contacts_name").css('display', "none");
 }
 
-function CLOSE_MODAL(){
-	$(".modal_member_name").css('display', "none");
+function CLOSE_MODAL_CT(){
+	$(".modal_contacts_name").css('display', "none");
 }
- */
+
 </script>
 
  <!-- 모달창-프로젝트메니저  -->
@@ -357,9 +352,7 @@ function member_list_go(){
 			table.find('tr').click(function(){
 				var MEMBER_NAME = $(this).find('td:first-child').text();
 				var MEMBER_NUM = $(this).data('member-num');
-				//MEMBER_S_REGI(MEMBER_NAME, MEMBER_NUM);
-				//var input_mnum = `<input id="${m_num}" type="hidden" value="${MEMBER_NUM}" />`;
-				//var input_mname = `<input id="${m_name}" type="hidden" value="${MEMBER_NAME}" />`;
+				
 				var input_mnum = '<input id="m_num" type="hidden" value="' + MEMBER_NUM + '" />';
 				var input_mname = '<input id="m_name" type="hidden" value="' + MEMBER_NAME + '" />';
 				
