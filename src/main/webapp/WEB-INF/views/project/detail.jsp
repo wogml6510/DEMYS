@@ -57,34 +57,35 @@
 	   				<div class="p-info-detail">
 	   					<div class="p-info-detail-title">
 	   						<span style="font-weight:bold;">프로젝트 정보</span>
-	   						<button id="P_Modify" class="p-info-detail-bt">수정</button>
+	   						<button id="P_Modify" class="p-info-detail-bt" onclick="PJ_MODIFY();">수정</button>
+	   						<button id="P_Modify" style="display:none;" class="p-info-detail-bt" onclick="PJ_MODIFY_go();">수정하기</button>
 	   					</div>
 	   					<div class="p-detail-table">
-	   						<table border="1">
+	   						<table border="1" id="table_Pj_Detail">
 	   							<tr>
 	   								<td>프로젝트명</td>
-	   								<td>${projects.PJ_NAME }</td>
+	   								<td class="td-pj-name">${projects.PJ_NAME }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>프로젝트기간</td>
-	   								<td>
+	   								<td class="td-pj-date">
 	   									<span><fmt:formatDate value="${projects.PJ_STARTDATE }" pattern="yyyy-MM-dd"/></span>
 	   									<span>~ <fmt:formatDate value="${projects.PJ_ENDDATE }" pattern="yyyy-MM-dd"/></span>
 	   								</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="pj-price td-pj-price">
 	   								<td>예상 매출액</td>
-	   								<td>${projects.PJ_PRICE }원</td>
+	   								<td >${projects.PJ_PRICE }원</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-m-name">
 	   								<td>프로젝트 매니저</td>
 	   								<td>${projects.MEMBER_NAME }</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-pj-field">
 	   								<td>프로젝트 사업구분</td>
 	   								<td>${projects.PJ_FIELD }</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-pj-type">
 	   								<td>프로젝트 구분</td>
 	   								<c:if test="${projects.PJ_TYPE eq 1}">
 		   								<td>내부 프로젝트</td>
@@ -93,15 +94,15 @@
 		   								<td>외부 프로젝트</td>
 	   								</c:if>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-pj-content">
 	   								<td>프로젝트 내용</td>
 	   								<td>${projects.PJ_CONTENT }</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-ct-name">
 	   								<td>업체명</td>
 	   								<td>${projects.CT_NAME }</td>
 	   							</tr>
-	   							<tr>
+	   							<tr class="td-pj-git">
 	   								<td>깃 주소</td>
 	   								<td>${projects.PJ_GIT }</td>
 	   							</tr>
@@ -118,7 +119,7 @@
 		   						<span style="font-weight:bold;color:blue;">3</span>
 	   						</div>
 	   						<div>
-	   							<button id="modal_opne_btn_Cts_1" class="p-info-detail-bt">등록</button>
+	   							<button id="modal_opne_btn_Cts_1" class="p-info-detail-bt" onclick="ct_Regi();">등록</button>
 	   						</div>
 	   					</div>
 	   					<div class="p-cts-list">
@@ -157,8 +158,6 @@
 	   				</div>
 	   				<!-- 거래처화면 끝나는 태그 -->
 	   			
-	   			
-	   			
 	   			</div>
    			
    			</div>
@@ -170,8 +169,36 @@
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
 	
    			
-   
+<script>
+
+
+/* function PJ_MODIFY(){
+	//var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+	
+	alert("dddd");
+	
+	var PJ_NAME = $(".td-pj-name").text();
+	var PJ_NAME = $(".td-pj-date").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	var PJ_NAME = $(".").text();
+	
+	console.log(PJ_NAME);
+	var table_modify = $('#table_Pj_Detail tr td:last-child');
+	table_modify.empty();
+	
+	var input_pjName = '<input style="border:1px solid black;" type="text" value="'+PJ_NAME+'" />';
+	table_modify.append(input_pjName);
+} */
+</script>   
 	 
+
+
 
 
 <!-- 모달창-거래처 조회 등록  -->
@@ -193,7 +220,7 @@
 					<div class="cts-title-sub">거래처명</div>
 					<input class="cts-name" placeholder="거래처명을 조회하세요." disabled></input>
 				
-	                  <button id="modal_opne_btn1" class="p-regi-modal-bt">찾기</button>
+	                  <button id="modal_opne_btn1" class="p-regi-modal-bt" onclick="searchCONTACTS_NAME();">찾기</button>
 				</div>
 				<div class="p-regi-modal-bts">
 	                  <button class="p-regi-modal-bt">등록</button>
@@ -205,23 +232,15 @@
       <div class="modal_layer"></div>
 </div>
 <script>
-//프로젝트detail 거래처 등록 모달창
-document.getElementById("modal_opne_btn_Cts_1").onclick = function() {
-   document.getElementById("modal_Cts_1").style.display = "block";
+function ct_Regi(){
+	$("#modal_Cts_1").css('display',"block");
 }
-
 document.getElementById("modal_close_btn_Cts_1").onclick = function() {
    document.getElementById("modal_Cts_1").style.display = "none";
 }
 </script>
-
-
-
-
-
-
 <!-- 모달창-거래처 등록 (중복되는jsp) -->
-<div id="modal_1">
+<div id="modal_1" class="modal_contacts_name">
 
       <div class="modal_content">
             <div class="flex" style="background-color: #153A66;">
@@ -235,37 +254,150 @@ document.getElementById("modal_close_btn_Cts_1").onclick = function() {
 					<span>업체명</span>
 				</div>
 				<div class="cts-title-sub">* 등록된 업체를 조회합니다.</div>
-				<div class="p-modal-serach">
-					<select class="select select-bordered p-cts-select">
+				<div class="p-modal-serach select_contacts">
+					<select class="select select-bordered p-cts-select " name="searchType" id="searchType">
 						  <option disabled selected>선택 </option>
-						  <option>업체명</option>
-						  <option>대표자명</option>
+						  <option value="cn" ${searchType=='cn' ? "selected":"" }>업체명</option>
+						  <option value="cc" ${searchType=='cc' ? "selected":"" }>대표자명</option>
 					</select>
-					<div class="p-modal-searchbar">
-						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
-						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+					<div class="p-modal-searchbar contacts-modal-searchbar">
+						<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
+						<i onclick="contacts_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
 					</div>
 				</div>
 				<div class="cts-serch-list">
-					<table border="1">
-						<c:forEach begin="0" end="6" step="1" >
-							<tr>
-								<td>(주) 업체명써</td>
-								<td>대표자명</td>
-							</tr>
-						</c:forEach>
+					<table id="contactsList_view" border="1">
+						<!-- contactsList나오는곳 -->
 					</table>
 				</div>
-				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn1" class="p-regi-modal-bt">취소</button>
+				<div class="p-regi-modal-bts add_contacts_modal">
+	                  <button class="p-regi-modal-bt" onclick="CONTACTS_S_REGI();">등록</button>
+	                  <button id="modal_close_btn1" class="p-regi-modal-bt" onclick="CLOSE_MODAL_CT();">취소</button>
+	                  <!-- CONTACTS NUM, CEO값 받을 공간 -->
+                 	 <div class="add_contacts_id" ></div>
 	            </div>
 			</div>
       </div>
 
       <div class="modal_layer"></div>
 </div>
+<script>
+//프로젝트detail 거래처 등록 모달창
+function searchCONTACTS_NAME(){
+	//alert("contacts");
+	$(".modal_contacts_name").css('display',"block");
+ 	$.ajax({
+		url: "regist_detail",
+		type: "get",
+		dataType:"json",
+		success: function(data){
+			var contactsList = data.contactsList;
+			var table = $('#contactsList_view');
+			table.empty();
+			console.log(data);
+			for(var i=0 ; i<contactsList.length; i++ ){
+				var contacts = contactsList[i];
+				var row = '<tr><td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
+				table.append(row);
+			}
+			table.find('tr').click(function(){
+				var CT_NUM = $(this).data('contacts-num');
+				var CT_CEO = $(this).find('td:first-child').text();
+				
+				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
 
+				
+		 		var addContactsId = $('.add_contacts_id');
+
+				if (addContactsId.length) {
+					addContactsId.empty();
+				}
+				addContactsId.append(input_cnum);
+				addContactsId.append(input_cceo);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == CT_CEO){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
+		}
+	});
+}
+//업체Contacts조회
+function contacts_list_go(){
+	
+	//alert("리스트 돋보기");
+	var searchType = $('.select_contacts>select[name="searchType"]').val();
+	var keyword = $('div.contacts-modal-searchbar>input[name="keyword"]').val();
+	//console.log(searchType);
+	//console.log(keyword);
+	$.ajax({
+		
+		url: "regist_searchCONTACTS",
+		type: "get",
+		dataType:"json",
+		data:{
+			"searchType":searchType,
+			"keyword": keyword
+		},
+		success: function(data){
+			var contactsList = data.contactsList;
+			var table = $('#contactsList_view');
+			table.empty();
+			
+			for(var i=0 ; i<contactsList.length; i++ ){
+				var contacts = contactsList[i];
+				var row = '<tr data-contacts-num ="'+ contacts.ct_NUM +'"> <td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
+				table.append(row);
+			}
+			
+			table.find('tr').click(function(){
+				var CT_NUM = $(this).data('contacts-num');
+				var CT_CEO = $(this).find('td:first-child').text();
+				
+				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
+
+				
+		 		var addContactsId = $('.add_contacts_id');
+
+				if (addContactsId.length) {
+					addContactsId.empty();
+				}
+				addContactsId.append(input_cnum);
+				addContactsId.append(input_cceo);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == CT_CEO){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
+			
+		}
+	});
+	
+}
+
+function CONTACTS_S_REGI(){	
+	var CT_NUM = $('#c_num').val();
+	$('#c_number').val(CT_NUM);
+	var CT_CEO = $('#c_ceo').val();
+	$('#c_ceos').val(CT_CEO);
+	
+	$(".modal_contacts_name").css('display', "none");
+}
+
+function CLOSE_MODAL_CT(){
+	$(".modal_contacts_name").css('display', "none");
+}
+</script>
 
 
 
