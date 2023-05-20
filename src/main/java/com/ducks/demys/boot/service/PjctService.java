@@ -28,9 +28,9 @@ public class PjctService {
 		return pjctRepository.getPjctByPjct_NUM(PJCT_NUM);
 	}
 	
-	public void registPjct(Pjct Pjct) {
-		Pjct.setPJCT_NUM(pjctRepository.selectPjctSequenceNextValue());
-		pjctRepository.registPjct(Pjct);
+	public void registPjct(Pjct pjct) {
+		pjct.setPJCT_NUM(pjctRepository.selectPjctSequenceNextValue());
+		pjctRepository.registPjct(pjct);
 	}
 	
 	public void modifyPjct(Pjct Pjct) {

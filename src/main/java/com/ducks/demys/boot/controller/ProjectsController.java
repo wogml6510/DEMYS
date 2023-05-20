@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ducks.demys.boot.service.ContactsService;
 import com.ducks.demys.boot.service.MemberService;
+import com.ducks.demys.boot.service.PjctService;
 import com.ducks.demys.boot.service.ProjectsService;
 import com.ducks.demys.boot.vo.Contacts;
 import com.ducks.demys.boot.vo.Member;
+import com.ducks.demys.boot.vo.Pjct;
 import com.ducks.demys.boot.vo.Projects;
+import com.ducks.demys.command.PjctRegistCommamd;
 import com.ducks.demys.command.SearchCriteria;
 
 @Controller
@@ -25,38 +28,25 @@ public class ProjectsController {
 	private ProjectsService projectsService;
 	private MemberService memberService;
 	private ContactsService contactsService;
+	private PjctService pjctService;
 	
-	public ProjectsController(ProjectsService projectsService, MemberService memberService, ContactsService contactsService) {
+	public ProjectsController(ProjectsService projectsService, MemberService memberService, ContactsService contactsService, PjctService pjctService) {
 		this.projectsService = projectsService;
 		this.memberService = memberService;
 		this.contactsService = contactsService;
+		this.pjctService = pjctService;
 	}
 	
 	// Action
 	@RequestMapping("project/main")
-	public String pjctList(Model model,  @ModelAttribute SearchCriteria cri
-//			@RequestParam(value = "searchType", defaultValue = "") String searchType,
-//	        @RequestParam(value = "keyword", defaultValue = "") String keyword,
-//			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int perPageNum
-			) {
+	public String pjctList(Model model,  @ModelAttribute SearchCriteria cri) {
 		if (cri.getPage() < 1) cri.setPage(1);
 		if (cri.getPerPageNum() < 1) cri.setPerPageNum(5);
-		
-//		cri.setPage(page);
-//		cri.setPerPageNum(perPageNum);
-//		cri.setSearchType(searchType);
-//	    cri.setKeyword(keyword);
-		
+	
 	    Map<String, Object> dataMap = projectsService.getPJList(cri);
 	    
 	    model.addAttribute("dataMap", dataMap);
-		
-		
-//		model.addAttribute("page",page);
-//		model.addAttribute("perPageNum",perPageNum);
-//		model.addAttribute("searchType",searchType);
-//		model.addAttribute("keyword",keyword);
-		
+			
 		return "project/main";
 	}
 	
@@ -68,6 +58,20 @@ public class ProjectsController {
 			
 		return "project/detail";
 	}
+	
+	@RequestMapping("project/contacts_Regist")
+	@ResponseBody
+	public void pjctContactsRegistdo(@RequestBody Pjct pjct) {
+		pjctService.registPjct(pjct);
+	}
+	
+	/*
+	 * @RequestMapping("project/contacts_Regist0")
+	 * 
+	 * @ResponseBody public void pjctContactsRegistdodo(@RequestBody Pjct pjct,
+	 * PjctRegistCommamd pjctRegi) { Contacts pjcts = pjctRegi.toContactsVO();
+	 * contactsService.registContacts(pjcts); }
+	 */
 	
 	@RequestMapping("project/regist")
 	public void pjctRegist() {

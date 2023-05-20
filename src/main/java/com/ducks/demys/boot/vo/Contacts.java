@@ -12,6 +12,7 @@ public class Contacts {
 	private int CT_NUM;
 	private String CT_NAME;
 	private String CT_TEL;
+	private String CT_FAX;
 	private String CT_CEO;
 	private String CT_MANAGER;
 	private String CT_MG_TEL;

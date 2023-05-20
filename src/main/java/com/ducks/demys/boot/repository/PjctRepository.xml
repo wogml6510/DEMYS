@@ -27,8 +27,8 @@
 	</select>
 	<insert id="registPjct">
 		INSERT INTO
-		PJCT(CT_NUM,PJ_NUM,PJCT_TYPE)
-		VALUES(#{CT_NUM},#{PJ_NUM},#{PJCT_TYPE})
+		PJCT(PJCT_NUM,CT_NUM,PJ_NUM,CT_TYPE)
+		VALUES(#{PJCT_NUM},#{CT_NUM},#{PJ_NUM},#{CT_TYPE})
 	</insert>
 	<update id="modifyPjct">
 		UPDATE PJCT
