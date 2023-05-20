@@ -80,7 +80,7 @@
 	   					</tr>
 	   					<tr >
 	   						<td>업체명</td>
-	   						<td><input id="c_ceos" type="text"  disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input id="c_names" type="text"  disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0" onclick="javascript:searchCONTACTS_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
@@ -231,9 +231,11 @@ function searchCONTACTS_NAME(){
 			}
 			table.find('tr').click(function(){
 				var CT_NUM = $(this).data('contacts-num');
-				var CT_CEO = $(this).find('td:first-child').text();
+				var CT_NAME = $(this).find('td:first-child').text();
+				var CT_CEO = $(this).find('td:last-child').text();
 				
 				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cname = '<input id="c_name" type="hidden" value="'+CT_NAME +'" />';
 				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
 
 				
@@ -243,9 +245,10 @@ function searchCONTACTS_NAME(){
 					addContactsId.empty();
 				}
 				addContactsId.append(input_cnum);
+				addContactsId.append(input_cname);
 				addContactsId.append(input_cceo);
 				
-				table.find('tr>td:first-child').each(function(){
+				table.find('tr>td:last-child').each(function(){
 					if($(this).text() == CT_CEO){
 						$(this).parent('tr').css('background-color', "#e7e7e7e7");
 					}else{
@@ -284,24 +287,25 @@ function contacts_list_go(){
 				var row = '<tr data-contacts-num ="'+ contacts.ct_NUM +'"> <td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
 				table.append(row);
 			}
-			
 			table.find('tr').click(function(){
 				var CT_NUM = $(this).data('contacts-num');
-				var CT_CEO = $(this).find('td:first-child').text();
+				var CT_NAME = $(this).find('td:first-child').text();
+				var CT_CEO = $(this).find('td:last-child').text();
 				
 				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cname = '<input id="c_name" type="hidden" value="'+CT_NAME +'" />';
 				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
 
-				
 		 		var addContactsId = $('.add_contacts_id');
 
 				if (addContactsId.length) {
 					addContactsId.empty();
 				}
 				addContactsId.append(input_cnum);
+				addContactsId.append(input_cname);
 				addContactsId.append(input_cceo);
 				
-				table.find('tr>td:first-child').each(function(){
+				table.find('tr>td:last-child').each(function(){
 					if($(this).text() == CT_CEO){
 						$(this).parent('tr').css('background-color', "#e7e7e7e7");
 					}else{
@@ -309,7 +313,6 @@ function contacts_list_go(){
 					}
 				});
 			});
-			
 		}
 	});
 	
@@ -318,6 +321,8 @@ function contacts_list_go(){
 function CONTACTS_S_REGI(){	
 	var CT_NUM = $('#c_num').val();
 	$('#c_number').val(CT_NUM);
+	var CT_NAME = $('#c_name').val();
+	$('#c_names').val(CT_NAME);
 	var CT_CEO = $('#c_ceo').val();
 	$('#c_ceos').val(CT_CEO);
 	
