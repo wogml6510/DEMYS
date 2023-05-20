@@ -76,22 +76,12 @@ public class ProjectsController {
 	
 	@RequestMapping("project/pjRegistdo")
 	@ResponseBody
-	public void pjctRegistdo(@RequestBody Projects projects
-			//,RedirectAttributes redirectAttributes 
-			) {
+	public void pjctRegistdo(@RequestBody Projects projects) {
 		int memberId = 1;
 		Map<String, Object> map = new HashMap<>();
 		map.put("MEMBER_NUM", memberId);
 		
 		projectsService.registPJ(projects);
-		
-		
-		//int PJ_NUM = projects.getPJ_NUM();
-
-		//int redpjNum = projects.getPJ_NUM();
-		//redirectAttributes.addFlashAttribute(redpjNum);
-		
-		//return projectsService.getPJByPJ_NUM(PJ_NUM);
 	}
 	
 	@RequestMapping("project/regist_PJTYPE")
@@ -102,8 +92,11 @@ public class ProjectsController {
 	}
 	
 	@RequestMapping("project/regist_detail")
+	public void pjctRegistDetail() {}
+	
+	@RequestMapping("project/Search_Modal")
 	@ResponseBody
-	public Map<String, Object> pjctRegistDetail() {
+	public Map<String, Object> pjctSearch() {
 		Map<String, Object> data=new HashMap<String, Object>();
 		
 		List<Member> memberList = memberService.getMemberList();
@@ -113,8 +106,6 @@ public class ProjectsController {
 		data.put("contactsList",contactsList);
 		return data;
 	}
-	
-	
 	 @RequestMapping("project/regist_searchMEMBER")
 	 @ResponseBody
 	 public Map<String, Object> sendsearchMember(Model model, 

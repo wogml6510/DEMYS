@@ -51,8 +51,8 @@
 <script>
 function selectPJ_TYPE(PJ_TYPE){
 	$('#PJ_TYPE_VALUE').val(PJ_TYPE);
-	$(".p-type").css('border',"3px solid #797979");
-	$(".p-type[data-pj-type='"+PJ_TYPE+"']").css('border',"4px solid #1ECAF0");
+	$(".p-type").css('border',"3px solid #797979").css('color',"#797979");
+	$(".p-type[data-pj-type='"+PJ_TYPE+"']").css('border',"4px solid #1ECAF0").css('color',"black");
 }
 
 function registNext_go(){

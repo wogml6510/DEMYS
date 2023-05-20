@@ -109,7 +109,6 @@
    					<button class="p-type-bt-1">이전</button>
    					<button class="p-type-bt-1" onclick="PJREGIST_go();">등록</button>
    				</div>
-   				
    			</div>
    
    		<!-- p-main-body끝나는 태그 -->
@@ -217,7 +216,7 @@ function searchCONTACTS_NAME(){
 	//alert("contacts");
 	$(".modal_contacts_name").css('display',"block");
  	$.ajax({
-		url: "regist_detail",
+		url: "Search_Modal",
 		type: "get",
 		dataType:"json",
 		success: function(data){
@@ -227,9 +226,33 @@ function searchCONTACTS_NAME(){
 			console.log(data);
 			for(var i=0 ; i<contactsList.length; i++ ){
 				var contacts = contactsList[i];
-				var row = '<tr><td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
+				var row = '<tr data-contacts-num ="'+ contacts.ct_NUM +'"> <td>' + contacts.ct_NAME + '</td><td>' + contacts.ct_CEO + '</td></tr>';
 				table.append(row);
 			}
+			table.find('tr').click(function(){
+				var CT_NUM = $(this).data('contacts-num');
+				var CT_CEO = $(this).find('td:first-child').text();
+				
+				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
+				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
+
+				
+		 		var addContactsId = $('.add_contacts_id');
+
+				if (addContactsId.length) {
+					addContactsId.empty();
+				}
+				addContactsId.append(input_cnum);
+				addContactsId.append(input_cceo);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == CT_CEO){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
 		}
 	});
 }
@@ -355,7 +378,7 @@ function searchMEMBER_NAME(){
 	
 	$(".modal_member_name").css('display',"block");
 	$.ajax({
-		url: "regist_detail",
+		url: "Search_Modal",
 		type: "get",
 		dataType:"json",
 		success: function(data){
@@ -365,9 +388,33 @@ function searchMEMBER_NAME(){
 			//console.log(data);
 			for(var i=0 ; i<memberList.length; i++ ){
 				var member = memberList[i];
-				var row = '<tr><td>' + member.member_NAME + '</td><td>' + member.member_DEP + '</td></tr>';
+				var row = '<tr data-member-num ="'+ member.member_NUM +'"> <td>' + member.member_NAME + '</td><td>' + member.member_DEP + '</td></tr>';
 				table.append(row);
 			}
+			
+			table.find('tr').click(function(){
+				var MEMBER_NAME = $(this).find('td:first-child').text();
+				var MEMBER_NUM = $(this).data('member-num');
+				
+				var input_mnum = '<input id="m_num" type="hidden" value="' + MEMBER_NUM + '" />';
+				var input_mname = '<input id="m_name" type="hidden" value="' + MEMBER_NAME + '" />';
+				
+		 		var addMemberId = $('.add_member_id');
+
+				if (addMemberId.length) {
+				  	addMemberId.empty();
+				}
+				addMemberId.append(input_mnum);
+				addMemberId.append(input_mname);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == MEMBER_NAME){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
 		}
 	}); 
 }
@@ -415,8 +462,6 @@ function member_list_go(){
 				addMemberId.append(input_mnum);
 				addMemberId.append(input_mname);
 				
-				
-				
 				table.find('tr>td:first-child').each(function(){
 					if($(this).text() == MEMBER_NAME){
 						$(this).parent('tr').css('background-color', "#e7e7e7e7");
@@ -424,8 +469,6 @@ function member_list_go(){
 						$(this).parent('tr').css('background-color', "#ffffff");
 					}
 				});
-				//alert(MEMBER_NAME);
-				
 			});
 		}
 	});
