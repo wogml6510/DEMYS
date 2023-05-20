@@ -390,6 +390,13 @@ function contacts_list_go(){
 	});
 	
 }
+//조회화면에서 등록버튼(선택)
+function CONTACTS_S_REGI(){	
+	var CT_NAME = $('#c_name').val();
+	//alert(CT_NAME);
+	$('#ct-serch-name').val(CT_NAME);
+	$(".modal_contacts_name").css('display', "none");
+}
 // 거래처등록모달_찾은후 등록하기버튼 (PJ_NUM값 필요, Project:현제 프로젝트에 거래처만 넣어야함)
 // 등록시 필요한 값: PJCT_NUM(시퀀스), CT_TYPE=2, PJ_NUM, CT_NUM
 function PJCT_REGIST(){
@@ -419,18 +426,14 @@ function PJCT_REGIST(){
 					var addPJCT_list = $("#pjct_list");
 					addPJCT_list.append(pjct_row);
 				}
-			} 
+			}
+			$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
+			
 			alert("거래처 화면상으로 등록 완료.");
 		}
 	});
 }
-// 조회화면에서 등록버튼(선택)
-function CONTACTS_S_REGI(){	
-	var CT_NAME = $('#c_name').val();
-	alert(CT_NAME);
-	$('#ct-serch-name').val(CT_NAME);
-	$(".modal_contacts_name").css('display', "none");
-}
+
 
 function CLOSE_MODAL_CT(){
 	$(".modal_contacts_name").css('display', "none");
