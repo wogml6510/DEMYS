@@ -30,28 +30,28 @@
    					<table style="width:100%;">
 	   					<tr>
 	   						<td>프로젝트명</td>
-	   						<td><input type="text" value="${projects.PJ_NAME }" placeholder="프로젝트명을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input type="text" name="PJ_NAME" placeholder="프로젝트명을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 기간</td>
 	   						<td style="display:flex;flex-direction:row;width:60%;" >
 	   							<div>
-	   								<input type="date" value="${projects.PJ_STARTDATE }"/>
+	   								<input type="date" name="PJ_STARTDATE"/>
 	   							</div>
 	   							<span>&nbsp;~&nbsp;</span>
 	   							<div>
-	   								<input type="date" value="${projects.PJ_ENDDATE }" />
+	   								<input type="date" name="PJ_ENDDATE" />
 	   							</div>
 	   						</td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 내용</td>
-	   						<td><input type="text" value="${projects.PJ_CONTENT }" placeholder="프로젝트내용을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input type="text" name="PJ_CONTENT" placeholder="프로젝트내용을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 중요도</td>
 	   						<td>
-	   							<select id="pj-type-option" class="select select-bordered p-reg-select">
+	   							<select id="pj-type-option" class="select select-bordered p-reg-select" name="PJ_TYPE">
 								  <option disabled selected>선택</option>
 								  <option value="3" ${projects.PJ_TYPE == '3' ? "selected":""} style="color:red;">&#xf024; 매우 중요</option>
 								  <option value="2" ${projects.PJ_TYPE == '2' ? "selected":""} style="color:#F59A23;">&#xf024; 중요</option>
@@ -62,7 +62,7 @@
 	   					<tr>
 	   						<td>프로젝트 사업구분</td>
 	   						<td>
-	   							<select class="select select-bordered p-reg-select">
+	   							<select class="select select-bordered p-reg-select" name="PJ_FIELD">
 								  <option disabled selected>선택 </option>
 								  <option value="교육" ${projects.PJ_FIELD == '교육' ? "selected":""} >교 &nbsp; 육</option>
 								  <option value="건설" ${projects.PJ_FIELD == '건설' ? "selected":""}>건 &nbsp; 설</option>
@@ -76,16 +76,16 @@
 	   					</tr>
 	   					<tr>
 	   						<td>예상매출액</td>
-	   						<td><input type="text" value="${projects.PJ_PRICE }" placeholder="예상매출액을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input type="text" name="PJ_PRICE" placeholder="예상매출액을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   					</tr>
 	   					<tr >
 	   						<td>업체명</td>
-	   						<td><input id="c_ceos" type="text" value="${projects.CT_NUM }" disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input id="c_ceos" type="text"  disabled placeholder="업체명을 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   						<td><div ><button id="modal_opne_btn1" class="p-type-bt-0" onclick="javascript:searchCONTACTS_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
 	   						<td>프로젝트 매니저</td>
-	   						<td><input id="m_names" type="text" value="${projects.MEMBER_NUM }" disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
+	   						<td><input id="m_names" type="text"  disabled placeholder="프로젝트매니저를 입력하세요." class="input input-bordered p-reg-input" /></td>
 	   						<td><div ><button id="modal_opne_btn2" class="p-type-bt-0" onclick="javascript:searchMEMBER_NAME();"> 찾기 </button></div> </td>
 	   					</tr>
 	   					<tr>
@@ -93,21 +93,21 @@
 	   							<span>깃 주소</span>
 	   							<div class="form-control ml-20">
 								  <label class="label cursor-pointer">
-								    <input type="checkbox" checked="checked" class="checkbox checkbox-primary git_check" value="${projects.PJ_GIT}" onclick="javascript:GIT_CHECK();"/>
+								    <input type="checkbox" checked="checked" class="checkbox checkbox-primary git_check" onclick="javascript:GIT_CHECK();"/>
 								    <span class="label-text ml-2">미 정</span> 
 								  </label>
 								</div>
 	   						</td>
-	   						<td><input type="text" disabled placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input git_add" /></td>
+	   						<td><input type="text" name="PJ_GIT"  disabled placeholder="깃주소를 입력하세요." class="input input-bordered p-reg-input git_add" /></td>
 	   					</tr>
 	   				</table>
 	   				<!-- MEMBER_NUM, CONTACTS_NUM  -->
-	   				<input id="m_number" type="hidden" value=""/>
-	   				<input id="c_number" type="hidden" value=""/>
+	   				<input id="c_number" type="hidden" name="CT_NUM" value=""/>
+	   				<input id="m_number" type="hidden" name="MEMBER_NUM" value=""/>
    				</div>
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">이전</button>
-   					<button class="p-type-bt-1">등록</button>
+   					<button class="p-type-bt-1" onclick="PJREGIST_go();">등록</button>
    				</div>
    				
    			</div>
@@ -125,6 +125,48 @@ function GIT_CHECK(){
 	} else{
 		check_input.prop('disabled', false);
 	}
+}
+
+function PJREGIST_go(){
+    var PJ_NAME = $("input[name=PJ_NAME]").val();
+    var PJ_STARTDATE = $("input[name=PJ_STARTDATE]").val();
+    var PJ_ENDDATE = $("input[name=PJ_ENDDATE]").val();
+    var PJ_CONTENT = $("input[name=PJ_CONTENT]").val();
+    var PJ_TYPE = $("select[name=PJ_TYPE]").val();
+    var PJ_FIELD = $("select[name=PJ_FIELD]").val();
+    var PJ_PRICE = $("input[name=PJ_PRICE]").val();
+    var CT_NUM = $("input[name=CT_NUM]").val();
+    var MEMBER_NUM = $("input[name=MEMBER_NUM]").val();
+    var PJ_GIT = $("input[name=PJ_GIT]").val();
+    
+    
+    var data={
+          "pj_NAME":PJ_NAME,
+          "string_STARTDATE":PJ_STARTDATE,
+          "string_ENDDATE":PJ_ENDDATE,
+          "pj_CONTENT":PJ_CONTENT,
+          "pj_TYPE":parseInt(PJ_TYPE),
+          "pj_FIELD":PJ_FIELD,
+          "pj_PRICE":parseInt(PJ_PRICE),
+          "ct_NUM":parseInt(CT_NUM),
+          "member_NUM":parseInt(MEMBER_NUM),
+          "pj_GIT":PJ_GIT
+    }
+    $.ajax({
+    	 url:"<%=request.getContextPath()%>/project/pjRegistdo",
+	     type:"post",
+	     data:JSON.stringify(data),      
+	     contentType:"application/json",
+	     success:function(data){
+         	alert("등록되었습니다.");
+	        location.href="<%=request.getContextPath()%>/project/main";
+	        <%-- location.href="<%=request.getContextPath()%>/project/detail?PJ_NUM="+data.pj_NUM; --%>
+	     	
+	     },
+	     error:function(){
+		     alert("잘못된 입력입니다. 다시 입력하세요.");
+     	}
+  });
 }
 </script>
 <!-- 모달창-업체명  -->
@@ -172,7 +214,6 @@ function GIT_CHECK(){
 
 <script>
 function searchCONTACTS_NAME(){
-	
 	//alert("contacts");
 	$(".modal_contacts_name").css('display',"block");
  	$.ajax({

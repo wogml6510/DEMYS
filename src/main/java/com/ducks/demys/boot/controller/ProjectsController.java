@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ducks.demys.boot.service.ContactsService;
 import com.ducks.demys.boot.service.MemberService;
@@ -71,6 +73,26 @@ public class ProjectsController {
 	@RequestMapping("project/regist")
 	public void pjctRegist() {
 		
+	}
+	
+	@RequestMapping("project/pjRegistdo")
+	@ResponseBody
+	public void pjctRegistdo(@RequestBody Projects projects
+			//,RedirectAttributes redirectAttributes 
+			) {
+		int memberId = 1;
+		Map<String, Object> map = new HashMap<>();
+		map.put("MEMBER_NUM", memberId);
+		
+		projectsService.registPJ(projects);
+		
+		
+		//int PJ_NUM = projects.getPJ_NUM();
+
+		//int redpjNum = projects.getPJ_NUM();
+		//redirectAttributes.addFlashAttribute(redpjNum);
+		
+		//return projectsService.getPJByPJ_NUM(PJ_NUM);
 	}
 	
 	@RequestMapping("project/regist_PJTYPE")
