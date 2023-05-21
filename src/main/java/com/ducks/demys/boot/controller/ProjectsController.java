@@ -54,7 +54,13 @@ public class ProjectsController {
 	public String pjctDetail(Model model, int PJ_NUM) {
 		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
 
+		List<Pjct> pjctList = pjctService.getContactsPjctList(PJ_NUM);
+		
 		model.addAttribute("projects", projects);		
+		model.addAttribute("pjctList", pjctList);	
+		//model.addAttribute("CT_NUM", CT_NUM);	
+		//parseInt(CT_NUM);
+		//model.addAttribute("CT_NUM", CT_NUM);		
 			
 		return "project/detail";
 	}

@@ -26,4 +26,6 @@ public interface ContactsRepository {
 	//JH
 	public List<Contacts> getContactsListPjRegist();
 	public List<Contacts> getContactsListPjRegistSearch(String searchType, String keyword);
+
+	public List<Contacts> getContactsPjctList();
 }

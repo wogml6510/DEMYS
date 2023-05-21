@@ -138,21 +138,21 @@
    								</tr>
    								</thead>
    								<tbody id="pjct_list" style="height: 40px;overflow-y:auto;overflow-x:hidden;">
-	   						<%-- 	<c:forEach begin="0" end="6" step="1">
+	   							<c:forEach var="pjctList" items="${pjctList }">
 								<tr>
- 									<td>1</td>
- 									<td>A거래처</td>
- 									<td>042-342-4432</td>
- 									<td>042-342-4431</td>
- 									<td>대전 동구 여긴어디 대전로 102-1번지 어디든가고싶다대전 동구 여긴어디</td>
- 									<td>김뭥미</td>
+ 									<td>${pjctList.CT_NUM }</td>
+ 									<td>${pjctList.CT_NAME }</td>
+ 									<td>${pjctList.CT_TEL }</td>
+ 									<td>${pjctList.CT_FAX }</td>
+ 									<td>${pjctList.CT_ADDR }</td>
+ 									<td>${pjctList.CT_MANAGER }</td>
  									<td>
  										<button>
  										<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
  										</button>
  									</td>
 								</tr>
-	   							</c:forEach> --%>
+	   							</c:forEach>
 	   							</tbody>
 	   						</table>
 	   					</div>

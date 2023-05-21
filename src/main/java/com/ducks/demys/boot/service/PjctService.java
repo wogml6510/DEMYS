@@ -16,6 +16,10 @@ public class PjctService {
 		this.pjctRepository= pjctRepository;
 	}
 	
+	public List<Pjct> getContactsPjctList(int PJ_NUM){
+		return pjctRepository.getContactsPjctList(PJ_NUM);
+	}
+	
 	public List<Pjct> getPjctListByPJ_NUM(int PJ_NUM){
 		return pjctRepository.getPjctListByPJ_NUM(PJ_NUM);
 	}

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ducks.demys.boot.repository.ContactsRepository;
 import com.ducks.demys.boot.vo.Contacts;
+import com.ducks.demys.boot.vo.Pjct;
 
 @Service
 public class ContactsService {
@@ -48,6 +49,11 @@ public class ContactsService {
 	}
 	public List<Contacts> getContactsListPjRegistSearch(String searchType, String keyword){
 		List<Contacts> contactsList = contactsRepository.getContactsListPjRegistSearch(searchType, keyword); 
+		return contactsList;
+	}
+
+	public List<Contacts> getContactsPjctList(){
+		List<Contacts>  contactsList = contactsRepository.getContactsPjctList();
 		return contactsList;
 	}
 }
