@@ -21,10 +21,11 @@
 	   					<div class="flex w-full mx-2.5">
 	   						<span style="font-weight:bold;">총 참여인력 &nbsp;</span>
 	   						<span style="font-weight:bold;color:blue;"> ${pjhrListCount }</span>
+	   						
  						</div>
 	   					<div class="hr-list">
    							<c:forEach var="pjhrList" items="${pjhrList }">
-								<div class="td-wrapper hr-list-cont shadow-lg" onclick="OpenWindow('hr_detail','참여인원상세',800,550);">
+								<div class="td-wrapper hr-list-cont shadow-lg" onclick="javascript:OpenWindow('hr_detail?PJHR_NUM=${pjhrList.PJHR_NUM}','참여인원상세',800,550);">
 									<div class="hr-img"> 
 										<!-- <img src="/resource/img/imja.jpg" class="h-full" /> -->
 										<div>${pjhrList.MEMBER_PIC }</div>

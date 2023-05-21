@@ -80,12 +80,19 @@ public class ProjectsController {
 	}
 	
 	@RequestMapping("project/hr_list")
-	public String showPjctHrList(Model model, int PJ_NUM) {
-
-		
-		
-		return "project/hr_list";
+	public void showPjctHrList() {}
+	
+	
+	@RequestMapping("project/hr_detail")
+	public void showPjctHrDetail(Model model, Integer PJHR_NUM) {
+		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
+		model.addAttribute("pjhr",pjhr);
 	}
+	
+	
+	
+	
+	
 
 //	@RequestMapping("project/pjctList")
 //	public void pjctDetailRode() {}
@@ -161,9 +168,7 @@ public class ProjectsController {
 //	참여인력
 	
 	
-	@RequestMapping("project/hr_detail")
-	public void showPjctHrDetail() {
-	}
+	
 	
 	@RequestMapping("project/hr_modify")
 	public void showPjctHrModify() {

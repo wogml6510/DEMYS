@@ -50,13 +50,14 @@ body {
 			<div class="hr-detail-cont">
 				<div class="td-wrapper hr-detail-cont-0">
 					<div class="hr-img">
-						<i class="fa-regular fa-file-image" style="font-size:210px;"></i>
+						<!-- <i class="fa-regular fa-file-image" style="font-size:210px;"></i> -->
+						<div>${pjhr.MEMBER_PIC }</div>
 					</div>
 					<div class="hr-detail_1">
-						<div class="font-bold">No.1</div>
-						<div>✔ 알방효선</div>
-						<div>✔ 세부사항</div>
-						<div class="w-auto h-24 ml-7 mr-2">논산사는 구효선씨는 어느순간 알방에 물들어가있습니다 내일은뭐먹지..</div>
+						<div class="font-bold">No. ${pjhr.MEMBER_NUM }</div>
+						<div>✔ ${pjhr.MEMBER_NAME }</div>
+						<div>✔  ${pjhr.PJHR_WORK }</div>
+						<div class="w-auto h-24 ml-7 mr-2">${pjhr.PJHR_DETAIL }</div>
 					</div>
 				</div>
 			</div>
