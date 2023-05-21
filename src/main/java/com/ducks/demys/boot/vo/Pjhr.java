@@ -13,4 +13,7 @@ public class Pjhr {
 	private int PJ_NUM;
 	private int MEMBER_NUM;
 
+
+	private String MEMBER_NAME;
+	private String MEMBER_PIC;
 }

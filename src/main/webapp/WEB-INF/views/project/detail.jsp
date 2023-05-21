@@ -46,7 +46,7 @@
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
 					         |<div class="header-2-menu" onclick=""><a href="#">프로젝트 정보</a></div> |
-					         <div class="header-2-menu" onclick="hrList_go();"><a href="#">참여인력</a></div> |
+					         <div class="header-2-menu" onclick="pjhrList_go();"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
 					      </div>
 		   			</div>
@@ -168,13 +168,16 @@
 	
 	
 <script>
-function hrList_go(PJ_NUM){
+function pjhrList_go(){
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	//alert(PJ_NUM);
+	console.log(PJ_NUM);
 	$.ajax({
-		url: "hr_list",
+		url: "PjNumhrList?PJ_NUM="+PJ_NUM,
 		type: "get",
 		dataType: "text",
 		success: function(data){
-			//alert(pjnum);
+			//alert("참여인력리스트");
 			$("#project_BODY").html(data);
 		},
 		error: function (xhr, status, error) {

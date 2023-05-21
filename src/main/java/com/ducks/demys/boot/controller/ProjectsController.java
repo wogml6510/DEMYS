@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ducks.demys.boot.service.ContactsService;
 import com.ducks.demys.boot.service.MemberService;
 import com.ducks.demys.boot.service.PjctService;
+import com.ducks.demys.boot.service.PjhrService;
 import com.ducks.demys.boot.service.ProjectsService;
 import com.ducks.demys.boot.vo.Contacts;
 import com.ducks.demys.boot.vo.Member;
 import com.ducks.demys.boot.vo.Pjct;
+import com.ducks.demys.boot.vo.Pjhr;
 import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.SearchCriteria;
 
@@ -28,12 +30,15 @@ public class ProjectsController {
 	private MemberService memberService;
 	private ContactsService contactsService;
 	private PjctService pjctService;
+	private PjhrService pjhrService;
 	
-	public ProjectsController(ProjectsService projectsService, MemberService memberService, ContactsService contactsService, PjctService pjctService) {
+	public ProjectsController(ProjectsService projectsService, MemberService memberService, ContactsService contactsService
+			, PjctService pjctService, PjhrService pjhrService) {
 		this.projectsService = projectsService;
 		this.memberService = memberService;
 		this.contactsService = contactsService;
 		this.pjctService = pjctService;
+		this.pjhrService = pjhrService;
 	}
 	
 	// Action
@@ -58,10 +63,33 @@ public class ProjectsController {
 			
 		return "project/detail";
 	}
+	
+	
+	
+	@RequestMapping("project/PjNumhrList")
+	public String sendPjNumhrList(Model model, int PJ_NUM) {
+		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
+		List<Pjhr> pjhrList = pjhrService.getPjhrListByPJ_NUM(PJ_NUM);
+		int pjhrListCount = pjhrService.getPjhrListByPJ_NUMCount(PJ_NUM);
+		
+		model.addAttribute("projects",projects);
+		model.addAttribute("pjhrList",pjhrList);
+		model.addAttribute("pjhrListCount",pjhrListCount);
+		model.addAttribute("PJ_NUM",PJ_NUM);
+		return "project/hr_list";
+	}
+	
+	@RequestMapping("project/hr_list")
+	public String showPjctHrList(Model model, int PJ_NUM) {
+
+		
+		
+		return "project/hr_list";
+	}
 
 //	@RequestMapping("project/pjctList")
 //	public void pjctDetailRode() {}
-	
+//	거래처
 	@RequestMapping("project/contacts_Regist")
 	@ResponseBody
 	public void pjctContactsRegistdo(@RequestBody Pjct pjct) {
@@ -131,9 +159,7 @@ public class ProjectsController {
 		 return data; 
 	 }
 //	참여인력
-	@RequestMapping("project/hr_list")
-	public void showPjctHrList() {
-	}
+	
 	
 	@RequestMapping("project/hr_detail")
 	public void showPjctHrDetail() {

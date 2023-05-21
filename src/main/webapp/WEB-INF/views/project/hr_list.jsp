@@ -13,25 +13,28 @@
 
 	   			<!-- 참여인력 정보 -->
 	   			<div>
+	   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
 	   				<div class="hr-info">
 	   					<div class="info-title">
 	   						<button id="modal_opne_btn_hr_1" class="hr-regist-bt">참여인력 추가</button>
 	   					</div>
 	   					<div class="flex w-full mx-2.5">
 	   						<span style="font-weight:bold;">총 참여인력 &nbsp;</span>
-	   						<span style="font-weight:bold;color:blue;"> 6</span>
+	   						<span style="font-weight:bold;color:blue;"> ${pjhrListCount }</span>
  						</div>
 	   					<div class="hr-list">
-   							<c:forEach begin="0" end="10" step="1">
+   							<c:forEach var="pjhrList" items="${pjhrList }">
 								<div class="td-wrapper hr-list-cont shadow-lg" onclick="OpenWindow('hr_detail','참여인원상세',800,550);">
-									<div class="hr-img">
-										<img src="/resource/img/imja.jpg" class="h-full" />
+									<div class="hr-img"> 
+										<!-- <img src="/resource/img/imja.jpg" class="h-full" /> -->
+										<div>${pjhrList.MEMBER_PIC }</div>
 									</div>
 									<div class="w-3/5 px-2.5">
-										<div class="font-bold">No.1</div>
-										<div>✔ 박연진</div>
-										<div>✔ 매니저(PM)</div>
-										<div>✔ 요구사항 분석</div>
+										<input type="hidden" value="" name="PJHR_NUM" />
+										<div class="font-bold">No. ${pjhrList.MEMBER_NUM }</div>
+										<div>✔ ${pjhrList.MEMBER_NAME }</div>
+										<div>✔ ${pjhrList.PJHR_WORK }</div>
+										<div>✔ ${pjhrList.PJHR_DETAIL }</div>
 									</div>
 								</div>
    							</c:forEach>
@@ -96,6 +99,9 @@
       <div class="modal_layer"></div>
 </div>
 <script>
+
+
+
 // 참여인력추가 모달창.js
 document.getElementById("modal_opne_btn_hr_1").onclick = function() {
    document.getElementById("modal_hr").style.display = "block";

@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ducks.demys.boot.repository.PjhrRepository">
+<mapper
+	namespace="com.ducks.demys.boot.repository.PjhrRepository">
 	<select id="getPjhrListByPJ_NUM" resultType="Pjhr">
 		SELECT *
-		FROM PJHR
-		WHERE PJ_NUM=#{PJ_NUM}
+		FROM PJHR PH
+		INNER JOIN PROJECTS P ON P.PJ_NUM = PH.PJ_NUM
+		INNER JOIN MEMBER M ON M.MEMBER_NUM = PH.MEMBER_NUM
+		WHERE P.PJ_NUM=#{PJ_NUM}
+		ORDER BY PJHR_NUM
+		DESC
+	</select>
+
+	<select id="getPjhrListByPJ_NUMCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PJHR PH
+		INNER JOIN PROJECTS P ON P.PJ_NUM = PH.PJ_NUM
+		INNER JOIN MEMBER M ON M.MEMBER_NUM = PH.MEMBER_NUM
+		WHERE P.PJ_NUM=#{PJ_NUM}
 		ORDER BY PJHR_NUM DESC
 	</select>
+
+
+
 	<select id="getPjhrListByMEMBER_NUM" resultType="Pjhr">
 		SELECT *
-		FROM PJHR
+		FROM
+		PJHR
 		WHERE MEMBER_NUM=#{MEMBER_NUM}
 		ORDER BY PJHR_NUM DESC
 	</select>
