@@ -139,7 +139,8 @@
    								</thead>
    								<tbody id="pjct_list" style="height: 40px;overflow-y:auto;overflow-x:hidden;">
 	   							<c:forEach var="pjctList" items="${pjctList }" varStatus="status">
-								<tr>
+		   						<input type="hidden" value="${pjctList.PJCT_NUM }" name="PJCT_NUM"/>	
+								<tr id="remove_row_${status.index}">
  									<td>${status.index+1 }</td>
  									<td>${pjctList.CT_NAME }</td>
  									<td>${pjctList.CT_TEL }</td>
@@ -147,7 +148,7 @@
  									<td>${pjctList.CT_ADDR }</td>
  									<td>${pjctList.CT_MANAGER }</td>
  									<td>
- 										<button>
+ 										<button class="remove-btt" data-row-id="${status.index}" onclick="PJCT_REMOVE_go();">
  										<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
  										</button>
  									</td>
@@ -155,7 +156,7 @@
 	   							</c:forEach>
 	   							</tbody>
 	   						</table>
-	   						<div id="addPjctList"></div>
+	   						<!-- <div id="addPjctList"></div> -->
 	   					</div>
 	   					
 	   				</div>
@@ -409,17 +410,18 @@ function PJCT_REGIST(){
 			"pj_NUM":parseInt(PJ_NUM),
 			"ct_TYPE":parseInt(CT_TYPE),
 	}
-   	$.ajax({
+	$.ajax({
 		url:"Search_Modal",
 		type:"get",
 		dataType:"json",
 		success: function(data){
 			var pjctList = data.contactsList;
-			
+			var numCount = parseInt($('#pjct_list tr:last-child td:first-child').text());
+			numCount = numCount + 1;
 			for(var i=0 ; i<pjctList.length; i++ ){
 				var pjct = pjctList[i];
 				if(pjct.ct_NUM == CT_NUM){
-					var pjct_row = '<tr><td >' + 0 + '</td><td>'
+					var pjct_row = '<tr><td >' + numCount + '</td><td>'
 						+pjct.ct_NAME+'</td><td>'
 						+pjct.ct_TEL+ '</td><td>' 
 						+pjct.ct_FAX+ '</td><td>' 
@@ -427,11 +429,12 @@ function PJCT_REGIST(){
 						+pjct.ct_MANAGER+ '</td>'
 						+'<td><button><i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i></button></td></tr>';
 					var addPJCT_list = $("#pjct_list");
-					addPJCT_list.prepend(pjct_row);
-					
+					addPJCT_list.append(pjct_row);
 				}
 			}
-		   	
+			alert("거래처등록이 완료되었습니다.");
+			$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
+			$('#modal_Cts_1').css('display', "none");
 		}
 	});
 	$.ajax({
@@ -443,14 +446,90 @@ function PJCT_REGIST(){
    		success: function(){
 		     alert("진짜 등록완료인데..");
    		},
-	     error:function(){
-			alert("거래처등록이 완료되었습니다.");
-			$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
-			$('#modal_Cts_1').css('display', "none");
-     	}
+	    error:function(){
+			
+	    }
    	});
-	
 } 
+<%-- 	
+	$.ajax({
+		  url: "pjctList.jsp", // AJAX 요청을 보낼 JSP 파일의 경로
+		  type: "post", // 요청 메서드 (GET, POST 등)
+		  dataType: "html", // 받아올 데이터의 타입 (html, json 등)
+		  success: function(data) {
+		    // AJAX 요청이 성공했을 때 실행되는 콜백 함수
+		    // 받아온 데이터로 HTML을 업데이트
+		    $("#pjct_list").html(data);
+		  },
+		  error: function(xhr, status, error) {
+		    // AJAX 요청이 실패했을 때 실행되는 콜백 함수
+		    console.log("AJAX 요청 실패: " + error);
+		  }
+		});
+
+	
+ 	$.ajax({
+		url: "detail?PJ_NUM="+PJ_NUM,
+		type: "get",
+		dataType: "text",
+		success: function(data) {
+			var pjctList = data.pjctList;
+			
+			$.each(pjctList, function(index, pjct) {
+				var pjctRow = '<input type="hidden" value="' + pjct.PJCT_NUM + '" name="PJCT_NUM"/>' +
+					'<tr id="remove_row_' + index + '"><td>' + (index + 1) + '</td><td>' +
+					pjct.ct_NAME + '</td><td>' +
+					pjct.ct_TEL + '</td><td>' +
+					pjct.ct_FAX + '</td><td>' +
+					pjct.ct_ADDR + '</td><td>' +
+					pjct.ct_MANAGER + '</td>' +
+					'<td><button class="remove-btt" data-row-id="' + index + '" onclick="PJCT_REMOVE_go();"><i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i></button></td></tr>';
+					
+				var addPJCT_list = $("#pjct_list");
+				addPJCT_list.prepend(pjctRow);
+			});
+		}
+	});
+
+	
+	$.ajax({
+		  url: '<%=request.getContextPath()%>/project/detail',
+		  type: 'GET',
+		  data: { PJ_NUM: PJ_NUM },
+		  success: function(response) {
+		    // 페이지 이동 성공 시 실행할 코드 작성
+		    // response는 AJAX 요청에 대한 응답 데이터입니다.
+		    // 적절한 처리 로직을 구현하세요.
+		  },
+		  error: function(xhr, status, error) {
+		    // 페이지 이동 실패 시 실행할 코드 작성
+		    // 에러 처리 로직을 구현하세요.
+		  }
+		});
+ --%>
+
+function PJCT_REMOVE_go(){
+/* 	$('.remove-btt').click)function(){
+		
+	}
+ 	var pjctListRow = $('#pjct_list tr');
+	pjctListRows.each(function(index) {
+	  var ctName = $(this).find('td:eq(1)').text();
+	  console.log(ctName); // 각각의 CT_NAME 출력
+	});
+	alert(PJCT_NUM); */
+/* 	$.ajax({
+		url:"contacts_Remove",
+		type:"get",
+		dataType:"json,
+		success: function(){
+			alert("삭제가 완료되었습니다.");
+		},
+		error:function(){
+			alert("서버상에 오류로 삭제되지 못하였습니다.");
+     	}
+	}); */
+}
 
 function CLOSE_MODAL_CT(){
 	$(".modal_contacts_name").css('display', "none");

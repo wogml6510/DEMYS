@@ -42,10 +42,8 @@ public class ProjectsController {
 		if (cri.getPage() < 1) cri.setPage(1);
 		if (cri.getPerPageNum() < 1) cri.setPerPageNum(5);
 	
-	    Map<String, Object> dataMap = projectsService.getPJList(cri);
-	    
+	    Map<String, Object> dataMap = projectsService.getPJList(cri); 
 	    model.addAttribute("dataMap", dataMap);
-			
 		return "project/main";
 	}
 	
@@ -61,16 +59,20 @@ public class ProjectsController {
 		return "project/detail";
 	}
 
+//	@RequestMapping("project/pjctList")
+//	public void pjctDetailRode() {}
+	
 	@RequestMapping("project/contacts_Regist")
 	@ResponseBody
 	public void pjctContactsRegistdo(@RequestBody Pjct pjct) {
 	    pjctService.registPjct(pjct);
 	}
-	
-	@RequestMapping("project/regist")
-	public void pjctRegist() {
-		
+	@RequestMapping("project/contacts_Remove")
+	public void pjctContactsRemovedo(int PJCT_NUM) {
+		pjctService.removePjct(PJCT_NUM);
 	}
+	@RequestMapping("project/regist")
+	public void pjctRegist() {}
 	
 	@RequestMapping("project/pjRegistdo")
 	@ResponseBody
