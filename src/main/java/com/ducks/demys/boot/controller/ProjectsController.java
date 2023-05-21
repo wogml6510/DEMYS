@@ -130,7 +130,7 @@ public class ProjectsController {
 		 
 		 return data; 
 	 }
-	
+//	참여인력
 	@RequestMapping("project/hr_list")
 	public void showPjctHrList() {
 	}

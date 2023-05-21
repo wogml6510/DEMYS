@@ -102,7 +102,7 @@
 	
 	</div>
 	 <div class="p-body pjbody" style="background-color: rgb(226 232 240);">
-	 
+	 	
 	 </div>	
 <!-- project/list.jsp 화면끝나는 태그 -->
 </div>

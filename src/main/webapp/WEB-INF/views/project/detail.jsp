@@ -45,8 +45,8 @@
    				<div class="header-2-menu0">
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
-					         |<div class="header-2-menu"><a href="#">프로젝트 정보</a></div> |
-					         <div class="header-2-menu"><a href="#">참여인력</a></div> |
+					         |<div class="header-2-menu" onclick=""><a href="#">프로젝트 정보</a></div> |
+					         <div class="header-2-menu" onclick="hrList_go();"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
 					      </div>
 		   			</div>
@@ -54,7 +54,7 @@
 	   			
 	   			<!-- 프로젝트정보 -->
 	   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
-	   			<div >
+	   			<div id="project_BODY" >
 	   				<div class="p-info-detail">
 	   					<div class="p-info-detail-title">
 	   						<span style="font-weight:bold;">프로젝트 정보</span>
@@ -158,19 +158,32 @@
 	   						</table>
 	   						<!-- <div id="addPjctList"></div> -->
 	   					</div>
-	   					
 	   				</div>
 	   				<!-- 거래처화면 끝나는 태그 -->
-	   			
 	   			</div>
-   			
    			</div>
-   
-   
-   
    		<!-- p-main-body끝나는 태그 -->
 		</div>   
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
+	
+	
+<script>
+function hrList_go(PJ_NUM){
+	$.ajax({
+		url: "hr_list",
+		type: "get",
+		dataType: "text",
+		success: function(data){
+			//alert(pjnum);
+			$("#project_BODY").html(data);
+		},
+		error: function (xhr, status, error) {
+            // AJAX 요청이 실패했을 때 실행할 코드
+            console.log(error);
+        }
+	});
+}
+</script>	
 	
  <!-- 			
 <script>
@@ -435,6 +448,8 @@ function PJCT_REGIST(){
 			alert("거래처등록이 완료되었습니다.");
 			$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
 			$('#modal_Cts_1').css('display', "none");
+			
+			//'<input type="hidden" value="'+${pjct.pjct_NUM }+'" name="PJCT_NUM"/>
 		}
 	});
 	$.ajax({
@@ -509,7 +524,17 @@ function PJCT_REGIST(){
  --%>
 
 function PJCT_REMOVE_go(){
-/* 	$('.remove-btt').click)function(){
+	var PJCT_NUM = $('input[name="PJCT_NUM"]').val();
+	//var tbodyNum = $('.remove-btt').data('row-id');
+	alert(PJCT_NUM);
+	console.log(PJCT_NUM);
+/*     alert(tbodyNum);
+    $('.remove-btt').closest('tr').remove();
+    console.log(PJCT_NUM);
+	
+        var rowIndex = $(button).data('row-id');
+        $('tr#remove_row_' + rowIndex).remove(); */
+/*  	$('.remove-btt').click)function(){
 		
 	}
  	var pjctListRow = $('#pjct_list tr');
@@ -517,8 +542,8 @@ function PJCT_REMOVE_go(){
 	  var ctName = $(this).find('td:eq(1)').text();
 	  console.log(ctName); // 각각의 CT_NAME 출력
 	});
-	alert(PJCT_NUM); */
-/* 	$.ajax({
+	alert(PJCT_NUM);
+ 	$.ajax({
 		url:"contacts_Remove",
 		type:"get",
 		dataType:"json,
@@ -528,9 +553,9 @@ function PJCT_REMOVE_go(){
 		error:function(){
 			alert("서버상에 오류로 삭제되지 못하였습니다.");
      	}
-	}); */
+	});
+ */
 }
-
 function CLOSE_MODAL_CT(){
 	$(".modal_contacts_name").css('display', "none");
 }
