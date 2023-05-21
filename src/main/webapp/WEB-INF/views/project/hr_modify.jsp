@@ -53,10 +53,10 @@ body {
 						<i class="fa-regular fa-file-image" style="font-size:210px;"></i>
 					</div>
 					<div class="hr-modi-conts">
-						<div>✔ 바다표범 </div>
+						<div>✔ ${pjhr.MEMBER_NAME } </div>
 						<div>
 							<div class="flex items-center justify-between w-full">
-								<div class="">✔ 업무가뭐야</div>
+								<div class="">✔ ${pjhr.PJHR_WORK }</div>
 								<select class="select w-60">
 								  	<option disabled selected>담당업무</option>
 								  	<option>매니저(PM)</option>
@@ -70,7 +70,7 @@ body {
 							</div>
 						</div>
 						<div class="font-bold">✔ 세부사항</div>
-						<div>&nbsp;<input type="text" placeholder="  세부사항을 입력하세요." class="input w-full h-16" /></div>
+						<div>&nbsp;<input type="text" value="${pjhr.PJHR_DETAIL }" class="input w-full h-16" /></div>
 					</div>
 				</div>
 			</div>

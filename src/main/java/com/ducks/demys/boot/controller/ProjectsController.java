@@ -84,11 +84,15 @@ public class ProjectsController {
 	
 	
 	@RequestMapping("project/hr_detail")
-	public void showPjctHrDetail(Model model, Integer PJHR_NUM) {
+	public void showPjctHrDetail(Model model, int PJHR_NUM) {
 		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
 		model.addAttribute("pjhr",pjhr);
 	}
-	
+	@RequestMapping("project/hr_modify")
+	public void showPjctHrModify(Model model, Integer PJHR_NUM) {
+		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
+		model.addAttribute("pjhr",pjhr);
+	}
 	
 	
 	
@@ -170,9 +174,7 @@ public class ProjectsController {
 	
 	
 	
-	@RequestMapping("project/hr_modify")
-	public void showPjctHrModify() {
-	}
+	
 
 }
 
