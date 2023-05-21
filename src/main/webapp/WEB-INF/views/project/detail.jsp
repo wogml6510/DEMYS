@@ -138,9 +138,9 @@
    								</tr>
    								</thead>
    								<tbody id="pjct_list" style="height: 40px;overflow-y:auto;overflow-x:hidden;">
-	   							<c:forEach var="pjctList" items="${pjctList }">
+	   							<c:forEach var="pjctList" items="${pjctList }" varStatus="status">
 								<tr>
- 									<td>${pjctList.CT_NUM }</td>
+ 									<td>${status.index+1 }</td>
  									<td>${pjctList.CT_NAME }</td>
  									<td>${pjctList.CT_TEL }</td>
  									<td>${pjctList.CT_FAX }</td>
@@ -419,7 +419,7 @@ function PJCT_REGIST(){
 			for(var i=0 ; i<pjctList.length; i++ ){
 				var pjct = pjctList[i];
 				if(pjct.ct_NUM == CT_NUM){
-					var pjct_row = '<tr><td >' +CT_NUM+ '</td><td>'
+					var pjct_row = '<tr><td >' + 0 + '</td><td>'
 						+pjct.ct_NAME+'</td><td>'
 						+pjct.ct_TEL+ '</td><td>' 
 						+pjct.ct_FAX+ '</td><td>' 
@@ -427,7 +427,7 @@ function PJCT_REGIST(){
 						+pjct.ct_MANAGER+ '</td>'
 						+'<td><button><i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i></button></td></tr>';
 					var addPJCT_list = $("#pjct_list");
-					addPJCT_list.append(pjct_row);
+					addPJCT_list.prepend(pjct_row);
 					
 				}
 			}
