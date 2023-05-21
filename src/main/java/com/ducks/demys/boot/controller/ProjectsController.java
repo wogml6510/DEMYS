@@ -20,7 +20,6 @@ import com.ducks.demys.boot.vo.Contacts;
 import com.ducks.demys.boot.vo.Member;
 import com.ducks.demys.boot.vo.Pjct;
 import com.ducks.demys.boot.vo.Projects;
-import com.ducks.demys.command.PjctRegistCommamd;
 import com.ducks.demys.command.SearchCriteria;
 
 @Controller
@@ -51,33 +50,22 @@ public class ProjectsController {
 	}
 	
 	@RequestMapping("project/detail")
-	public String pjctDetail(Model model, int PJ_NUM) {
+	public String pjctDetail(Model model, int PJ_NUM ) {
 		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
 
 		List<Pjct> pjctList = pjctService.getContactsPjctList(PJ_NUM);
 		
 		model.addAttribute("projects", projects);		
 		model.addAttribute("pjctList", pjctList);	
-		//model.addAttribute("CT_NUM", CT_NUM);	
-		//parseInt(CT_NUM);
-		//model.addAttribute("CT_NUM", CT_NUM);		
 			
 		return "project/detail";
 	}
-	
+
 	@RequestMapping("project/contacts_Regist")
 	@ResponseBody
 	public void pjctContactsRegistdo(@RequestBody Pjct pjct) {
-		pjctService.registPjct(pjct);
+	    pjctService.registPjct(pjct);
 	}
-	
-	/*
-	 * @RequestMapping("project/contacts_Regist0")
-	 * 
-	 * @ResponseBody public void pjctContactsRegistdodo(@RequestBody Pjct pjct,
-	 * PjctRegistCommamd pjctRegi) { Contacts pjcts = pjctRegi.toContactsVO();
-	 * contactsService.registContacts(pjcts); }
-	 */
 	
 	@RequestMapping("project/regist")
 	public void pjctRegist() {

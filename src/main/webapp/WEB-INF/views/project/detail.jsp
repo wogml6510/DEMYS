@@ -155,6 +155,7 @@
 	   							</c:forEach>
 	   							</tbody>
 	   						</table>
+	   						<div id="addPjctList"></div>
 	   					</div>
 	   					
 	   				</div>
@@ -400,105 +401,56 @@ function CONTACTS_S_REGI(){
 // 거래처등록모달_찾은후 등록하기버튼 (PJ_NUM값 필요, Project:현제 프로젝트에 거래처만 넣어야함)
 // 등록시 필요한 값: PJCT_NUM(시퀀스), CT_TYPE=2, PJ_NUM, CT_NUM
 function PJCT_REGIST(){
-	
-	//console.log(CT_TYPE,PJ_NUM,CT_NUM);
+	var CT_NUM = $('#c_num').val();
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	var CT_TYPE = $('input[name="CT_TYPE"]').val();
+	var data = {
+			"ct_NUM":parseInt(CT_NUM),
+			"pj_NUM":parseInt(PJ_NUM),
+			"ct_TYPE":parseInt(CT_TYPE),
+	}
    	$.ajax({
 		url:"Search_Modal",
 		type:"get",
 		dataType:"json",
 		success: function(data){
-			var contactsList = data.contactsList;
+			var pjctList = data.contactsList;
 			
-			for(var i=0 ; i<contactsList.length; i++ ){
-				var contacts = contactsList[i];
-				if(contacts.ct_NUM == CT_NUM){
-					var pjct_row = '<tr><td >' +contacts.ct_NUM+ '</td><td>'
-						+contacts.ct_NAME+'</td><td>'
-						+contacts.ct_TEL+ '</td><td>' 
-						+contacts.ct_FAX+ '</td><td>' 
-						+contacts.ct_ADDR+ '</td><td>' 
-						+contacts.ct_MANAGER+ '</td>'
+			for(var i=0 ; i<pjctList.length; i++ ){
+				var pjct = pjctList[i];
+				if(pjct.ct_NUM == CT_NUM){
+					var pjct_row = '<tr><td >' +CT_NUM+ '</td><td>'
+						+pjct.ct_NAME+'</td><td>'
+						+pjct.ct_TEL+ '</td><td>' 
+						+pjct.ct_FAX+ '</td><td>' 
+						+pjct.ct_ADDR+ '</td><td>' 
+						+pjct.ct_MANAGER+ '</td>'
 						+'<td><button><i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i></button></td></tr>';
 					var addPJCT_list = $("#pjct_list");
 					addPJCT_list.append(pjct_row);
 					
-					/* var input_row = '<input name="CT_NUM" type="hidden" value="'+CT_NUM +'" />'
-								  + '<input name="CT_NAME" type="hidden" value="'+contacts.ct_NAME +'" />'
-								  + '<input name="CT_TEL" type="hidden" value="'+contacts.ct_TEL +'" />'
-								  + '<input name="CT_FAX" type="hidden" value="'+contacts.ct_FAX +'" />'
-								  + '<input name="CT_ADDR" type="hidden" value="'+contacts.ct_ADDR +'" />'
-								  + '<input name="CT_MANAGER" type="hidden" value="'+contacts.ct_MANAGER +'" />';
-					
-					addCT_list.append(input_row);
-					console.log(CT_NUM,contacts.ct_NAME); */
 				}
 			}
 		   	
 		}
 	});
-   	var CT_NUM = $('#c_num').val();
-	var PJ_NUM = $('input[name="PJ_NUM"]').val();
-	var CT_TYPE = $('input[name="CT_TYPE"]').val();
-	var pjctData = {
-			"ct_NUM":parseInt(CT_NUM),
-			"pj_NUM":parseInt(PJ_NUM),
-			"ct_TYPE":parseInt(CT_TYPE),
-	}
-	
 	$.ajax({
    		url:"<%=request.getContextPath()%>/project/contacts_Regist",
    		type:"post",
    		dataType:"json",
    		contentType:"application/json",
-   		data:JSON.stringify(pjctData),
+   		data:JSON.stringify(data),
    		success: function(){
+		     alert("진짜 등록완료인데..");
+   		},
+	     error:function(){
 			alert("거래처등록이 완료되었습니다.");
 			$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
 			$('#modal_Cts_1').css('display', "none");
-   		},
-	     error:function(){
-		     alert("잘못된 입력입니다. 다시 입력하세요.");
      	}
    	});
 	
- <%--   	var a = $('input[name="CT_NUM"]').text();
-   	alert("aaaaaaaa"+a);
-   	
-   	var pt_nums = $('#pt_num').val();
-   	var pt_names = $('#pt_name').val();
-   	var pt_tels = $('#pt_tel').val();
-   	var pt_faxs = $('#pt_fax').val();
-   	var pt_addrs = $('#pt_addr').val();
-   	var pt_manages = $('#pt_manage').val();
-   	var data = {
-   			"ct_NUM":parseInt(CT_NUM),
-			"pj_NUM":parseInt(PJ_NUM),
-			"ct_TYPE":parseInt(CT_TYPE),
-			"ct_NUM":parseInt(pt_nums),
-			"ct_NAME":pt_names,
-			"ct_TEL":pt_tels,
-			"ct_FAX":pt_faxs,
-			"ct_ADDR":pt_manages,
-			"ct_MANAGER":pt_manages
-	}
-   	$.ajax({
-   		url:"<%=request.getContextPath()%>/project/contacts_Regist0",
-   		type:"post",
-   		dataType:"json",
-   		contentType:"application/json",
-   		data:JSON.stringify(data),
-   		success: function(){
-			alert("화면등록 완료");
-			/*$('#ct-serch-name').val(''); //조회화면에 들어간 value지우기
-			$('#modal_Cts_1').css('display', "none"); */
-   		},
-	     error:function(){
-		     alert("잘못된 입력입니다. 다시 입력하세요.");
-     	}
-   	}); --%>
-   	
-}
-
+} 
 
 function CLOSE_MODAL_CT(){
 	$(".modal_contacts_name").css('display', "none");
