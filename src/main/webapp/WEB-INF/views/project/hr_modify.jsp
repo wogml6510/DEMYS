@@ -57,31 +57,62 @@ body {
 						<div>
 							<div class="flex items-center justify-between w-full">
 								<div class="">✔ ${pjhr.PJHR_WORK }</div>
-								<select class="select w-60">
+								<select name="PJHR_WORK" class="select w-60">
 								  	<option disabled selected>담당업무</option>
-								  	<option>매니저(PM)</option>
-								  	<option>리더(PL)</option>
-								  	<option>공통설계자(AA)</option>
-								  	<option>구축담당자(TA)</option>
-								  	<option>DB설계자(DA)</option>
-								  	<option>품질보증(QA)</option>
-								  	<option>프로세스설계자(BA)</option>
+								  	<option value="PM" ${pjhr.PJHR_WORK == 'PM' ? "selected":""}>매니저(PM)</option>
+								  	<option value="PL" ${pjhr.PJHR_WORK == 'PL' ? "selected":""}>리더(PL)</option>
+								  	<option value="AA" ${pjhr.PJHR_WORK == 'AA' ? "selected":""}>공통설계자(AA)</option>
+								  	<option value="TA" ${pjhr.PJHR_WORK == 'TA' ? "selected":""}>구축담당자(TA)</option>
+								  	<option value="DA" ${pjhr.PJHR_WORK == 'DA' ? "selected":""}>DB설계자(DA)</option>
+								  	<option value="QA" ${pjhr.PJHR_WORK == 'QA' ? "selected":""}>품질보증(QA)</option>
+								  	<option value="BA" ${pjhr.PJHR_WORK == 'BA' ? "selected":""}>프로세스설계자(BA)</option>
 								</select>
 							</div>
 						</div>
 						<div class="font-bold">✔ 세부사항</div>
-						<div>&nbsp;<input type="text" value="${pjhr.PJHR_DETAIL }" class="input w-full h-16" /></div>
+						<div>&nbsp;<input type="text" value="${pjhr.PJHR_DETAIL }" name="PJHR_DETAIL"class="input w-full h-16" /></div>
 					</div>
 				</div>
 			</div>
 			
 			
 			<div class="p-regi-modal-bts">
-                  <button class="p-regi-modal-bt">수정</button>
+                  <button onclick="PjhrModify_go();" class="p-regi-modal-bt">수정</button>
                   <button onclick="CloseWindow();" class="p-regi-modal-bt">취소</button>
             </div>
+            <input type="hidden" value="${pjhr.PJHR_NUM}" name="PJHR_NUM" />
 		</div>
 </div>
+
+
+<script>
+function PjhrModify_go(){
+	var PJHR_WORK = $('select[name="PJHR_WORK"]').val();
+	var PJHR_DETAIL = $('input[name="PJHR_DETAIL"]').val();
+	var PJHR_NUM = $('input[name="PJHR_NUM"]').val();
+	console.log(PJHR_WORK,PJHR_DETAIL,PJHR_NUM);
+	var data ={
+			"pjhr_WORK":PJHR_WORK,
+			"pjhr_DETAIL":PJHR_DETAIL,
+			"pjhr_NUM":parseInt(PJHR_NUM)
+		}
+	console.log(data);
+	$.ajax({
+		url:"hr_modifydo",
+		type:"post",
+		data:JSON.stringify(data),      
+	    contentType:"application/json",
+		success:function(data){
+			alert("등록완료");
+		}
+	});
+}
+
+</script>
+
+
+
+
 <script src="/resource/js/common.js" defer="defer"></script> 
 
 

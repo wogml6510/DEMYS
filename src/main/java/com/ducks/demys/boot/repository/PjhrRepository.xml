@@ -32,6 +32,16 @@
 	</select>
 
 
+	<update id="modifyPjhr">
+		UPDATE PJHR
+		SET
+		PJHR_WORK=#{PJHR_WORK},PJHR_DETAIL=#{PJHR_DETAIL}
+		WHERE PJHR_NUM=#{PJHR_NUM}
+	</update>
+
+
+
+
 	<select id="getPjhrListByMEMBER_NUM" resultType="Pjhr">
 		SELECT *
 		FROM PJHR
@@ -49,12 +59,7 @@
 		PJHR(PJHR_WORK,PJHR_DETAIL,PJ_NUM,MEMBER_NUM)
 		VALUES(#{PJHR_WORK},#{PJHR_DETAIL},#{PJ_NUM},#{MEMBER_NUM})
 	</insert>
-	<update id="modifyPjhr">
-		UPDATE PJHR
-		SET
-		PJHR_WORK=#{PJHR_WORK},PJHR_DETAIL=#{PJHR_DETAIL},PJ_NUM=#{PJ_NUM},MEMBER_NUM=#{MEMBER_NUM}
-		WHERE PJHR_NUM=#{PJHR_NUM}
-	</update>
+	
 	<delete id="removePjhr">
 		DELETE
 		FROM PJHR
