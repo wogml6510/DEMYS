@@ -114,9 +114,7 @@ function PjhrModify_go(){
 	});
 
 }
-function Closewin(){
-	window.close();
-}
+
 </script>
 
 

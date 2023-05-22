@@ -13,7 +13,9 @@ function CloseWindow(){
 	window.opener.location.reload(true);
 	window.close();
 }
-
+function Closewin(){
+	window.close();
+}
 // 페이지네이션 + 조회
 function list_go(page,url){
 	if(!url) url="main";
