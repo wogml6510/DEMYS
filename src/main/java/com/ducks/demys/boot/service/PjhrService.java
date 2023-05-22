@@ -34,6 +34,7 @@ public class PjhrService {
 	public void registPjhr(Pjhr Pjhr) {
 		Pjhr.setPJHR_NUM(pjhrRepository.selectPjhrSequenceNextValue());
 		pjhrRepository.registPjhr(Pjhr);
+		
 	}
 	
 	public void modifyPjhr(Pjhr Pjhr) {

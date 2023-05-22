@@ -64,7 +64,7 @@ body {
 			
 			
 			<div class="p-regi-modal-bts">
-                  <button onclick="location.href='hr_modify?PJHR_NUM=${pjhr.PJHR_NUM}';" class="p-regi-modal-bt">수정</button>
+                  <button onclick="location.href='hr_modify?PJHR_NUM=${pjhr.PJHR_NUM}&PJ_NUM=${pjhr.PJ_NUM }';" class="p-regi-modal-bt">수정</button>
                   <button class="p-regi-modal-bt">삭제</button>
                   <button onclick="CloseWindow();" class="p-regi-modal-bt">취소</button>
             </div>

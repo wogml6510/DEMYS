@@ -12,7 +12,7 @@
 
 
 	   			<!-- 참여인력 정보 -->
-	   			<div>
+	   			<div id="hrList_new">
 	   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
 	   				<div class="hr-info">
 	   					<div class="info-title">
@@ -25,7 +25,7 @@
  						</div>
 	   					<div class="hr-list">
    							<c:forEach var="pjhrList" items="${pjhrList }">
-								<div class="td-wrapper hr-list-cont shadow-lg" onclick="javascript:OpenWindow('hr_detail?PJHR_NUM=${pjhrList.PJHR_NUM}','참여인원상세',800,550);">
+								<div class="td-wrapper hr-list-cont shadow-lg" onclick="javascript:OpenWindow('hr_detail?PJHR_NUM=${pjhrList.PJHR_NUM}&PJ_NUM=${projects.PJ_NUM }','참여인원상세',800,550);">
 									<div class="hr-img"> 
 										<!-- <img src="/resource/img/imja.jpg" class="h-full" /> -->
 										<div>${pjhrList.MEMBER_PIC }</div>
@@ -45,7 +45,7 @@
 	   			</div>
 
 
-<!-- 모달창-참여인력 추가(등록) 화면  -->
+<!--  --><!-- 모달창-참여인력 추가(등록) 화면  -->
 <div id="modal_hr">
 
       <div class="modal_hr_content_1">

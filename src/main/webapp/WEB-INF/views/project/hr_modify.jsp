@@ -74,11 +74,11 @@ body {
 					</div>
 				</div>
 			</div>
-			
+			<input type="hidden" value="${pjhr.PJ_NUM }" name="PJ_NUM" />
 			
 			<div class="p-regi-modal-bts">
                   <button onclick="PjhrModify_go();" class="p-regi-modal-bt">수정</button>
-                  <button onclick="CloseWindow();" class="p-regi-modal-bt">취소</button>
+                  <button onclick="Closewin();" class="p-regi-modal-bt">취소</button>
             </div>
             <input type="hidden" value="${pjhr.PJHR_NUM}" name="PJHR_NUM" />
 		</div>
@@ -87,6 +87,8 @@ body {
 
 <script>
 function PjhrModify_go(){
+	//var id = '';
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
 	var PJHR_WORK = $('select[name="PJHR_WORK"]').val();
 	var PJHR_DETAIL = $('input[name="PJHR_DETAIL"]').val();
 	var PJHR_NUM = $('input[name="PJHR_NUM"]').val();
@@ -94,7 +96,8 @@ function PjhrModify_go(){
 	var data ={
 			"pjhr_WORK":PJHR_WORK,
 			"pjhr_DETAIL":PJHR_DETAIL,
-			"pjhr_NUM":parseInt(PJHR_NUM)
+			"pjhr_NUM":parseInt(PJHR_NUM),
+			"pj_NUM":parseInt(PJ_NUM)
 		}
 	console.log(data);
 	$.ajax({
@@ -103,11 +106,17 @@ function PjhrModify_go(){
 		data:JSON.stringify(data),      
 	    contentType:"application/json",
 		success:function(data){
-			alert("등록완료");
+			alert("수정이 완료되었습니다.");
+			opener.parent.pjhrList_go();
+			window.close();
 		}
+		
 	});
-}
 
+}
+function Closewin(){
+	window.close();
+}
 </script>
 
 
