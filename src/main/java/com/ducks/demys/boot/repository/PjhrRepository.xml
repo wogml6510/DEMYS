@@ -38,7 +38,11 @@
 		PJHR_WORK=#{PJHR_WORK},PJHR_DETAIL=#{PJHR_DETAIL}
 		WHERE PJHR_NUM=#{PJHR_NUM}
 	</update>
-
+	<delete id="removePjhr">
+		DELETE
+		FROM PJHR
+		WHERE PJHR_NUM=#{PJHR_NUM}
+	</delete>
 
 
 
@@ -60,9 +64,5 @@
 		VALUES(#{PJHR_WORK},#{PJHR_DETAIL},#{PJ_NUM},#{MEMBER_NUM})
 	</insert>
 	
-	<delete id="removePjhr">
-		DELETE
-		FROM PJHR
-		WHERE PJHR_NUM=#{PJHR_NUM}
-	</delete>
+	
 </mapper>

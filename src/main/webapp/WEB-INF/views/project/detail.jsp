@@ -478,7 +478,7 @@ function PJCT_REGIST(){
 			}
 		}); */
 } 
-
+// 거래처삭제
 function PJCT_REMOVE_go(PJCT_PK){
 	/* var PJCT_NUM = PJCT_PK;
 	

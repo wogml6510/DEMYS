@@ -196,7 +196,11 @@ public class ProjectsController {
 		
 		return pjhr.getPJ_NUM();
 	}
-
+	@RequestMapping("project/pjhr_Remove")
+	@ResponseBody
+	public void pjhrRemovedo(int PJHR_NUM) {
+		pjhrService.removePjhr(PJHR_NUM);
+	}
 	
 	
 	
