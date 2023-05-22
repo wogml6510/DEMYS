@@ -18,9 +18,13 @@ public class PjctService {
 	public List<Pjct> getContactsPjctList(){
 		return pjctRepository.getContactsPjctList();
 	}
+	public int getContactsPjctListCount(int PJ_NUM) {
+		return pjctRepository.getContactsPjctListCount(PJ_NUM);
+	}
 	public List<Pjct> getContactsPjctList(int PJ_NUM){
 		return pjctRepository.getContactsPjctList(PJ_NUM);
 	}
+	
 	
 	public List<Pjct> getPjctListByPJ_NUM(int PJ_NUM){
 		return pjctRepository.getPjctListByPJ_NUM(PJ_NUM);
@@ -46,4 +50,5 @@ public class PjctService {
 	public void removePjct(int PJCT_NUM) {
 		pjctRepository.removePjct(PJCT_NUM);
 	}
+	
 }

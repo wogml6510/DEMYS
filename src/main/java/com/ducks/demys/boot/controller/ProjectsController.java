@@ -57,64 +57,17 @@ public class ProjectsController {
 		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
 
 		List<Pjct> pjctList = pjctService.getContactsPjctList(PJ_NUM);
-		
+		int pjctListCount = pjctService.getContactsPjctListCount(PJ_NUM);		
 		model.addAttribute("projects", projects);		
 		model.addAttribute("pjctList", pjctList);	
+		model.addAttribute("pjctListCount", pjctListCount);	
 			
 		return "project/detail";
 	}
 	
 	
 	
-	@RequestMapping("project/PjNumhrList")
-	public String sendPjNumhrList(Model model, int PJ_NUM) {
-		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
-		List<Pjhr> pjhrList = pjhrService.getPjhrListByPJ_NUM(PJ_NUM);
-		int pjhrListCount = pjhrService.getPjhrListByPJ_NUMCount(PJ_NUM);
-		
-		model.addAttribute("projects",projects);
-		model.addAttribute("pjhrList",pjhrList);
-		model.addAttribute("pjhrListCount",pjhrListCount);
-		model.addAttribute("PJ_NUM",PJ_NUM);
-		return "project/hr_list";
-	}
 	
-	@RequestMapping("project/hr_list")
-	public void showPjctHrList() {}
-	
-	
-	@RequestMapping("project/hr_detail")
-	public void showPjctHrDetail(Model model, int PJHR_NUM) {
-		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
-		model.addAttribute("pjhr",pjhr);
-	}
-
-	@RequestMapping("project/hr_listadd")
-	@ResponseBody
-	public void PjctHrDetailAdd(Model model, int PJ_NUM) {
-		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
-		List<Pjhr> pjhrList = pjhrService.getPjhrListByPJ_NUM(PJ_NUM);
-		int pjhrListCount = pjhrService.getPjhrListByPJ_NUMCount(PJ_NUM);
-		
-		model.addAttribute("projects",projects);
-		model.addAttribute("pjhrList",pjhrList);
-		model.addAttribute("pjhrListCount",pjhrListCount);
-		model.addAttribute("PJ_NUM",PJ_NUM);
-	}
-	@RequestMapping("project/hr_modify")
-	public void showPjctHrModify(Model model, int PJHR_NUM,int PJ_NUM) {
-		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
-		model.addAttribute("pjhr",pjhr);
-	}
-	@RequestMapping("project/hr_modifydo")
-	@ResponseBody
-	public int PjctHrModifyDo(@RequestBody Pjhr pjhr) {
-		int PJHR_NUM = pjhr.getPJHR_NUM();
-	    pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
-		pjhrService.modifyPjhr(pjhr);
-		
-		return pjhr.getPJ_NUM();
-	}
 
 	
 
@@ -126,8 +79,9 @@ public class ProjectsController {
 	public void pjctContactsRegistdo(@RequestBody Pjct pjct) {
 	    pjctService.registPjct(pjct);
 	}
-	@RequestMapping("project/contacts_Remove")
-	public void pjctContactsRemovedo(int PJCT_NUM) {
+	@RequestMapping("project/pjct_Remove")
+	@ResponseBody
+	public void pjctRemovedo(int PJCT_NUM) {
 		pjctService.removePjct(PJCT_NUM);
 	}
 	@RequestMapping("project/regist")
@@ -189,9 +143,60 @@ public class ProjectsController {
 		 
 		 return data; 
 	 }
+	 
+	
+	 
 //	참여인력
+	@RequestMapping("project/PjNumhrList")
+	public String sendPjNumhrList(Model model, int PJ_NUM) {
+		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
+		List<Pjhr> pjhrList = pjhrService.getPjhrListByPJ_NUM(PJ_NUM);
+		int pjhrListCount = pjhrService.getPjhrListByPJ_NUMCount(PJ_NUM);
+		
+		model.addAttribute("projects",projects);
+		model.addAttribute("pjhrList",pjhrList);
+		model.addAttribute("pjhrListCount",pjhrListCount);
+		model.addAttribute("PJ_NUM",PJ_NUM);
+		return "project/hr_list";
+	}
+	
+	@RequestMapping("project/hr_list")
+	public void showPjctHrList() {}
 	
 	
+	@RequestMapping("project/hr_detail")
+	public void showPjctHrDetail(Model model, int PJHR_NUM) {
+		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
+		model.addAttribute("pjhr",pjhr);
+	}
+
+	@RequestMapping("project/hr_listadd")
+	@ResponseBody
+	public void PjctHrDetailAdd(Model model, int PJ_NUM) {
+		Projects projects = projectsService.getPJByPJ_NUM(PJ_NUM);
+		List<Pjhr> pjhrList = pjhrService.getPjhrListByPJ_NUM(PJ_NUM);
+		int pjhrListCount = pjhrService.getPjhrListByPJ_NUMCount(PJ_NUM);
+		
+		model.addAttribute("projects",projects);
+		model.addAttribute("pjhrList",pjhrList);
+		model.addAttribute("pjhrListCount",pjhrListCount);
+		model.addAttribute("PJ_NUM",PJ_NUM);
+	}
+	@RequestMapping("project/hr_modify")
+	public void showPjctHrModify(Model model, int PJHR_NUM,int PJ_NUM) {
+		Pjhr pjhr = pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
+		model.addAttribute("pjhr",pjhr);
+	}
+	@RequestMapping("project/hr_modifydo")
+	@ResponseBody
+	public int PjctHrModifyDo(@RequestBody Pjhr pjhr) {
+		int PJHR_NUM = pjhr.getPJHR_NUM();
+	    pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
+		pjhrService.modifyPjhr(pjhr);
+		
+		return pjhr.getPJ_NUM();
+	}
+
 	
 	
 	

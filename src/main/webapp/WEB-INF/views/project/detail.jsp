@@ -40,12 +40,13 @@
 	      	</div>
 	   </div> 
 	   <!-- project작업공간 -->
-		<div class=" p-main-body">
+		<div class=" p-main-body" id="p-main-bodys">
    			<div class="p-body-cont">
    				<div class="header-2-menu0">
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
-					         |<div class="header-2-menu" onclick=""><a href="#">프로젝트 정보</a></div> |
+				   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
+					         |<div class="header-2-menu" onclick="PJ_IMP_go();"><a href="#">프로젝트 정보</a></div> |
 					         <div class="header-2-menu" onclick="pjhrList_go();"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
 					      </div>
@@ -53,7 +54,6 @@
 	   			</div>
 	   			
 	   			<!-- 프로젝트정보 -->
-	   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
 	   			<div id="project_BODY" >
 	   				<div class="p-info-detail">
 	   					<div class="p-info-detail-title">
@@ -114,11 +114,11 @@
 	   				
 	   				<!-- 프로젝트정보안에 거래처 화면 -->
 	   				<input type="hidden" name="CT_TYPE" value="2" />
-	   				<div>
+	   				<div id="pjctList_load">
 	   					<div class="p-info-cts-title">
 	   						<div>
 		   						<span style="font-weight:bold;">총 거래처</span>
-		   						<span style="font-weight:bold;color:blue;">3</span>
+		   						<span style="font-weight:bold;color:blue;">${pjctListCount }</span>
 	   						</div>
 	   						<div>
 	   							<button id="modal_opne_btn_Cts_1" class="p-info-detail-bt" onclick="ct_Regi();">등록</button>
@@ -148,7 +148,7 @@
  									<td>${pjctList.CT_ADDR }</td>
  									<td>${pjctList.CT_MANAGER }</td>
  									<td>
- 										<button class="remove-btt" data-row-id="${status.index}" onclick="PJCT_REMOVE_go();">
+ 										<button id="remov_Btt" class="remove-btt" data-row-id="${status.index}" onclick="PJCT_REMOVE_go('${pjctList.PJCT_NUM}');">
  										<i class="fa-solid fa-circle-xmark" style="color:red;font-size:23px;padding-right:5px;"></i>
  										</button>
  									</td>
@@ -187,7 +187,10 @@ function pjhrList_go(){
 	});
 }
 
-
+function PJ_IMP_go(){
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	pj_detail(PJ_NUM);
+}
 </script>	
 	
  <!-- 			
@@ -426,9 +429,8 @@ function PJCT_REGIST(){
 	var data = {
 			"ct_NUM":parseInt(CT_NUM),
 			"pj_NUM":parseInt(PJ_NUM),
-			"ct_TYPE":parseInt(CT_TYPE),
+			"ct_TYPE":parseInt(CT_TYPE)
 	}
-
 	$.ajax({
    		url:"<%=request.getContextPath()%>/project/contacts_Regist",
    		type:"post",
@@ -477,38 +479,27 @@ function PJCT_REGIST(){
 		}); */
 } 
 
-function PJCT_REMOVE_go(){
-	var PJCT_NUM = $('input[name="PJCT_NUM"]').val();
-	//var tbodyNum = $('.remove-btt').data('row-id');
-	alert(PJCT_NUM);
-	console.log(PJCT_NUM);
-/*     alert(tbodyNum);
-    $('.remove-btt').closest('tr').remove();
-    console.log(PJCT_NUM);
+function PJCT_REMOVE_go(PJCT_PK){
+	/* var PJCT_NUM = PJCT_PK;
 	
-        var rowIndex = $(button).data('row-id');
-        $('tr#remove_row_' + rowIndex).remove(); */
-/*  	$('.remove-btt').click)function(){
-		
-	}
- 	var pjctListRow = $('#pjct_list tr');
-	pjctListRows.each(function(index) {
-	  var ctName = $(this).find('td:eq(1)').text();
-	  console.log(ctName); // 각각의 CT_NAME 출력
-	});
-	alert(PJCT_NUM);
- 	$.ajax({
-		url:"contacts_Remove",
-		type:"get",
-		dataType:"json,
+	console.log(PJCT_NUM); */
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	//var PJ_NUM = PJ_PK;
+	//alert(PJ_NUM);
+	var data = {'PJCT_NUM':parseInt(PJCT_PK) }
+	$.ajax({
+		url:"pjct_Remove",
+		type:"post",
+		data:data,
 		success: function(){
 			alert("삭제가 완료되었습니다.");
+			pj_detail(PJ_NUM);
 		},
 		error:function(){
 			alert("서버상에 오류로 삭제되지 못하였습니다.");
      	}
 	});
- */
+
 }
 function CLOSE_MODAL_CT(){
 	$(".modal_contacts_name").css('display', "none");
