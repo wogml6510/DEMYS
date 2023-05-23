@@ -64,15 +64,18 @@ public class ProjectsController {
 			
 		return "project/detail";
 	}
-	
-	
+	@RequestMapping("project/PjModifyDo")
+	@ResponseBody
+	public int PjModifyDo(@RequestBody Projects project) {
+		int PJ_NUM = project.getPJ_NUM();
+		projectsService.getPJByPJ_NUM(PJ_NUM);
+		projectsService.modifyPJ(project);
+		System.out.println(PJ_NUM);
+		return project.getPJ_NUM();
+	}
 	
 	
 
-	
-
-//	@RequestMapping("project/pjctList")
-//	public void pjctDetailRode() {}
 //	거래처
 	@RequestMapping("project/contacts_Regist")
 	@ResponseBody

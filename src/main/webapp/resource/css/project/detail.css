@@ -134,7 +134,7 @@
 
 /* 수정css */
 .modify_css1{
-	border: 1px solid #7979;
+	border: 1px solid #dedede;
     width: 550px;
     height: 28px;
     font-size: 15px;
@@ -143,22 +143,33 @@
 }
 /* 버튼들어가는 라인 */
 .modify_css0{
-	border: 1px solid #7979;
-    width: 200px;
-    height: 28px;
+	border: 1px solid #dedede;
+    width: 470px;
+    height: 30px;
     font-size: 15px;
     border-radius: 6px;
     padding-left:10px;
 }
+.sh-btts{
+	background-color: #f7f7f7;
+    font-weight: 600;
+}
 
 .p-info-sh-bt{
+	border: 2px solid #153A66;
 	height:30px;
 	width:70px;
-	background-color:#153A66;
-	color:white;
+	color:#153A66;
 	border-radius:8px;
 	text-align:center;
 	margin-left:10px;
 	font-size:14px;
+	font-weight:bold;
+	line-height: 3px;
 }
 
+.p-info-sh-bt:hover{
+	background-color:#153A66;
+	font-weight:bold;
+	color:white;
+}

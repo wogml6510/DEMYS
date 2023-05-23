@@ -60,7 +60,7 @@ public class ProjectsService {
 
 	public Projects getPJByPJ_NUM(int PJ_NUM) {
 		Projects projects = projectsRepository.getPJByPJ_NUM(PJ_NUM);
-		//System.out.println("PJ_NUM: "+PJ_NUM);
+		System.out.println("Service:PJ_NUM: "+PJ_NUM);
 		return projects;
 	}
 
@@ -71,6 +71,7 @@ public class ProjectsService {
 
 	public void modifyPJ(Projects project) {
 		projectsRepository.modifyPJ(project);
+		System.out.println(project);
 	}
 
 	public void removePJ(int PJ_NUM) {

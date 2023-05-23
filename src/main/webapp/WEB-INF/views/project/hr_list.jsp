@@ -67,7 +67,7 @@
 						<div class="hr-regi-conts">
 							<div>✔ &nbsp;
 								<input id="m_names" name="PJHR_NAME" type="text" disabled placeholder="이름을 입력하세요." class="input w-full h-9" />
-								<button id="modal_opne_btn_hr_2" class="p-regi-modal-bt" onclick="searchMEMBER_NAME();">조회</button>
+								<button id="modal_opne_btn_hr_2" class="p-regi-modal-bt" onclick="searchPJHR_NAME();">조회</button>
 							</div>
 							<div>✔ &nbsp; 
 								<div class="">
@@ -149,7 +149,7 @@ function PJHR_REGI(){
 
 
 <!-- 모달창-참여인력 조회화면 (프로젝드메니저등록모달창과 제목만 다름) -->
-<div id="modal_1" class="modal_member_name">
+<div id="modal_1" class="modal_PJHR_name">
 
       <div class="modal_content">
             <div class="flex" style="background-color: #153A66;">
@@ -168,21 +168,21 @@ function PJHR_REGI(){
 						  <option disabled selected>선택 </option>
 						  <option value="mn" ${searchType=='mn' ? "selected":"" }>담당자명</option>
 						  <option value="md" ${searchType=='md' ? "selected":"" }>담당부서</option>
-						  <option value="mp" ${searchType=='mp' ? "selected":"" }>직급</option>
+						  <%-- <option value="mp" ${searchType=='mp' ? "selected":"" }>직급</option> --%>
 					</select>
 					<div class="p-modal-searchbar key_member">
 						<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
-						<i onclick="member_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+						<i onclick="PJHR_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
 					</div>
 				</div>
 				<div class="cts-serch-list">
 					<table id="memberList_view" border="1">
-						
+						<!-- 참여인력리스트 뜨는곳 -->
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt" onclick="javascript:MEMBER_S_REGI();">등록</button>
-	                  <button id="modal_close_btn_hr_2" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
+	                  <button class="p-regi-modal-bt" onclick="javascript:PJHR_S_REGI();">등록</button>
+	                  <button id="modal_close_btn_hr_2" class="p-regi-modal-bt" onclick="PJHR_CLOSE_MODAL();">취소</button>
 	                  <!-- MEMBER NUM, NAME값 받을 공간 -->
               		  <div class="add_member_id" ></div>
 	            </div>
@@ -192,7 +192,123 @@ function PJHR_REGI(){
       <div class="modal_layer"></div>
 </div>
 
+<script>
 
+function searchPJHR_NAME(){
+	
+	$(".modal_PJHR_name").css('display',"block");
+	$.ajax({
+		url: "Search_Modal",
+		type: "get",
+		dataType:"json",
+		success: function(data){
+			var memberList = data.memberList;
+			var table = $('#memberList_view');
+			table.empty();
+			//console.log(data);
+			for(var i=0 ; i<memberList.length; i++ ){
+				var member = memberList[i];
+				var row = '<tr data-member-num ="'+ member.member_NUM +'"> <td>' + member.member_NAME + '</td><td>' + member.member_DEP + '</td></tr>';
+				table.append(row);
+			}
+			
+			table.find('tr').click(function(){
+				var MEMBER_NAME = $(this).find('td:first-child').text();
+				var MEMBER_NUM = $(this).data('member-num');
+				
+				var input_mnum = '<input id="m_num" type="hidden" value="' + MEMBER_NUM + '" />';
+				var input_mname = '<input id="m_name" type="hidden" value="' + MEMBER_NAME + '" />';
+				
+		 		var addMemberId = $('.add_member_id');
+
+				if (addMemberId.length) {
+				  	addMemberId.empty();
+				}
+				addMemberId.append(input_mnum);
+				addMemberId.append(input_mname);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == MEMBER_NAME){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
+		}
+	}); 
+}
+
+//프로젝트member조회
+function PJHR_list_go(){
+	
+	//alert("리스트 돋보기");
+	var searchType = $('.select_member[name="searchType"]').val();
+	var keyword = $('.key_member>input[name="keyword"]').val();
+	console.log(searchType);
+	console.log(keyword);
+	$.ajax({
+		//alert("리스트 ajax");
+		url: "regist_searchMEMBER",
+		type: "get",
+		dataType:"json",
+		data:{
+			"searchType":searchType,
+			"keyword": keyword
+		},
+		success: function(data){
+			var memberList = data.memberList;
+			var table = $('#memberList_view');
+			table.empty();
+			
+			for(var i=0 ; i<memberList.length; i++ ){
+				var member = memberList[i];
+				var row = '<tr data-member-num ="'+ member.member_NUM +'"> <td>' + member.member_NAME + '</td><td>' + member.member_DEP + '</td></tr>';
+				table.append(row);
+			}
+			
+			table.find('tr').click(function(){
+				var MEMBER_NAME = $(this).find('td:first-child').text();
+				var MEMBER_NUM = $(this).data('member-num');
+				
+				var input_mnum = '<input id="m_num" type="hidden" value="' + MEMBER_NUM + '" />';
+				var input_mname = '<input id="m_name" type="hidden" value="' + MEMBER_NAME + '" />';
+				
+		 		var addMemberId = $('.add_member_id');
+
+				if (addMemberId.length) {
+				  	addMemberId.empty();
+				}
+				addMemberId.append(input_mnum);
+				addMemberId.append(input_mname);
+				
+				table.find('tr>td:first-child').each(function(){
+					if($(this).text() == MEMBER_NAME){
+						$(this).parent('tr').css('background-color', "#e7e7e7e7");
+					}else{
+						$(this).parent('tr').css('background-color', "#ffffff");
+					}
+				});
+			});
+		}
+	});
+}
+// 참여인력 member 조회 등록
+function PJHR_S_REGI(){
+	var MEMBER_NUM = $('#m_num').val();
+	$('#m_number').val(MEMBER_NUM);
+	var MEMBER_NAME = $('#m_name').val();
+	$('#m_names').val(MEMBER_NAME);
+
+	$(".modal_PJHR_name").css('display', "none");
+}
+
+//프로젝트매니저, 참여인력 모달창 닫기
+function PJHR_CLOSE_MODAL(){
+	$(".modal_PJHR_name").css('display', "none");
+}
+
+</script>
 
 <!-- OpenWindow & 참여업체 조회 -->
 <script src="/resource/js/common.js" defer="defer"></script>

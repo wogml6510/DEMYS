@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:forEach var="pjctList" items="${pjctList }" varStatus="status">
 		<input type="hidden" value="${pjctList.PJCT_NUM }" name="PJCT_NUM" />
@@ -15,4 +15,4 @@
 						</button>
 				</td>
 		</tr>
-</c:forEach>
+</c:forEach> --%>
