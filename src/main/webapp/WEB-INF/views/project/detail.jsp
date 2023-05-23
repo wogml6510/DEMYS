@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="/resource/css/project/contacts_regist_modal.css" />
 <link rel="stylesheet" href="/resource/css/project/contacts_modal.css" />
 
+
+
 <div class="p-body-header">
 	 	 	<div class="p-main-title">
 		     	<div>
@@ -58,8 +60,11 @@
 	   				<div class="p-info-detail">
 	   					<div class="p-info-detail-title">
 	   						<span style="font-weight:bold;">프로젝트 정보</span>
-	   						<button id="P_Modify" class="p-info-detail-bt" onclick="PJ_MODIFY();">수정</button>
-	   						<button id="P_Modify" style="display:none;" class="p-info-detail-bt" onclick="PJ_MODIFY_go();">수정하기</button>
+		   					<button id="P_modify" style="display:block;" class="p-info-detail-bt" onclick="P_MODIFY();">수정</button>
+	   						<div id=Pj_modify style="width: 215px; display:none;justify-content: space-between;">
+		   						<button id="Pj_modify_go"  class="p-info-detail-bt" onclick="PJ_MODIFY_go();">수정하기</button>
+		   						<button id="Pj_modify_fail" class="p-info-detail-bt" onclick="PJ_MODIFY_fail();">취소하기</button>
+		   					</div>
 	   					</div>
 	   					<div class="p-detail-table">
 	   						<table border="1" id="table_Pj_Detail">
@@ -70,21 +75,21 @@
 	   							<tr>
 	   								<td>프로젝트기간</td>
 	   								<td class="td-pj-date">
-	   									<span><fmt:formatDate value="${projects.PJ_STARTDATE }" pattern="yyyy-MM-dd"/></span>
-	   									<span>~ <fmt:formatDate value="${projects.PJ_ENDDATE }" pattern="yyyy-MM-dd"/></span>
+	   									<span class="td-pj-start"><fmt:formatDate value="${projects.PJ_STARTDATE }" pattern="yyyy-MM-dd"/></span>
+	   									<span class="td-pj-end">~ <fmt:formatDate value="${projects.PJ_ENDDATE }" pattern="yyyy-MM-dd"/></span>
 	   								</td>
 	   							</tr>
-	   							<tr class="pj-price td-pj-price">
+	   							<tr >
 	   								<td>예상 매출액</td>
-	   								<td >${projects.PJ_PRICE }원</td>
+	   								<td class="td-pj-price">${projects.PJ_PRICE }원</td>
 	   							</tr>
-	   							<tr class="td-m-name">
+	   							<tr>
 	   								<td>프로젝트 매니저</td>
-	   								<td>${projects.MEMBER_NAME }</td>
+	   								<td class="td-m-name">${projects.MEMBER_NAME }</td>
 	   							</tr>
-	   							<tr class="td-pj-field">
+	   							<tr>
 	   								<td>프로젝트 사업구분</td>
-	   								<td>${projects.PJ_FIELD }</td>
+	   								<td class="td-pj-field">${projects.PJ_FIELD }</td>
 	   							</tr>
 	   							<tr class="td-pj-type">
 	   								<td>프로젝트 구분</td>
@@ -95,19 +100,22 @@
 		   								<td>외부 프로젝트</td>
 	   								</c:if>
 	   							</tr>
-	   							<tr class="td-pj-content">
+	   							<tr>
 	   								<td>프로젝트 내용</td>
-	   								<td>${projects.PJ_CONTENT }</td>
+	   								<td  class="td-pj-content">${projects.PJ_CONTENT }</td>
 	   							</tr>
-	   							<tr class="td-ct-name">
+	   							<tr>
 	   								<td>업체명</td>
-	   								<td>${projects.CT_NAME }</td>
+	   								<td class="td-ct-name">${projects.CT_NAME }</td>
 	   							</tr>
-	   							<tr class="td-pj-git">
+	   							<tr>
 	   								<td>깃 주소</td>
-	   								<td>${projects.PJ_GIT }</td>
+	   								<td class="td-pj-git">${projects.PJ_GIT }</td>
 	   							</tr>
 	   						</table>
+	   						<!-- MEMBER_NUM, CONTACTS_NUM  -->
+			   				<input id="c_number" type="hidden" name="CT_NUM" value=""/>
+			   				<input id="m_number" type="hidden" name="MEMBER_NUM" value=""/>
 	   					</div>
 	   				</div>
 	   				<!-- 프로젝트정보 끝나는 태그 -->
@@ -166,66 +174,6 @@
 		</div>   
 	<!-- project/phead.jsp (t-body) 화면 끝나는 태그 -->
 	
-	
-<script>
-function pjhrList_go(){
-	var PJ_NUM = $('input[name="PJ_NUM"]').val();
-	//alert(PJ_NUM);
-	console.log(PJ_NUM);
-	$.ajax({
-		url: "PjNumhrList?PJ_NUM="+PJ_NUM,
-		type: "get",
-		dataType: "text",
-		success: function(data){
-			//alert("참여인력리스트");
-			$("#project_BODY").html(data);
-		},
-		error: function (xhr, status, error) {
-            // AJAX 요청이 실패했을 때 실행할 코드
-            console.log(error);
-        }
-	});
-}
-
-function PJ_IMP_go(){
-	var PJ_NUM = $('input[name="PJ_NUM"]').val();
-	pj_detail(PJ_NUM);
-}
-</script>	
-	
- <!-- 			
-<script>
-
-
-function PJ_MODIFY(){
-	//var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
-	
-	alert("dddd");
-	
-	var PJ_NAME = $(".td-pj-name").text();
-	var PJ_NAME = $(".td-pj-date").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	var PJ_NAME = $(".").text();
-	
-	console.log(PJ_NAME);
-	var table_modify = $('#table_Pj_Detail tr td:last-child');
-	table_modify.empty();
-	
-	var input_pjName = '<input style="border:1px solid black;" type="text" value="'+PJ_NAME+'" />';
-	table_modify.append(input_pjName);
-}
-</script>  
-	  -->
-
-
-
-
 <!-- 모달창-거래처 조회 등록  -->
 <div id="modal_Cts_1">
 
@@ -257,8 +205,140 @@ function PJ_MODIFY(){
       </div>
 
       <div class="modal_layer"></div>
-</div>
+</div>	
 <script>
+//프로젝트 정보로 이동
+function PJ_IMP_go(){
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	pj_detail(PJ_NUM);
+}
+//참여인력리스트로 이동
+function pjhrList_go(){
+	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+	//alert(PJ_NUM);
+	console.log(PJ_NUM);
+	$.ajax({
+		url: "PjNumhrList?PJ_NUM="+PJ_NUM,
+		type: "get",
+		dataType: "text",
+		success: function(data){
+			//alert("참여인력리스트");
+			$("#project_BODY").html(data);
+		},
+		error: function (xhr, status, error) {
+            // AJAX 요청이 실패했을 때 실행할 코드
+            console.log(error);
+        }
+	});
+}
+
+
+</script>	
+	
+	
+<script>
+// 프로젝트정보 수정
+function P_MODIFY(){
+	$('#P_modify').css('display','none');
+	$('#Pj_modify').css('display', 'block').css('display', 'flex');
+	
+	
+	var PJ_NAME = $(".td-pj-name").text();
+	var PJ_STARTDATE= $(".td-pj-start").text();
+	var PJ_ENDDATE= $(".td-pj-end").text();
+	var PJ_PRICE= $(".td-pj-price").text();
+	var MEMBER_NAME= $(".td-m-name").text();
+	var PJ_FIELD= $(".td-pj-field").text();
+	var PJ_TYPE= $(".td-pj-type>td:last-child").text();
+	
+	console.log(PJ_STARTDATE);
+	var PJ_CONTENT=$(".td-pj-content").text();
+	var CT_NAME=$(".td-ct-name").text();
+	var PJ_GIT=$(".td-pj-git").text();
+	
+	
+	var table_modify = $('#table_Pj_Detail tr td:last-child');
+	table_modify.empty();
+	
+	var input_pjName = '<input class="modify_css1" type="text" value="'+PJ_NAME+'" />';
+	$(".td-pj-name").append(input_pjName);
+	
+ 	var input_pjStart = '<input class="" type="date"/>';
+	$(".td-pj-date").append(input_pjStart);
+	$(".td-pj-date").append(" ~ ");
+	var input_pjEnd = '<input class="" type="date" />';
+	$(".td-pj-date").append(input_pjEnd);
+	
+	var input_pjPrice = '<input class="modify_css0" type="text" value="'+PJ_PRICE+'" />';
+	$(".td-pj-price").append(input_pjPrice);
+	var input_mName = '<input class="modify_css0" id="m_names" disabled type="text" value="'+MEMBER_NAME+'" />';
+	$(".td-m-name").append(input_mName);
+	$(".td-m-name").append('<button class="p-info-sh-bt" onclick="searchMEMBER_NAME();">찾기</button>');
+	var input_fiedl = '<input class="modify_css0" disabled type="text" value="'+PJ_FIELD+'" />';
+	$(".td-pj-field").append(input_fiedl);
+	$(".td-pj-field").append('<button class="p-info-sh-bt" onclick="P_MODIFY();">찾기</button>');
+	
+	var input_pjContent = '<input class="modify_css1" type="text" value="'+PJ_CONTENT+'" />';
+	$(".td-pj-content").append(input_pjContent);
+	var input_ctName = '<input class="modify_css1" type="text" value="'+CT_NAME+'" />';
+	$(".td-ct-name").append(input_ctName);
+	var input_pjGit = '<input class="modify_css1" type="text" value="'+PJ_GIT+'" />';
+	$(".td-pj-git").append(input_pjGit);
+	
+	
+	
+	$(".td-pj-type>td:last-child").append(PJ_TYPE);
+}
+function PJ_MODIFY_go(){
+
+	
+}
+</script>  
+<!-- 모달창-프로젝트메니저  -->
+  <div id="modal_2" class="modal_member_name">
+
+    <div class="modal_content">
+          <div class="flex" style="background-color: #153A66;">
+                <div class="navbar text-neutral-content modal-head">
+                      <div class="text-white modal-head-0">&nbsp;&nbsp;&nbsp;&nbsp;DEMYS PMS</div>
+                </div>
+          </div>
+
+		<div class="cts-view">
+			<div class="cts-title">
+				<span>프로젝트 매니저</span>
+			</div>
+			<div class="cts-title-sub">* 담당매니저를 선택하세요.</div>
+			<div class="p-modal-serach select_member">
+				<select class="select select-bordered p-cts-select select_member" name="searchType" id="searchType">
+					  <option disabled selected>선택 </option>
+					  <option value="mn" ${searchType=='mn' ? "selected":"" }>매니저명</option>
+					  <option value="md" ${searchType=='md' ? "selected":"" }>담당부서</option>
+				</select>
+				<div class="p-modal-searchbar key_member">
+					<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
+					<i onclick="member_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+				</div>
+			</div>
+			<div class="cts-serch-list">
+				<table id="memberList_view" border="1">
+					<!-- memberList나오는 위치 -->
+				</table>
+			</div>
+			<div class="p-regi-modal-bts">
+                  <button class="p-regi-modal-bt" onclick="javascript:MEMBER_S_REGI();">등록</button>
+                  <button id="modal_close_btn2" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
+                  <!-- MEMBER NUM, NAME값 받을 공간 -->
+                  <div class="add_member_id" ></div>
+            </div>
+		</div>
+    </div>
+
+    <div class="modal_layer"></div>
+</div>
+
+<script>
+
 function ct_Regi(){
 	$("#modal_Cts_1").css('display',"block");
 }
@@ -506,8 +586,5 @@ function CLOSE_MODAL_CT(){
 }
 
 </script>
-
-
-
 
 

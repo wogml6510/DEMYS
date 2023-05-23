@@ -33,8 +33,9 @@ public class PjhrService {
 	
 	public void registPjhr(Pjhr Pjhr) {
 		Pjhr.setPJHR_NUM(pjhrRepository.selectPjhrSequenceNextValue());
+		System.out.println(Pjhr);
+		System.out.println("번호: "+ Pjhr.getPJHR_NUM());
 		pjhrRepository.registPjhr(Pjhr);
-		
 	}
 	
 	public void modifyPjhr(Pjhr Pjhr) {

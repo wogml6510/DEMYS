@@ -92,7 +92,7 @@ function PjhrModify_go(){
 	var PJHR_WORK = $('select[name="PJHR_WORK"]').val();
 	var PJHR_DETAIL = $('input[name="PJHR_DETAIL"]').val();
 	var PJHR_NUM = $('input[name="PJHR_NUM"]').val();
-	console.log(PJHR_WORK,PJHR_DETAIL,PJHR_NUM);
+	
 	var data ={
 			"pjhr_WORK":PJHR_WORK,
 			"pjhr_DETAIL":PJHR_DETAIL,

@@ -84,8 +84,20 @@ public class ProjectsController {
 	public void pjctRemovedo(int PJCT_NUM) {
 		pjctService.removePjct(PJCT_NUM);
 	}
+	
+	
+	@RequestMapping("project/regist_PJTYPE")
+	public String sendpjtype(Model model, int PJ_TYPE) {
+		model.addAttribute("PJ_TYPE",PJ_TYPE);
+		//System.out.println(PJ_TYPE);
+		return "project/regist_detail";
+	}
+	
 	@RequestMapping("project/regist")
 	public void pjctRegist() {}
+	
+	@RequestMapping("project/regist_detail")
+	public void pjctRegistDetail() {}
 	
 	@RequestMapping("project/pjRegistdo")
 	@ResponseBody
@@ -96,16 +108,6 @@ public class ProjectsController {
 		
 		projectsService.registPJ(projects);
 	}
-	
-	@RequestMapping("project/regist_PJTYPE")
-	public String sendpjtype(Model model, int PJ_TYPE) {
-		model.addAttribute("PJ_TYPE",PJ_TYPE);
-		//System.out.println(PJ_TYPE);
-		return "project/regist_detail";
-	}
-	
-	@RequestMapping("project/regist_detail")
-	public void pjctRegistDetail() {}
 	
 	@RequestMapping("project/Search_Modal")
 	@ResponseBody
@@ -201,7 +203,11 @@ public class ProjectsController {
 	public void pjhrRemovedo(int PJHR_NUM) {
 		pjhrService.removePjhr(PJHR_NUM);
 	}
-	
+	@RequestMapping("project/pjhrRegist")
+	@ResponseBody
+	public void pjhrRegistdo(@RequestBody Pjhr pjhr) {
+		pjhrService.registPjhr(pjhr);
+	}
 	
 	
 

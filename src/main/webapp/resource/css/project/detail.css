@@ -40,7 +40,7 @@
 	color:white;
 	border-radius:8px;
 }
-.p-info-detail-bt:hover{
+.p-info-detail-bt:hover, .p-info-sh-bt:hover{
 	background-color:#11263F;
 	font-weight:bold;
 }
@@ -130,3 +130,35 @@
 .p-cts-list>table tr td{
 	text-align:center;
 }
+
+
+/* 수정css */
+.modify_css1{
+	border: 1px solid #7979;
+    width: 550px;
+    height: 28px;
+    font-size: 15px;
+    border-radius: 6px;
+    padding-left:10px;
+}
+/* 버튼들어가는 라인 */
+.modify_css0{
+	border: 1px solid #7979;
+    width: 200px;
+    height: 28px;
+    font-size: 15px;
+    border-radius: 6px;
+    padding-left:10px;
+}
+
+.p-info-sh-bt{
+	height:30px;
+	width:70px;
+	background-color:#153A66;
+	color:white;
+	border-radius:8px;
+	text-align:center;
+	margin-left:10px;
+	font-size:14px;
+}
+

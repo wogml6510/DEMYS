@@ -16,7 +16,7 @@
 	   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
 	   				<div class="hr-info">
 	   					<div class="info-title">
-	   						<button id="modal_opne_btn_hr_1" class="hr-regist-bt">참여인력 추가</button>
+	   						<button id="pjhr_Regibt" class="hr-regist-bt" onclick="PJHR_REGIST_go('${projects.PJ_NUM}');">참여인력 추가</button>
 	   					</div>
 	   					<div class="flex w-full mx-2.5">
 	   						<span style="font-weight:bold;">총 참여인력 &nbsp;</span>
@@ -25,13 +25,13 @@
  						</div>
 	   					<div class="hr-list">
    							<c:forEach var="pjhrList" items="${pjhrList }">
-								<div class="td-wrapper hr-list-cont shadow-lg" onclick="javascript:OpenWindow('hr_detail?PJHR_NUM=${pjhrList.PJHR_NUM}&PJ_NUM=${projects.PJ_NUM }','참여인원상세',800,550);">
+								<div class="td-wrapper hr-list-cont shadow-lg" onclick="javascript:OpenWindow('hr_detail?PJHR_NUM=${pjhrList.PJHR_NUM}&PJ_NUM=${projects.PJ_NUM }','참여인원상세',600,500);">
 									<div class="hr-img"> 
 										<!-- <img src="/resource/img/imja.jpg" class="h-full" /> -->
 										<div>${pjhrList.MEMBER_PIC }</div>
 									</div>
 									<div class="w-3/5 px-2.5">
-										<input type="hidden" value="" name="PJHR_NUM" />
+										<input type="hidden" value="${pjhrList.PJHR_NUM }" name="PJHR_NUM" />
 										<div class="font-bold">No. ${pjhrList.MEMBER_NUM }</div>
 										<div>✔ ${pjhrList.MEMBER_NAME }</div>
 										<div>✔ ${pjhrList.PJHR_WORK }</div>
@@ -66,33 +66,36 @@
 						</div>
 						<div class="hr-regi-conts">
 							<div>✔ &nbsp;
-								<input type="text" placeholder="이름을 입력하세요." class="input w-full h-9" />
-								<button id="modal_opne_btn_hr_2" class="p-regi-modal-bt">조회</button>
+								<input id="m_names" name="PJHR_NAME" type="text" disabled placeholder="이름을 입력하세요." class="input w-full h-9" />
+								<button id="modal_opne_btn_hr_2" class="p-regi-modal-bt" onclick="searchMEMBER_NAME();">조회</button>
 							</div>
 							<div>✔ &nbsp; 
 								<div class="">
-									<select class="select w-64">
+									<select class="select w-64" name="PJHR_WORK">
 									  	<option disabled selected>담당업무</option>
-									  	<option>매니저(PM)</option>
-									  	<option>리더(PL)</option>
-									  	<option>공통설계자(AA)</option>
-									  	<option>구축담당자(TA)</option>
-									  	<option>DB설계자(DA)</option>
-									  	<option>품질보증(QA)</option>
-									  	<option>프로세스설계자(BA)</option>
+									  	<option value="PM" ${pjhr.PJHR_WORK == 'PM' ? "selected":""}>매니저(PM)</option>
+									  	<option value="PL" ${pjhr.PJHR_WORK == 'PL' ? "selected":""}>리더(PL)</option>
+									  	<option value="AA" ${pjhr.PJHR_WORK == 'AA' ? "selected":""}>공통설계자(AA)</option>
+									  	<option value="TA" ${pjhr.PJHR_WORK == 'TA' ? "selected":""}>구축담당자(TA)</option>
+									  	<option value="DA" ${pjhr.PJHR_WORK == 'DA' ? "selected":""}>DB설계자(DA)</option>
+									  	<option value="QA" ${pjhr.PJHR_WORK == 'QA' ? "selected":""}>품질보증(QA)</option>
+									  	<option value="BA" ${pjhr.PJHR_WORK == 'BA' ? "selected":""}>프로세스설계자(BA)</option>
 									</select>
 								</div>
 							</div>
 							<div class="font-bold">✔ 세부사항</div>
-							<div>&nbsp;<input type="text" placeholder="  세부사항을 입력하세요." class="input w-full h-16" /></div>
+							<div>&nbsp;<input type="text" name="PJHR_DETAIL" placeholder="  세부사항을 입력하세요." class="input w-full h-16" /></div>
+							<input type="hidden" value="${pjhr.PJ_NUM }" name="PJ_NUM" />
+							<!-- MEMBER_NUM -->
+			   				<input id="m_number" type="hidden" name="MEMBER_NUM" value=""/>
 						</div>
 					</div>
 				</div>
 				
 				
 				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn_hr_1" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt" onclick="PJHR_REGI();" >등록</button>
+	                  <button id="modal_close_btn_hr_1" class="p-regi-modal-bt" onclick="PJHR_Search();">취소</button>
 	            </div>
 			</div>
       </div>
@@ -100,22 +103,53 @@
       <div class="modal_layer"></div>
 </div>
 <script>
-
-
-
-// 참여인력추가 모달창.js
-document.getElementById("modal_opne_btn_hr_1").onclick = function() {
-   document.getElementById("modal_hr").style.display = "block";
+//참여인력추가 모달창 열기
+function PJHR_REGIST_go(PJ_PK){
+	$("#modal_hr").css('display','block');
+}
+//참여인력등록 취소 모달창 닫기
+function PJHR_Search(){
+	$('#modal_hr').css('display', 'none');
+}
+//참여인력등록
+function PJHR_REGI(){
+	var PJHR_WORK = $('select[name=PJHR_WORK]').val();
+	var PJHR_DETAIL = $('input[name=PJHR_DETAIL]').val();
+	var MEMBER_NUM = $('input[name=MEMBER_NUM]').val();
+	var PJ_NUM = $('input[name=PJ_NUM]').val();
+	
+	var data={
+			"pjhr_WORK":PJHR_WORK,
+			"pjhr_DETAIL":PJHR_DETAIL,
+			"member_NUM":parseInt(MEMBER_NUM),
+			"pj_NUM":parseInt(PJ_NUM)
+	}
+	console.log(data);
+	$.ajax({
+		url:"pjhrRegist",
+		type:"post",
+		data:JSON.stringify(data),
+		contentType:"application/json",
+		success:function(data){
+			alert("참여인력이 추가되었습니다.");
+			$('#modal_hr').css('display', 'none');
+			pjhrList_go();h
+			
+		},
+		error:function(){
+			alert("잘못된 입력입니다. ");
+		}
+	});
+	
+ 
 }
 
-document.getElementById("modal_close_btn_hr_1").onclick = function() {
-   document.getElementById("modal_hr").style.display = "none";
-}
+
 </script>
 
 
 <!-- 모달창-참여인력 조회화면 (프로젝드메니저등록모달창과 제목만 다름) -->
-<div id="modal_1">
+<div id="modal_1" class="modal_member_name">
 
       <div class="modal_content">
             <div class="flex" style="background-color: #153A66;">
@@ -130,48 +164,35 @@ document.getElementById("modal_close_btn_hr_1").onclick = function() {
 				</div>
 				<div class="cts-title-sub">* 사원을 조회합니다.</div>
 				<div class="p-modal-serach">
-					<select class="select select-bordered p-cts-select">
+					<select class="select select-bordered p-cts-select select_member" name="searchType" id="searchType">
 						  <option disabled selected>선택 </option>
-						  <option>담당자명</option>
-						  <option>담당부서</option>
-						  <option>직급</option>
+						  <option value="mn" ${searchType=='mn' ? "selected":"" }>담당자명</option>
+						  <option value="md" ${searchType=='md' ? "selected":"" }>담당부서</option>
+						  <option value="mp" ${searchType=='mp' ? "selected":"" }>직급</option>
 					</select>
-					<div class="p-modal-searchbar">
-						<input type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input"/>
-						<i class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
+					<div class="p-modal-searchbar key_member">
+						<input name="keyword" type="text" placeholder="검색어를 입력하세요." class="input input-bordered p-modal-searchbar-input" value="${keyword }"/>
+						<i onclick="member_list_go();" class="fa-solid fa-magnifying-glass" style="font-size:30px;width:15%;display:flex;align-items: center;justify-content: space-around;"></i>
 					</div>
 				</div>
 				<div class="cts-serch-list">
-					<table border="1">
-						<c:forEach begin="0" end="6" step="1" >
-							<tr>
-								<td>이도현</td>
-								<td>서울주병원</td>
-								<td>병원장아들</td>
-							</tr>
-						</c:forEach>
+					<table id="memberList_view" border="1">
+						
 					</table>
 				</div>
 				<div class="p-regi-modal-bts">
-	                  <button class="p-regi-modal-bt">등록</button>
-	                  <button id="modal_close_btn_hr_2" class="p-regi-modal-bt">취소</button>
+	                  <button class="p-regi-modal-bt" onclick="javascript:MEMBER_S_REGI();">등록</button>
+	                  <button id="modal_close_btn_hr_2" class="p-regi-modal-bt" onclick="CLOSE_MODAL();">취소</button>
+	                  <!-- MEMBER NUM, NAME값 받을 공간 -->
+              		  <div class="add_member_id" ></div>
 	            </div>
 			</div>
       </div>
 
       <div class="modal_layer"></div>
 </div>
-<script>
-// 참여인력조회 모달창.js
-document.getElementById("modal_opne_btn_hr_2").onclick = function() {
-   document.getElementById("modal_1").style.display = "block";
-}
-
-document.getElementById("modal_close_btn_hr_2").onclick = function() {
-   document.getElementById("modal_1").style.display = "none";
-}
-</script>
 
 
-<!-- OpenWindow -->
+
+<!-- OpenWindow & 참여업체 조회 -->
 <script src="/resource/js/common.js" defer="defer"></script>

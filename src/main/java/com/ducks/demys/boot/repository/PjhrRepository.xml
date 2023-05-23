@@ -43,7 +43,11 @@
 		FROM PJHR
 		WHERE PJHR_NUM=#{PJHR_NUM}
 	</delete>
-
+	<insert id="registPjhr">
+		INSERT INTO
+		PJHR(PJHR_NUM,PJHR_WORK,PJHR_DETAIL,PJ_NUM,MEMBER_NUM)
+		VALUES(#{PJHR_NUM},#{PJHR_WORK},#{PJHR_DETAIL},#{PJ_NUM},#{MEMBER_NUM})
+	</insert>
 
 
 	<select id="getPjhrListByMEMBER_NUM" resultType="Pjhr">
@@ -58,11 +62,7 @@
 		PJHR_seq.nextVal
 		FROM DUAL
 	</select>
-	<insert id="registPjhr">
-		INSERT INTO
-		PJHR(PJHR_WORK,PJHR_DETAIL,PJ_NUM,MEMBER_NUM)
-		VALUES(#{PJHR_WORK},#{PJHR_DETAIL},#{PJ_NUM},#{MEMBER_NUM})
-	</insert>
+	
 	
 	
 </mapper>
