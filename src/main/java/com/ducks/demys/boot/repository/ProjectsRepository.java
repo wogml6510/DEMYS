@@ -1,9 +1,9 @@
 package com.ducks.demys.boot.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.ducks.demys.boot.vo.Projects;
 import com.ducks.demys.command.SearchCriteria;
@@ -23,7 +23,8 @@ public interface ProjectsRepository {
 	
 	public void registPJ(Projects project);
 	
-	public void modifyPJ(Projects project);
-	
 	public void removePJ(int PJ_NUM);
+
+	public void modifyPJ(Projects project);
+
 }

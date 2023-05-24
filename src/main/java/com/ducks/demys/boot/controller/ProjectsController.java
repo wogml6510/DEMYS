@@ -67,10 +67,10 @@ public class ProjectsController {
 	@RequestMapping("project/PjModifyDo")
 	@ResponseBody
 	public int PjModifyDo(@RequestBody Projects project) {
-		int PJ_NUM = project.getPJ_NUM();
-		projectsService.getPJByPJ_NUM(PJ_NUM);
+
 		projectsService.modifyPJ(project);
-		System.out.println(PJ_NUM);
+		System.out.println("project : " + project);
+		
 		return project.getPJ_NUM();
 	}
 	
@@ -198,7 +198,7 @@ public class ProjectsController {
 		int PJHR_NUM = pjhr.getPJHR_NUM();
 	    pjhrService.getPjhrByPJHR_NUM(PJHR_NUM);
 		pjhrService.modifyPjhr(pjhr);
-		
+		System.err.println("PJHR_NUM: "+PJHR_NUM);
 		return pjhr.getPJ_NUM();
 	}
 	@RequestMapping("project/pjhr_Remove")

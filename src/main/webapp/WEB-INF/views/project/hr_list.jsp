@@ -133,7 +133,7 @@ function PJHR_REGI(){
 		success:function(data){
 			alert("참여인력이 추가되었습니다.");
 			$('#modal_hr').css('display', 'none');
-			pjhrList_go();h
+			pjhrList_go();
 			
 		},
 		error:function(){

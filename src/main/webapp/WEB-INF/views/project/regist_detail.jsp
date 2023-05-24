@@ -51,11 +51,11 @@
 	   					<tr>
 	   						<td>프로젝트 중요도</td>
 	   						<td>
-	   							<select id="pj-type-option" class="select select-bordered p-reg-select" name="PJ_TYPE">
+	   							<select id="pj-type-option" class="select select-bordered p-reg-select" name="PJ_IMP">
 								  <option disabled selected>선택</option>
-								  <option value="3" ${projects.PJ_TYPE == '3' ? "selected":""} style="color:red;">&#xf024; 매우 중요</option>
-								  <option value="2" ${projects.PJ_TYPE == '2' ? "selected":""} style="color:#F59A23;">&#xf024; 중요</option>
-								  <option value="1" ${projects.PJ_TYPE == '1' ? "selected":""} style="color:#FFFF00;">&#xf024; 보통</option>
+								  <option value="3" ${projects.PJ_IMP == '3' ? "selected":""} style="color:red;">&#xf024; 매우 중요</option>
+								  <option value="2" ${projects.PJ_IMP == '2' ? "selected":""} style="color:#F59A23;">&#xf024; 중요</option>
+								  <option value="1" ${projects.PJ_IMP == '1' ? "selected":""} style="color:#FFFF00;">&#xf024; 보통</option>
 								</select>
 	   						</td>
 	   					</tr>
@@ -104,6 +104,8 @@
 	   				<!-- MEMBER_NUM, CONTACTS_NUM  -->
 	   				<input id="c_number" type="hidden" name="CT_NUM" value=""/>
 	   				<input id="m_number" type="hidden" name="MEMBER_NUM" value=""/>
+	   				<input type="hidden" name="PJ_TYPE" value="${PJ_TYPE }"/>
+	   				
    				</div>
    				<div class="p-type-bt">
    					<button class="p-type-bt-1">이전</button>
@@ -131,25 +133,27 @@ function PJREGIST_go(){
     var PJ_STARTDATE = $("input[name=PJ_STARTDATE]").val();
     var PJ_ENDDATE = $("input[name=PJ_ENDDATE]").val();
     var PJ_CONTENT = $("input[name=PJ_CONTENT]").val();
-    var PJ_TYPE = $("select[name=PJ_TYPE]").val();
+    var PJ_IMP = $("select[name=PJ_IMP]").val();
     var PJ_FIELD = $("select[name=PJ_FIELD]").val();
     var PJ_PRICE = $("input[name=PJ_PRICE]").val();
     var CT_NUM = $("input[name=CT_NUM]").val();
     var MEMBER_NUM = $("input[name=MEMBER_NUM]").val();
     var PJ_GIT = $("input[name=PJ_GIT]").val();
-    
+    var PJ_TYPE = $("input[name=PJ_TYPE]").val();
+    alert(PJ_TYPE);
     
     var data={
           "pj_NAME":PJ_NAME,
           "string_STARTDATE":PJ_STARTDATE,
           "string_ENDDATE":PJ_ENDDATE,
           "pj_CONTENT":PJ_CONTENT,
-          "pj_TYPE":parseInt(PJ_TYPE),
+          "pj_IMP":parseInt(PJ_IMP),
           "pj_FIELD":PJ_FIELD,
           "pj_PRICE":parseInt(PJ_PRICE),
           "ct_NUM":parseInt(CT_NUM),
           "member_NUM":parseInt(MEMBER_NUM),
-          "pj_GIT":PJ_GIT
+          "pj_GIT":PJ_GIT,
+          "pj_TYPE":PJ_TYPE
     }
     $.ajax({
     	 url:"<%=request.getContextPath()%>/project/pjRegistdo",

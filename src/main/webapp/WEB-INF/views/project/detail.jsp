@@ -48,6 +48,7 @@
 	   				<div class="p-body-header-2">
 		   				<div style="display:flex;margin-top:5px;height:25px;">
 				   			<input type="hidden" name="PJ_NUM" value="${projects.PJ_NUM}" />
+				   			<input type="hidden" name="CT_PK" value="${projects.CT_NUM }" />
 					         |<div class="header-2-menu" onclick="PJ_IMP_go();"><a href="#">프로젝트 정보</a></div> |
 					         <div class="header-2-menu" onclick="pjhrList_go();"><a href="#">참여인력</a></div> |
 					         <div class="header-2-menu"><a href="#">요구사항 관리</a></div> |
@@ -62,7 +63,7 @@
 	   						<span style="font-weight:bold;">프로젝트 정보</span>
 		   					<button id="P_modify" style="display:block;" class="p-info-detail-bt" onclick="P_MODIFY();">수정</button>
 	   						<div id=Pj_modify style="width: 215px; display:none;justify-content: space-between;">
-		   						<button id="Pj_modify_go"  class="p-info-detail-bt" onclick="PJ_MODIFY_go('${projects.MEMBER_NUM }${projects.CT_NUM}');">수정하기</button>
+		   						<button id="Pj_modify_go"  class="p-info-detail-bt" onclick="PJ_MODIFY_go('${projects.MEMBER_NUM }');">수정하기</button>
 		   						<button id="Pj_modify_fail" class="p-info-detail-bt" onclick="PJ_MODIFY_fail();">취소하기</button>
 		   					</div>
 	   					</div>
@@ -81,7 +82,7 @@
 	   							</tr>
 	   							<tr >
 	   								<td>예상 매출액</td>
-	   								<td class="td-pj-price">${projects.PJ_PRICE }원</td>
+	   								<td class="td-pj-price">${projects.PJ_PRICE }</td>
 	   							</tr>
 	   							<tr>
 	   								<td>업체명</td>
@@ -114,8 +115,8 @@
 	   							</tr>
 	   						</table>
 	   						<!-- MEMBER_NUM, CONTACTS_NUM  -->
-			   				<input id="c_number" type="hidden" name="CT_NUM_PJ" value=""/>
-			   				<input id="m_number" type="hidden" name="MEMBER_NUM_PJ" value=""/>
+			   				<input id="c_numbers" type="hidden" name="CT_NUM_PJ" value=""/>
+			   				<input id="m_numbers" type="hidden" name="MEMBER_NUM_PJ" value=""/>
 	   					</div>
 	   				</div>
 	   				<!-- 프로젝트정보 끝나는 태그 -->
@@ -572,9 +573,9 @@ function searchCONTACTSPJ_NAME(){
 				var CT_NAME = $(this).find('td:first-child').text();
 				var CT_CEO = $(this).find('td:last-child').text();
 				
-				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
-				var input_cname = '<input id="c_name" type="hidden" value="'+CT_NAME +'" />';
-				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
+				var input_cnum = '<input id="c_nums" type="hidden" value="'+CT_NUM +'" />';
+				var input_cname = '<input id="c_names" type="hidden" value="'+CT_NAME +'" />';
+				var input_cceo = '<input id="c_ceos" type="hidden" value="'+CT_CEO+'" />';
 
 				
 		 		var addContactsId = $('.add_contacts_id1');
@@ -630,9 +631,9 @@ function ctPJ_list_go(){
 				var CT_NAME = $(this).find('td:first-child').text();
 				var CT_CEO = $(this).find('td:last-child').text();
 				
-				var input_cnum = '<input id="c_num" type="hidden" value="'+CT_NUM +'" />';
-				var input_cname = '<input id="c_name" type="hidden" value="'+CT_NAME +'" />';
-				var input_cceo = '<input id="c_ceo" type="hidden" value="'+CT_CEO+'" />';
+				var input_cnum = '<input id="c_nums" type="hidden" value="'+CT_NUM +'" />';
+				var input_cname = '<input id="c_names" type="hidden" value="'+CT_NAME +'" />';
+				var input_cceo = '<input id="c_ceos" type="hidden" value="'+CT_CEO+'" />';
 
 		 		var addContactsId = $('.add_contacts_id1');
 
@@ -657,11 +658,11 @@ function ctPJ_list_go(){
 }
 
 function CONTACTSPJ_S_REGI(){	
-	var CT_NUM = $('#c_num').val();
-	$('#c_number').val(CT_NUM);
-	var CT_NAME = $('#c_name').val();
+	var CT_NUM = $('#c_nums').val();
+	$('#c_numbers').val(CT_NUM);
+	var CT_NAME = $('#c_names').val();
 	$('#c_names').val(CT_NAME);
-	var CT_CEO = $('#c_ceo').val();
+	var CT_CEO = $('#c_ceos').val();
 	$('#c_ceos').val(CT_CEO);
 	
 	$(".modal_ctPJ_name").css('display', "none");
@@ -703,19 +704,16 @@ function P_MODIFY(){
 	var input_pjName = '<input name="PJ_NAME" class="modify_css1" type="text" value="'+PJ_NAME+'" />';
 	$(".td-pj-name").append(input_pjName);
 	
- 	var input_pjStart = '<input name="PJ_STARTDATE" class="" type="date"/>';
-	$(".td-pj-date").append(input_pjStart);
-	$(".td-pj-date").append(" ~ ");
-	var input_pjEnd = '<input name="PJ_ENDDATE" class="" type="date" />';
-	$(".td-pj-date").append(input_pjEnd);
+ 	//var input_pjStart = '<input name="PJ_STARTDATE" class="" type="date"/>';
+	//var input_pjEnd = '<input name="PJ_ENDDATE" class="" type="date" />';
 	
 	var input_pjPrice = '<input name="PJ_PRICE" class="modify_css0" type="text" value="'+PJ_PRICE+'" />';
 	$(".td-pj-price").append(input_pjPrice);
 	var input_mName = '<input name="MEMBER_NAME" class="modify_css0 sh-btts" id="m_names" disabled type="text" value="'+MEMBER_NAME+'" />';
 	$(".td-m-name").append(input_mName);
 	$(".td-m-name").append('<button class="p-info-sh-bt" onclick="searchMEMBER_NAME();">찾기</button>');
+	
 	var input_ctName = '<input name="CT_NAME" class="modify_css0 sh-btts" id="c_names" disabled type="text" value="'+CT_NAME+'" />'
-						+'<input name="CT_NUM1" id="ct-num1" disabled type="hidden" value="'+CT_NUM+'" />';
 	$(".td-ct-name").append(input_ctName);
 	$(".td-ct-name").append('<button class="p-info-sh-bt" onclick="searchCONTACTSPJ_NAME();">찾기</button>');
 	
@@ -726,31 +724,35 @@ function P_MODIFY(){
 	$(".td-pj-git").append(input_pjGit);
 	
 
+	$(".td-pj-date").append(PJ_STARTDATE);
+	$(".td-pj-date").append(" ~ ");
+	$(".td-pj-date").append(PJ_ENDDATE);
 	$(".td-pj-field").append(PJ_FIELD);
 	$(".td-pj-type>td:last-child").append(PJ_TYPE);
 }
-function PJ_MODIFY_go(MEMBER_PK,CT_PK){
-	alert("수정시작");
-	var MEMBER_NUM = MEMBER_PK;
-	var CT_NUM = CT_PK;
-	
-	var PJ_NUM = $('input[name="PJ_NUM"]').val();
+function PJ_MODIFY_go(MEMBER_PK){
+	var MEMBER_NUM = parseInt(MEMBER_PK);
+	var CT_NUM = parseInt($('input[name="CT_PK"]').val());
+	var PJ_NUM = parseInt($('input[name="PJ_NUM"]').val());
 	var PJ_NAME = $('input[name="PJ_NAME"]').val();
 	var PJ_STARTDATE = $('input[name="PJ_STARTDATE"]').val();
 	var PJ_ENDDATE = $('input[name="PJ_ENDDATE"]').val();
-	var PJ_PRICE = $('input[name="PJ_PRICE"]').val();
+	var PJ_PRICE = parseInt($('input[name="PJ_PRICE"]').val());
 	var PJ_CONTENT = $('input[name="PJ_CONTENT"]').val();
 	var PJ_GIT = $('input[name="PJ_GIT"]').val();
-	
+	//var PJ_TYPE = $(".td-pj-type>td:last-child").val();
+	alert("MEMBER_NUM: "+MEMBER_NUM+"CT_NUM: "+CT_NUM);
 	var data = {
-			"pj_NUM":parseInt(PJ_NUM),
+			"pj_NUM":PJ_NUM,
 			"pj_NAME":PJ_NAME,
-			"pj_STARTDATE":PJ_STARTDATE,
-			"pj_ENDDATE":PJ_ENDDATE,
-			"pj_PRICE":parseInt(PJ_PRICE),
+			"string_STARTDATE":PJ_STARTDATE,
+			"string_ENDDATE":PJ_ENDDATE,
+			"pj_PRICE":PJ_PRICE,
 			"pj_CONTENT":PJ_CONTENT,
-			"member_NUM":parseInt(MEMBER_NUM),
-			"ct_NUM":parseInt(CT_NUM)
+			"member_NUM":MEMBER_NUM,
+			"ct_NUM":CT_NUM,
+			"pj_GIT":PJ_GIT
+			//"pj_TYPE":parseInt(PJ_TYPE)
 	}
 	console.log(data);
 	$.ajax({
@@ -758,8 +760,8 @@ function PJ_MODIFY_go(MEMBER_PK,CT_PK){
 		type:"post",
 		data:JSON.stringify(data),
 		contentType:"application/json",
-		success:function(data){
-			alert("등록되었습니다.");
+		success:function(PJ_NUM){
+			alert("수정되었습니다.");
 			pj_detail(PJ_NUM);
 		},
 		error:function(){
@@ -767,7 +769,6 @@ function PJ_MODIFY_go(MEMBER_PK,CT_PK){
     	}
 	});
 	
-	console.log(data);
 }
 </script>  
 <!-- ---------------------------- 프로젝트 수정 화면 -------------------------------------- -->
